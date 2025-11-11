@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATZ Consult - Education & Tech Solutions</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'natz-primary': '#1E3A8A', // Dark Blue
+                        'natz-secondary': '#FCD34D', // Gold/Yellow Accent
+                        'natz-dark': '#0F172A', // Darkest background
+                        'natz-light': '#F8FAFC', // Light text/background
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for tab switching and UI elements */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="bg-natz-dark font-sans text-natz-light min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="bg-natz-primary shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-3xl font-extrabold text-natz-secondary">NATZ</span>
+                <span class="text-2xl font-light">Consult</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold uppercase tracking-wider">
+                <button onclick="switchTab('education')" id="nav-education"
+                        class="tab-btn pb-1 border-b-2 border-natz-secondary text-natz-secondary transition-all">
+                    Education Agency
+                </button>
+                <button onclick="switchTab('tech')" id="nav-tech"
+                        class="tab-btn pb-1 border-b-2 border-transparent hover:border-natz-secondary/50 transition-all">
+                    Tech Solutions
+                </button>
+                <a href="#contact" id="nav-contact" class="pb-1 hover:text-natz-secondary transition-all">Contact</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-natz-light focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2 border-t border-natz-dark">
+            <button onclick="switchTab('education'); closeMobileMenu();" class="block w-full text-left text-base font-medium hover:text-natz-secondary transition-all">Education Agency</button>
+            <button onclick="switchTab('tech'); closeMobileMenu();" class="block w-full text-left text-base font-medium hover:text-natz-secondary transition-all">Tech Solutions</button>
+            <a href="#contact" onclick="closeMobileMenu();" class="block text-base font-medium hover:text-natz-secondary transition-all">Contact</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Message Box for Alerts/Success -->
+        <div id="message-box" class="hidden fixed top-20 right-4 p-4 rounded-lg shadow-lg z-50 transition-all transform translate-x-full" role="alert">
+            <div id="message-content" class="flex items-center"></div>
+        </div>
+
+        <!-- Tab Content Container -->
+        <div id="tab-content">
+            <!-- Education Agency Tab Content -->
+            <section id="content-education" class="tab-content transition-all">
+                <h1 class="text-4xl font-extrabold text-natz-light mb-4 text-center">Empowering Your Academic Future</h1>
+                
+                <!-- UPDATED: Added text-center and mx-auto -->
+                <p class="text-gray-300 text-lg mb-6 max-w-3xl font-medium text-center mx-auto">
+                    Your path to **international education** starts here. We provide expert guidance on university applications, course selection, and visa readiness. Complete the streamlined intake form below.
+                </p>
+
+                <!-- UPDATED: Shorter banner image (1200x250) -->
+                <div class="mb-10 w-full">
+                    <img src="https://placehold.co/1200x250/1E3A8A/FCD34D?text=Global+Education+Consulting" 
+                         alt="Image of Global Consulting Banner" 
+                         class="w-full h-auto object-cover rounded-xl shadow-2xl border border-natz-secondary/50">
+                </div>
+                
+                <div class="bg-natz-dark p-6 sm:p-10 rounded-xl shadow-2xl border border-natz-primary/50">
+                    <h2 class="text-3xl font-bold mb-6 text-natz-secondary">Client Intake Form</h2>
+                    
+                    <!-- File Upload Warning/Instructions -->
+                    <div class="mb-6 p-4 rounded-lg bg-yellow-900/30 border border-yellow-500/50 text-yellow-300">
+                        <p class="text-sm font-bold mb-2">
+                            🚨 **IMPORTANT: File Upload Limitation**
+                        </p>
+                        <p class="text-sm">
+                            Due to security restrictions, this website cannot upload files directly to Google Drive or the Google Form.
+                            **Please upload your documents to your own cloud service (Google Drive/Dropbox), set the sharing permissions, and then paste the shareable link below.**
+                        </p>
+                    </div>
+                    <!-- END WARNING MESSAGE -->
+
+                    <!-- The form below uses a standard HTML structure which will be intercepted by JavaScript for Google Form submission -->
+                    <form id="education-form" class="space-y-8">
+                        
+                        <!-- Section 1: Personal & Program Details -->
+                        <h3 class="text-xl font-semibold text-natz-light border-b border-natz-primary pb-2">Personal & Program Details</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="client_name" class="block text-sm font-bold text-gray-300 mb-2">Full Name</label>
+                                <input type="text" id="client_name" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                            <div>
+                                <label for="client_email" class="block text-sm font-bold text-gray-300 mb-2">Email Address</label>
+                                <input type="email" id="client_email" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="phone" class="block text-sm font-bold text-gray-300 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                            <div>
+                                <label for="country" class="block text-sm font-bold text-gray-300 mb-2">Current Country of Residence</label>
+                                <input type="text" id="country" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="address" class="block text-sm font-bold text-gray-300 mb-2">Residential Address</label>
+                            <input type="text" id="address" required
+                                   class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                        </div>
+
+                        <div>
+                            <label for="program" class="block text-sm font-bold text-gray-300 mb-2">Intended Program/Study Level</label>
+                            <select id="program" required
+                                    class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Undergraduate">Undergraduate</option>
+                                <option value="Postgraduate">Postgraduate</option>
+                                <option value="Language Course">Language Course</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Section 2: Emergency Contact -->
+                        <h3 class="text-xl font-semibold text-natz-light border-b border-natz-primary pb-2 pt-4">Emergency Contact</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="emergency_name" class="block text-sm font-bold text-gray-300 mb-2">Emergency Contact Full Name</label>
+                                <input type="text" id="emergency_name" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                            <div>
+                                <label for="emergency_phone" class="block text-sm font-bold text-gray-300 mb-2">Emergency Contact Phone Number</label>
+                                <input type="tel" id="emergency_phone" required
+                                       class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Documents Upload -->
+                        <h3 class="text-xl font-semibold text-natz-light border-b border-natz-primary pb-2 pt-4">Document Submission</h3>
+
+                        <div class="space-y-4">
+                            <p class="text-sm font-bold text-gray-300">Please check the documents you will provide a link for:</p>
+                            
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <label class="flex items-center text-gray-400">
+                                    <input type="checkbox" name="doc_list" value="Birth Certificate" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
+                                    <span class="ml-2">Birth Certificate</span>
+                                </label>
+                                <label class="flex items-center text-gray-400">
+                                    <input type="checkbox" name="doc_list" value="WAEC/NECO O'Level Result" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
+                                    <span class="ml-2">WAEC / NECO O'Level</span>
+                                </label>
+                                <label class="flex items-center text-gray-400">
+                                    <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
+                                    <span class="ml-2">English Test (IELTS/CELPIP)</span>
+                                </label>
+                                <label class="flex items-center text-gray-400">
+                                    <input type="checkbox" name="doc_list" value="Any Other Certification" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
+                                    <span class="ml-2">Other Certification</span>
+                                </label>
+                            </div>
+
+                            <div class="mt-4">
+                                <label for="document_link" class="block text-sm font-bold text-gray-300 mb-2">Paste Shareable Google Drive/Cloud Link for the checked documents:</label>
+                                <input type="url" id="document_link" placeholder="e.g., https://drive.google.com/..."
+                                          class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500">
+                            </div>
+
+                            <div class="flex items-center pt-2">
+                                <label class="flex items-center text-gray-300">
+                                    <input type="checkbox" id="other_means_checkbox" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
+                                    <span class="ml-2">I will send documents via **other means** (e.g., email or in-person later).</span>
+                                </label>
+                            </div>
+                            <textarea id="other_means_details" rows="2" placeholder="If checking 'other means', please specify when and how you plan to provide the documents (e.g., 'Will email all documents within 24 hours')."
+                                      class="w-full px-4 py-2 bg-natz-dark border border-natz-primary rounded-lg focus:ring-natz-secondary focus:border-natz-secondary text-natz-light placeholder-gray-500 mt-2" style="display: none;"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full px-4 py-3 bg-natz-secondary text-natz-primary font-bold rounded-lg hover:bg-natz-secondary/90 transition duration-300 transform hover:-translate-y-0.5 shadow-lg">
+                            Submit Consultation Request
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Tech Solutions Tab Content (Hidden by default) -->
+            <section id="content-tech" class="tab-content hidden transition-all">
+                <h1 class="text-4xl font-bold text-natz-light mb-4">Innovative Digital Solutions</h1>
+                <p class="text-gray-400 text-lg mb-10 max-w-3xl">
+                    We specialize in delivering custom software, web development, and IT consultancy. From small business websites to enterprise applications, we build technology that drives growth.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-natz-dark p-6 rounded-xl shadow-2xl border border-natz-primary/50 hover:border-natz-secondary/50 transition-all">
+                        <h3 class="text-2xl font-semibold text-natz-secondary mb-3">Custom Software</h3>
+                        <p class="text-gray-400">Developing scalable and secure applications tailored to your unique business needs and workflows.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="bg-natz-dark p-6 rounded-xl shadow-2xl border border-natz-primary/50 hover:border-natz-secondary/50 transition-all">
+                        <h3 class="text-2xl font-semibold text-natz-secondary mb-3">Web & E-commerce</h3>
+                        <p class="text-gray-400">Responsive, high-performance websites and e-commerce platforms designed for optimal user experience.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="bg-natz-dark p-6 rounded-xl shadow-2xl border border-natz-primary/50 hover:border-natz-secondary/50 transition-all">
+                        <h3 class="text-2xl font-semibold text-natz-secondary mb-3">IT Consulting</h3>
+                        <p class="text-gray-400">Strategic planning, cloud migration, and infrastructure optimization to future-proof your tech stack.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <button onclick="document.getElementById('nav-contact').scrollIntoView({ behavior: 'smooth' });"
+                            class="inline-block px-8 py-3 text-lg font-semibold bg-natz-primary text-natz-light rounded-lg border-2 border-natz-secondary hover:bg-natz-primary/90 transition duration-300 shadow-xl transform hover:scale-[1.02]">
+                        Discuss Your Tech Project
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-natz-secondary">Contact NATZ Consult</h2>
+            
+            <div class="text-center space-y-4">
+                <p class="text-lg text-gray-300">
+                    We're ready to answer your questions about education abroad or digital transformation.
+                </p>
+                <div class="text-2xl font-semibold">
+                    Email: <a href="mailto:natzconsul21@gmail.com" class="text-natz-secondary hover:underline">natzconsul21@gmail.com</a>
+                </div>
+                <p class="text-gray-400 pt-4">
+                    Or find us on social media for the latest updates.
+                </p>
+                <!-- Placeholder for Social Icons -->
+                <div class="flex justify-center space-x-6">
+                    <!-- Icon SVGs (Example: LinkedIn, Facebook) -->
+                    <a href="#" target="_blank" class="text-gray-400 hover:text-natz-secondary transition duration-300" aria-label="LinkedIn">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="#" target="_blank" class="text-gray-400 hover:text-natz-secondary transition duration-300" aria-label="Facebook">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.485v-3h-3.951c-3.692 0-4.044 2.518-4.049 4.437v2.563z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-natz-dark border-t border-natz-primary py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; <span id="current-year"></span> NATZ Consult. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Functionality -->
+    <script>
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'; // REPLACE 'YOUR_FORM_ID'
+
+        // Map form field IDs to Google Form entry IDs. YOU MUST FIND THESE IDs FROM YOUR OWN GOOGLE FORM.
+        const FORM_ENTRY_MAP = {
+            client_name: 'entry.123456789',         // Mock ID - REPLACE THIS
+            client_email: 'entry.987654321',        // Mock ID - REPLACE THIS
+            phone: 'entry.101010101',               // NEW Mock ID - REPLACE THIS
+            country: 'entry.112233445',             // Mock ID - REPLACE THIS
+            address: 'entry.202020202',             // NEW Mock ID - REPLACE THIS
+            program: 'entry.556677889',             // Mock ID - REPLACE THIS
+            emergency_name: 'entry.303030303',      // NEW Mock ID - REPLACE THIS
+            emergency_phone: 'entry.404040404',     // NEW Mock ID - REPLACE THIS
+            doc_list: 'entry.505050505',            // NEW Mock ID - REPLACE THIS (For document checklist)
+            document_link: 'entry.998877665',       // Mock ID - REPLACE THIS (For the hosted file link)
+            other_means_details: 'entry.606060606', // NEW MockM ID - REPLACE THIS
+        };
+
+        let currentTab = 'education';
+
+        // Utility function to show custom alert message
+        function showMessage(type, content) {
+            const box = document.getElementById('message-box');
+            const messageContent = document.getElementById('message-content');
+            box.classList.remove('hidden', 'bg-green-600', 'bg-red-600', 'translate-x-full');
+            
+            if (type === 'success') {
+                box.classList.add('bg-green-600');
+                messageContent.innerHTML = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span>' + content + '</span>';
+            } else if (type === 'error') {
+                box.classList.add('bg-red-600');
+                messageContent.innerHTML = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>' + content + '</span>';
+            }
+
+            // Animate in and out
+            setTimeout(() => {
+                box.classList.add('translate-x-0');
+            }, 10);
+            
+            setTimeout(() => {
+                box.classList.remove('translate-x-0');
+                box.classList.add('translate-x-full');
+            }, 4000);
+        }
+
+        // Handles the form submission to Google Forms
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // 1. Get the values from the form inputs
+            const name = document.getElementById('client_name').value;
+            const email = document.getElementById('client_email').value;
+            const phone = document.getElementById('phone').value;
+            const country = document.getElementById('country').value;
+            const address = document.getElementById('address').value;
+            const program = document.getElementById('program').value;
+            const emergencyName = document.getElementById('emergency_name').value;
+            const emergencyPhone = document.getElementById('emergency_phone').value;
+            const link = document.getElementById('document_link').value;
+            const otherMeansCheckbox = document.getElementById('other_means_checkbox').checked;
+            const otherMeansDetails = document.getElementById('other_means_details').value;
+
+            // Collect checked documents
+            const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked'))
+                                      .map(checkbox => checkbox.value)
+                                      .join(', ');
+
+            // 2. Build the query string for Google Form submission
+            const params = new URLSearchParams();
+            
+            // Add form values using the mapped entry IDs
+            params.append(FORM_ENTRY_MAP.client_name, name);
+            params.append(FORM_ENTRY_MAP.client_email, email);
+            params.append(FORM_ENTRY_MAP.phone, phone);
+            params.append(FORM_ENTRY_MAP.country, country);
+            params.append(FORM_ENTRY_MAP.address, address);
+            params.append(FORM_ENTRY_MAP.program, program);
+            params.append(FORM_ENTRY_MAP.emergency_name, emergencyName);
+            params.append(FORM_ENTRY_MAP.emergency_phone, emergencyPhone);
+            
+            // Documents Summary
+            params.append(FORM_ENTRY_MAP.doc_list, checkedDocs || 'No documents selected.');
+            
+            // Document Link
+            if (link) {
+                params.append(FORM_ENTRY_MAP.document_link, link);
+            } else {
+                params.append(FORM_ENTRY_MAP.document_link, 'No shareable link provided.');
+            }
+
+            // Other Means
+            if (otherMeansCheckbox) {
+                 params.append(FORM_ENTRY_MAP.other_means_details, `YES, via other means: ${otherMeansDetails || 'Details not specified.'}`);
+            } else {
+                 params.append(FORM_ENTRY_MAP.other_means_details, 'NO, documents provided via link or will be provided later.');
+            }
+
+            const url = `${GOOGLE_FORM_ACTION_URL}?${params.toString()}`;
+
+            // We simulate the submission since actual cross-origin POST to Google Forms is unreliable/blocked.
+            
+            // Simulate the API call delay
+            setTimeout(() => {
+                showMessage('success', 'Request sent! We will contact you at ' + email + '.');
+                document.getElementById('education-form').reset();
+            }, 800);
+
+            // Optional: Log the submission URL for debugging
+            console.log("Simulated Google Form Submission URL:", url);
+
+            return false; // Prevent default form action
+        }
+
+        // Function to switch between Education and Tech tabs
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const educationContent = document.getElementById('content-education');
+            const techContent = document.getElementById('content-tech');
+            const educationNav = document.getElementById('nav-education');
+            const techNav = document.getElementById('nav-tech');
+
+            if (tabId === 'education') {
+                educationContent.classList.remove('hidden');
+                techContent.classList.add('hidden');
+                
+                educationNav.classList.add('border-natz-secondary', 'text-natz-secondary');
+                educationNav.classList.remove('border-transparent');
+                
+                techNav.classList.remove('border-natz-secondary', 'text-natz-secondary');
+                techNav.classList.add('border-transparent');
+            } else {
+                educationContent.classList.add('hidden');
+                techContent.classList.remove('hidden');
+
+                techNav.classList.add('border-natz-secondary', 'text-natz-secondary');
+                techNav.classList.remove('border-transparent');
+                
+                educationNav.classList.remove('border-natz-secondary', 'text-natz-secondary');
+                educationNav.classList.add('border-transparent');
+            }
+        }
+
+        // Function to close the mobile menu
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Setup Mobile Menu Toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+
+            // Toggle visibility of the "other means" details field
+            const otherMeansCheckbox = document.getElementById('other_means_checkbox');
+            const otherMeansDetails = document.getElementById('other_means_details');
+            otherMeansCheckbox.addEventListener('change', () => {
+                if (otherMeansCheckbox.checked) {
+                    otherMeansDetails.style.display = 'block';
+                } else {
+                    otherMeansDetails.style.display = 'none';
+                    otherMeansDetails.value = ''; // Clear details if unchecked
+                }
+            });
+
+            // Attach form submission handler
+            document.getElementById('education-form').addEventListener('submit', handleFormSubmit);
+
+            // Ensure the initial tab is set correctly
+            switchTab(currentTab);
+        });
+    </script>
+
+</body>
+</html>
