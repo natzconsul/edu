@@ -325,9 +325,9 @@
             program: 'entry.621700234',             // Mock ID - REPLACE THIS
             emergency_name: 'entry.815215183',      // NEW Mock ID - REPLACE THIS
             emergency_phone: 'entry.306081269',     // NEW Mock ID - REPLACE THIS
-            doc_list: 'entry.505050505',            // NEW Mock ID - REPLACE THIS (For document checklist)
-            document_link: 'entry.1183727304',       // Mock ID - REPLACE THIS (For the hosted file link)
-            other_means_details: 'entry.561880514', // NEW MockM ID - REPLACE THIS
+            doc_list: 'entry.1183727304',            // NEW Mock ID - REPLACE THIS (For document checklist)
+            document_link: 'entry.561880514',       // Mock ID - REPLACE THIS (For the hosted file link)
+            other_means_details: 'entry.229597949', // NEW MockM ID - REPLACE THIS
         };
 
         let currentTab = 'education';
@@ -376,8 +376,8 @@
 
             // Collect checked documents
             const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked'))
-                                      .map(checkbox => checkbox.value)
-                                      .join(', ');
+                                      .map(checkbox => checkbox.value);
+                                      // REMOVED .join(', ') - This is the fix!
 
             // 2. Build the query string for Google Form submission
             const params = new URLSearchParams();
@@ -393,7 +393,14 @@
             params.append(FORM_ENTRY_MAP.emergency_phone, emergencyPhone);
             
             // Documents Summary
-            params.append(FORM_ENTRY_MAP.doc_list, checkedDocs || 'No documents selected.');
+            // UPDATED LOGIC: Loop and append each checked doc separately
+            if (checkedDocs.length > 0) {
+                checkedDocs.forEach(doc => {
+                    params.append(FORM_ENTRY_MAP.doc_list, doc);
+                });
+            } else {
+                params.append(FORM_ENTRY_MAP.doc_list, 'No documents selected.'); // Send a specific string if none are checked
+            }
             
             // Document Link
             if (link) {
