@@ -413,6 +413,11 @@
                  params.append(FORM_ENTRY_MAP.other_means_details, 'NO, documents provided via link or will be provided later.');
             }
 
+            // *** ADD THIS LINE FOR DEBUGGING ***
+            console.log("DEBUG: Data being sent:", params.toString());
+            // *** END OF DEBUGGING LINE ***
+                
+
             // *** UPDATED SUBMISSION LOGIC ***
 
             // We use 'fetch' with 'no-cors' mode. This sends the request but doesn't 
