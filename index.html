@@ -337,7 +337,7 @@
             const box = document.getElementById('message-box');
             const messageContent = document.getElementById('message-content');
             box.classList.remove('hidden', 'bg-green-600', 'bg-red-600', 'translate-x-full');
-            
+              
             if (type === 'success') {
                 box.classList.add('bg-green-600');
                 messageContent.innerHTML = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span>' + content + '</span>';
@@ -450,6 +450,7 @@
 
             return false; // Prevent default form action
         }
+
  
         // Function to switch between Education and Tech tabs
         function switchTab(tabId) {
