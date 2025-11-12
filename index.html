@@ -397,10 +397,7 @@
             if (checkedDocs.length > 0) {
                 checkedDocs.forEach(doc => {
                     params.append(FORM_ENTRY_MAP.doc_list, doc);
-                });
-            } else {
-                params.append(FORM_ENTRY_MAP.doc_list, 'No documents selected.'); // Send a specific string if none are checked
-            }
+                });//removed else block }
             
             // Document Link
             if (link) {
