@@ -416,22 +416,38 @@
                  params.append(FORM_ENTRY_MAP.other_means_details, 'NO, documents provided via link or will be provided later.');
             }
 
-            const url = `${GOOGLE_FORM_ACTION_URL}?${params.toString()}`;
+            // *** UPDATED SUBMISSION LOGIC ***
 
-            // We simulate the submission since actual cross-origin POST to Google Forms is unreliable/blocked.
-            
-            // Simulate the API call delay
-            setTimeout(() => {
+            // We use 'fetch' with 'no-cors' mode. This sends the request but doesn't 
+            // read the response, which avoids a CORS (Cross-Origin) error.
+            // Google Forms will receive the data, but our script won't get a 
+            // "success" message back from Google, which is fine.
+            try {
+                await fetch(GOOGLE_FORM_ACTION_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // IMPORTANT: Prevents CORS errors from blocking the request.
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString() // Send the form data in the request body
+                });
+
+                // If the fetch call itself didn't crash, we assume it worked.
                 showMessage('success', 'Request sent! We will contact you at ' + email + '.');
                 document.getElementById('education-form').reset();
-            }, 800);
+            
+            } catch (error) {
+                // This catches network errors (e.g., user is offline)
+                console.error("Fetch submission error:", error);
+                showMessage('error', 'Submission failed. Please check your internet connection and try again.');
+            }
 
-            // Optional: Log the submission URL for debugging
-            console.log("Simulated Google Form Submission URL:", url);
+            // Optional: Log the submission for debugging
+            console.log("Form data sent to Google.");
 
             return false; // Prevent default form action
         }
-
+ 
         // Function to switch between Education and Tech tabs
         function switchTab(tabId) {
             currentTab = tabId;
