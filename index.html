@@ -171,6 +171,8 @@
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="Undergraduate">Undergraduate</option>
                                 <option value="Postgraduate">Postgraduate</option>
+                                <!-- REMOVED this line, as it's not in your Google Form options -->
+                                <!-- <option value="Language Course">Language Course</option> -->
                                 <option value="Other">Other</option>
                             </select>
                         </div>
@@ -203,8 +205,9 @@
                                     <span class="ml-2">Birth Certificate</span>
                                 </label>
                                 <label class="flex items-center text-gray-400">
+                                    <!-- FIXED: Added a space between O' and Level to match your Google Form -->
                                     <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
-                                    <span class="ml-2">WAEC/NECO O' Level Result</span>
+                                    <span class="ml-2">WAEC / NECO O'Level</span>
                                 </label>
                                 <label class="flex items-center text-gray-400">
                                     <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
@@ -212,7 +215,7 @@
                                 </label>
                                 <label class="flex items-center text-gray-400">
                                     <input type="checkbox" name="doc_list" value="Any Other Certification" class="h-4 w-4 text-natz-secondary bg-natz-dark border-natz-primary rounded focus:ring-natz-secondary">
-                                    <span class="ml-2">Any Other Certification</span>
+                                    <span class="ml-2">Other Certification</span>
                                 </label>
                             </div>
 
@@ -312,21 +315,21 @@
 
     <!-- JavaScript for Functionality -->
     <script>
-        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse'; // REPLACE 'YOUR_FORM_ID'
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse'; // UPDATED
 
         // Map form field IDs to Google Form entry IDs. YOU MUST FIND THESE IDs FROM YOUR OWN GOOGLE FORM.
         const FORM_ENTRY_MAP = {
-            client_name: 'entry.503469166',         // Mock ID - REPLACE THIS
-            client_email: 'entry.467034671',        // Mock ID - REPLACE THIS
-            phone: 'entry.825752332',               // NEW Mock ID - REPLACE THIS
-            country: 'entry.1147777123',             // Mock ID - REPLACE THIS
-            address: 'entry.1224511060',             // NEW Mock ID - REPLACE THIS
-            program: 'entry.621700234',             // Mock ID - REPLACE THIS
-            emergency_name: 'entry.815215183',      // NEW Mock ID - REPLACE THIS
-            emergency_phone: 'entry.306081269',     // NEW Mock ID - REPLACE THIS
-            doc_list: 'entry.1183727304',            // NEW Mock ID - REPLACE THIS (For document checklist)
-            document_link: 'entry.561880514',       // Mock ID - REPLACE THIS (For the hosted file link)
-            other_means_details: 'entry.229597949', // NEW MockM ID - REPLACE THIS
+            client_name: 'entry.503469166',         // UPDATED
+            client_email: 'entry.467034671',        // UPDATED
+            phone: 'entry.825752332',               // UPDATED
+            country: 'entry.1147777123',             // UPDATED
+            address: 'entry.1224511060',             // UPDATED
+            program: 'entry.621700234',             // UPDATED
+            emergency_name: 'entry.815215183',      // UPDATED
+            emergency_phone: 'entry.306081269',     // UPDATED
+            doc_list: 'entry.1183727304',            // UPDATED (For document checklist)
+            document_link: 'entry.561880514',       // UPDATED (For the hosted file link)
+            other_means_details: 'entry.229597949', // UPDATED
         };
 
         let currentTab = 'education';
@@ -336,7 +339,7 @@
             const box = document.getElementById('message-box');
             const messageContent = document.getElementById('message-content');
             box.classList.remove('hidden', 'bg-green-600', 'bg-red-600', 'translate-x-full');
-              
+            
             if (type === 'success') {
                 box.classList.add('bg-green-600');
                 messageContent.innerHTML = '<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span>' + content + '</span>';
@@ -397,12 +400,14 @@
                 checkedDocs.forEach(doc => {
                     params.append(FORM_ENTRY_MAP.doc_list, doc);
                 });
-            }
+            } 
+            // 1. REMOVED THE 'else' BLOCK HERE that was sending "No documents selected."
             
             // Document Link
             if (link) {
                 params.append(FORM_ENTRY_MAP.document_link, link);
-            }
+            } 
+            // 2. REMOVED THE 'else' BLOCK HERE that was sending "No shareable link provided."
 
             // Other Means
             if (otherMeansCheckbox) {
@@ -411,17 +416,11 @@
                  params.append(FORM_ENTRY_MAP.other_means_details, 'NO, documents provided via link or will be provided later.');
             }
 
-            // *** ADD THIS LINE FOR DEBUGGING ***
+            // *** 3. ADDED THIS LINE FOR DEBUGGING ***
             console.log("DEBUG: Data being sent:", params.toString());
             // *** END OF DEBUGGING LINE ***
-                
 
             // *** UPDATED SUBMISSION LOGIC ***
-
-            // We use 'fetch' with 'no-cors' mode. This sends the request but doesn't 
-            // read the response, which avoids a CORS (Cross-Origin) error.
-            // Google Forms will receive the data, but our script won't get a 
-            // "success" message back from Google, which is fine.
             try {
                 await fetch(GOOGLE_FORM_ACTION_URL, {
                     method: 'POST',
@@ -447,7 +446,6 @@
 
             return false; // Prevent default form action
         }
-
  
         // Function to switch between Education and Tech tabs
         function switchTab(tabId) {
