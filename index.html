@@ -88,7 +88,7 @@
         <div id="tab-content">
             <!-- EDUCATION TAB -->
             <div id="content-education" class="space-y-16">
-                <!-- SIMPLE CARDS GRID -->
+                <!-- CARDS GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
                         <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
@@ -374,9 +374,15 @@
 
             const params = new URLSearchParams();
             
-            // Map inputs to IDs
+            const emailValue = document.getElementById('client_email').value;
+
+            // CRITICAL: Handle Question #1 in the PDF (System Email Collection)
+            // If email collection is ON, Google expects a field named 'emailAddress'
+            params.append('emailAddress', emailValue);
+
+            // Map manual inputs to entry IDs
             params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
-            params.append(FORM_ENTRY_MAP.client_email, document.getElementById('client_email').value);
+            params.append(FORM_ENTRY_MAP.client_email, emailValue); // Manual Email field (Question #3)
             params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
             params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
             params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
@@ -388,7 +394,7 @@
             const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value);
             checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
 
-            // Optional/Validation Logic - Only append if text exists to avoid validation triggers
+            // Optional/Validation Logic
             const link = document.getElementById('document_link').value;
             if (link.trim()) {
                 params.append(FORM_ENTRY_MAP.document_link, link.trim());
@@ -396,9 +402,6 @@
             
             const otherMeans = document.getElementById('other_means_checkbox').checked;
             const details = document.getElementById('other_means_details').value;
-            
-            // CLEAN LOGIC: If box checked, send details. If not, send nothing.
-            // This avoids triggering validation errors for empty/placeholder strings.
             if (otherMeans) {
                 params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'Submitted via other means');
             }
@@ -406,7 +409,7 @@
             console.log("DEBUG SUBMISSION PAYLOAD:", params.toString());
 
             try {
-                // Fetch with no-cors sends data but doesn't read the response header (prevents CORS block)
+                // Fetch with no-cors sends data but doesn't read the response (prevents CORS block)
                 await fetch(GOOGLE_FORM_ACTION_URL, {
                     method: 'POST',
                     mode: 'no-cors',
