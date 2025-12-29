@@ -10,13 +10,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-sky': '#0EA5E9',
-                        'brand-grey': '#334155',
-                        'brand-dark': '#0F172A',
-                        'brand-card': '#1E293B',
+                        'brand-sky': '#0EA5E9',   // Sky Blue
+                        'brand-grey': '#334155',  // Slate/Grey
+                        'brand-dark': '#0F172A',  // Dark Background
+                        'brand-card': '#1E293B',  // Card Background
                     },
                     fontFamily: {
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
                     },
                 }
             }
@@ -31,126 +31,139 @@
             background-color: #0F172A;
             border: 1px solid #334155;
             color: #F8FAFC;
+            transition: all 0.2s ease;
         }
         .form-input:focus {
             border-color: #0EA5E9;
-            ring: 1px solid #0EA5E9;
             outline: none;
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
         }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-200 min-h-screen">
+<body class="bg-brand-dark text-slate-200 min-h-screen selection:bg-brand-sky/30">
 
-    <!-- Navbar -->
-    <nav class="bg-brand-dark border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-brand-sky rounded flex items-center justify-center font-bold text-brand-dark">N</div>
-                <span class="text-xl font-bold tracking-tight">NATZ <span class="text-brand-sky">Consult</span></span>
+    <!-- Header / Navbar -->
+    <nav class="sticky top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-9 h-9 bg-brand-sky rounded-lg flex items-center justify-center font-bold text-brand-dark transform group-hover:rotate-12 transition-transform">N</div>
+                <span class="text-xl font-bold tracking-tight text-white uppercase">NATZ <span class="text-brand-sky">Consult</span></span>
             </div>
             
-            <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wide">
-                <button onclick="switchTab('education')" id="nav-education" class="tab-active py-5 transition-colors hover:text-brand-sky">Education</button>
-                <button onclick="switchTab('tech')" id="nav-tech" class="py-5 transition-colors hover:text-brand-sky">Technology</button>
-                <a href="#contact" class="py-5 transition-colors hover:text-brand-sky">Contact</a>
+            <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest">
+                <button onclick="switchTab('education')" id="nav-education" class="tab-active py-5 hover:text-brand-sky transition-colors">Education</button>
+                <button onclick="switchTab('tech')" id="nav-tech" class="py-5 hover:text-brand-sky transition-colors">Technology</button>
+                <a href="#contact" class="py-5 hover:text-brand-sky transition-colors">Contact</a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden text-slate-400">
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
         <!-- Mobile Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-slate-800 px-4 py-4 space-y-4 shadow-xl">
-            <button onclick="switchTab('education'); toggleMobileMenu();" class="block w-full text-left font-medium">Education Agency</button>
-            <button onclick="switchTab('tech'); toggleMobileMenu();" class="block w-full text-left font-medium">Tech Solutions</button>
-            <a href="#contact" onclick="toggleMobileMenu();" class="block font-medium">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-slate-800 px-6 py-6 space-y-4 animate-in slide-in-from-top duration-300">
+            <button onclick="switchTab('education'); toggleMobileMenu();" class="block w-full text-left font-bold text-brand-sky">Education Agency</button>
+            <button onclick="switchTab('tech'); toggleMobileMenu();" class="block w-full text-left font-bold">Tech Solutions</button>
+            <a href="#contact" onclick="toggleMobileMenu();" class="block font-bold">Contact</a>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 py-12">
-        <!-- Toast Message Box -->
-        <div id="message-box" class="hidden fixed top-20 right-4 p-4 rounded-lg shadow-2xl z-[100] transition-all transform translate-x-full border" role="alert">
-            <div id="message-content" class="flex items-center font-medium"></div>
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        <!-- Message Box -->
+        <div id="message-box" class="hidden fixed bottom-8 right-8 p-5 rounded-xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2" role="alert">
+            <div id="message-content" class="flex items-center text-sm font-bold"></div>
         </div>
 
-        <!-- HERO SECTION -->
-        <section id="hero" class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white">Navigate Your <span class="text-brand-sky">Future</span></h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Providing strategic guidance for international education and cutting-edge technology implementation.</p>
-        </section>
+        <!-- HERO -->
+        <header id="hero" class="text-center mb-20 space-y-4">
+            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">Empowering Your <span class="text-brand-sky">Global Journey</span></h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto font-medium">Expert consultancy for international students and tailored digital solutions for modern businesses.</p>
+        </header>
 
-        <!-- CARDS: SERVICES -->
+        <!-- TAB CONTENT -->
         <div id="tab-content">
             <!-- EDUCATION TAB -->
-            <div id="content-education" class="space-y-12">
+            <div id="content-education" class="space-y-16">
+                <!-- SIMPLE CARDS GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-brand-card p-6 rounded-xl border border-slate-800 hover:border-brand-sky/50 transition-all shadow-lg">
-                        <div class="text-brand-sky mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg></div>
-                        <h3 class="font-bold text-lg mb-2">Program Selection</h3>
-                        <p class="text-sm text-slate-400">Tailored assessment of global programs matching your career trajectory.</p>
+                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Academic Search</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Identifying university programs that align with your background and professional goals.</p>
                     </div>
-                    <div class="bg-brand-card p-6 rounded-xl border border-slate-800 hover:border-brand-sky/50 transition-all shadow-lg">
-                        <div class="text-brand-sky mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
-                        <h3 class="font-bold text-lg mb-2">Application Support</h3>
-                        <p class="text-sm text-slate-400">Streamlined processing of university and college applications worldwide.</p>
+                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Visa Strategy</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Comprehensive document review and preparation to maximize your visa success rate.</p>
                     </div>
-                    <div class="bg-brand-card p-6 rounded-xl border border-slate-800 hover:border-brand-sky/50 transition-all shadow-lg">
-                        <div class="text-brand-sky mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg></div>
-                        <h3 class="font-bold text-lg mb-2">Visa Guidance</h3>
-                        <p class="text-sm text-slate-400">Expert preparation for visa requirements and interview readiness checks.</p>
+                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
+                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Relocation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Post-arrival support to help you settle into your new international community quickly.</p>
                     </div>
                 </div>
 
-                <!-- INTAKE FORM CARD -->
-                <div class="bg-brand-card rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
-                    <div class="p-1 bg-brand-sky"></div>
-                    <div class="p-8 md:p-12">
-                        <div class="mb-10 text-center">
-                            <h2 class="text-3xl font-bold text-white mb-2">Client Intake Form</h2>
-                            <p class="text-slate-400">Submit your details for a personalized education assessment.</p>
+                <!-- INTAKE FORM SECTION -->
+                <div class="bg-brand-card rounded-3xl border border-slate-800 shadow-2xl overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
+                    
+                    <div class="p-8 md:p-14">
+                        <div class="mb-12">
+                            <h2 class="text-3xl font-black text-white mb-3">Consultation Intake</h2>
+                            <p class="text-slate-400 text-sm font-medium">Complete this form to start your international education journey with us.</p>
                         </div>
 
-                        <form id="education-form" class="space-y-10">
-                            <!-- Personal Info Section -->
-                            <div class="space-y-6">
-                                <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
-                                    <span class="text-brand-sky font-bold text-xs uppercase tracking-widest">01</span>
-                                    <h3 class="font-semibold text-white">Personal Information</h3>
+                        <form id="education-form" class="space-y-12">
+                            <!-- Section 1 -->
+                            <div class="space-y-8">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">01</div>
+                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Profile Details</h4>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Full Name</label>
-                                        <input type="text" id="client_name" required class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="John Doe">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+                                        <input type="text" id="client_name" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="e.g. Samuel Adekunle">
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Email Address</label>
-                                        <input type="email" id="client_email" required class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="john@example.com">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+                                        <input type="email" id="client_email" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="samuel@mail.com">
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Phone Number</label>
-                                        <input type="tel" id="phone" required class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="+234 800 000 0000">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
+                                        <input type="tel" id="phone" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="+234 ...">
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Country of Residence</label>
-                                        <input type="text" id="country" required class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="Nigeria">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Current Residence</label>
+                                        <input type="text" id="country" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="Country">
                                     </div>
                                 </div>
-                                <div class="space-y-1">
-                                    <label class="text-xs font-bold text-slate-500 uppercase">Residential Address</label>
-                                    <input type="text" id="address" required class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="Street Name, City, State">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Residential Address</label>
+                                    <input type="text" id="address" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="Home or Office Address">
                                 </div>
                             </div>
 
-                            <!-- Education Section -->
-                            <div class="space-y-6">
-                                <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
-                                    <span class="text-brand-sky font-bold text-xs uppercase tracking-widest">02</span>
-                                    <h3 class="font-semibold text-white">Study Preferences</h3>
+                            <!-- Section 2 -->
+                            <div class="space-y-8">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">02</div>
+                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Aspirations</h4>
                                 </div>
-                                <div class="space-y-1">
-                                    <label class="text-xs font-bold text-slate-500 uppercase">Intended Program</label>
-                                    <select id="program" required class="form-input w-full px-4 py-3 rounded-lg text-sm appearance-none">
-                                        <option value="" disabled selected>Select Level</option>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Intended Study Level</label>
+                                    <select id="program" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm appearance-none cursor-pointer">
+                                        <option value="" disabled selected>Select from options</option>
                                         <option value="Undergraduate">Undergraduate</option>
                                         <option value="Postgraduate">Postgraduate</option>
                                         <option value="Other">Other</option>
@@ -158,128 +171,142 @@
                                 </div>
                             </div>
 
-                            <!-- Emergency Contact Section -->
-                            <div class="space-y-6">
-                                <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
-                                    <span class="text-brand-sky font-bold text-xs uppercase tracking-widest">03</span>
-                                    <h3 class="font-semibold text-white">Emergency Contact</h3>
+                            <!-- Section 3 -->
+                            <div class="space-y-8">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">03</div>
+                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Emergency Contact</h4>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Contact Name</label>
-                                        <input type="text" id="emergency_name" required class="form-input w-full px-4 py-3 rounded-lg text-sm">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Contact Name</label>
+                                        <input type="text" id="emergency_name" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm">
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Contact Phone</label>
-                                        <input type="tel" id="emergency_phone" required class="form-input w-full px-4 py-3 rounded-lg text-sm">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Contact Phone</label>
+                                        <input type="tel" id="emergency_phone" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Document Submission Section -->
-                            <div class="space-y-6">
-                                <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
-                                    <span class="text-brand-sky font-bold text-xs uppercase tracking-widest">04</span>
-                                    <h3 class="font-semibold text-white">Document Submission</h3>
+                            <!-- Section 4 -->
+                            <div class="space-y-8">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">04</div>
+                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Documentation</h4>
                                 </div>
                                 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                                    <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-colors">
-                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-4 h-4 rounded border-slate-700 text-brand-sky focus:ring-brand-sky bg-brand-dark">
-                                        <span class="ml-3">Birth Certificate</span>
+                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-offset-0 focus:ring-0">
+                                        <span class="ml-4 font-medium">Birth Certificate</span>
                                     </label>
-                                    <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-colors">
-                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-4 h-4 rounded border-slate-700 text-brand-sky focus:ring-brand-sky bg-brand-dark">
-                                        <span class="ml-3">WAEC/NECO O' Level</span>
+                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-offset-0 focus:ring-0">
+                                        <span class="ml-4 font-medium">WAEC/NECO O' Level</span>
                                     </label>
-                                    <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-colors">
-                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="w-4 h-4 rounded border-slate-700 text-brand-sky focus:ring-brand-sky bg-brand-dark">
-                                        <span class="ml-3">English Test (IELTS/CELPIP)</span>
+                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-offset-0 focus:ring-0">
+                                        <span class="ml-4 font-medium">English Test (IELTS/CELPIP)</span>
                                     </label>
-                                    <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-colors">
-                                        <input type="checkbox" name="doc_list" value="Any Other Certification" class="w-4 h-4 rounded border-slate-700 text-brand-sky focus:ring-brand-sky bg-brand-dark">
-                                        <span class="ml-3">Other Certification</span>
+                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Any Other Certification" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-offset-0 focus:ring-0">
+                                        <span class="ml-4 font-medium">Other Certification</span>
                                     </label>
                                 </div>
 
-                                <div class="space-y-4">
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Shareable Document Link (G-Drive / Dropbox)</label>
-                                        <input type="url" id="document_link" class="form-input w-full px-4 py-3 rounded-lg text-sm" placeholder="https://drive.google.com/...">
+                                <div class="space-y-6 pt-4">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Shareable Cloud Link (G-Drive/Dropbox)</label>
+                                        <input type="url" id="document_link" class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="https://...">
                                     </div>
                                     
-                                    <label class="flex items-start cursor-pointer text-sm">
-                                        <input type="checkbox" id="other_means_checkbox" class="mt-1 w-4 h-4 rounded border-slate-700 text-brand-sky focus:ring-brand-sky bg-brand-dark">
-                                        <span class="ml-3 text-slate-400">I will send documents via other means (email/in-person).</span>
-                                    </label>
-                                    
-                                    <textarea id="other_means_details" rows="3" class="form-input w-full px-4 py-3 rounded-lg text-sm hidden" placeholder="Please specify method and timeline..."></textarea>
+                                    <div class="bg-brand-dark/50 p-6 rounded-2xl border border-slate-800 space-y-4">
+                                        <label class="flex items-center cursor-pointer group">
+                                            <input type="checkbox" id="other_means_checkbox" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-4 text-xs font-bold text-slate-400 group-hover:text-slate-200 transition-colors">I will provide documents via email or in-person.</span>
+                                        </label>
+                                        <textarea id="other_means_details" rows="3" class="form-input w-full px-5 py-3.5 rounded-xl text-sm hidden" placeholder="Explain your submission plan..."></textarea>
+                                    </div>
                                 </div>
                             </div>
 
-                            <button type="submit" id="submit-btn" class="w-full py-4 bg-brand-sky text-brand-dark font-bold rounded-xl hover:scale-[1.01] active:scale-[0.99] transition-all shadow-xl shadow-brand-sky/20">
-                                Send Intake Request
+                            <button type="submit" id="submit-btn" class="w-full py-4 bg-brand-sky text-brand-dark font-black rounded-2xl hover:brightness-110 active:scale-[0.99] transition-all shadow-2xl shadow-brand-sky/10 uppercase tracking-widest text-sm">
+                                Submit Consultation Request
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- TECH TAB -->
-            <div id="content-tech" class="hidden space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-brand-card p-10 rounded-2xl border border-slate-800 shadow-xl">
-                        <h3 class="text-2xl font-bold text-brand-sky mb-4">Web & Software</h3>
-                        <p class="text-slate-400 leading-relaxed mb-6">Building performant, responsive web applications and custom software solutions designed to scale with your business needs.</p>
-                        <ul class="space-y-3 text-sm">
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> Custom E-Commerce</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> Corporate Landing Pages</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> SaaS Development</li>
-                        </ul>
+            <!-- TECHNOLOGY TAB -->
+            <div id="content-tech" class="hidden animate-in fade-in duration-500">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-brand-card p-12 rounded-3xl border border-slate-800">
+                        <h3 class="text-2xl font-black text-brand-sky mb-6">Digital Build</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">End-to-end development of custom software and web ecosystems designed for speed, security, and scalability.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>React & Tailwind Solutions</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>E-Commerce Integration</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>Mobile-First Web Apps</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-brand-card p-10 rounded-2xl border border-slate-800 shadow-xl">
-                        <h3 class="text-2xl font-bold text-brand-sky mb-4">IT Strategy</h3>
-                        <p class="text-slate-400 leading-relaxed mb-6">Consultancy services focused on cloud migration, security audits, and streamlining your existing digital infrastructure.</p>
-                        <ul class="space-y-3 text-sm">
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> Infrastructure Planning</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> Cloud Deployment</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-brand-sky rounded-full mr-2"></span> Security Assessments</li>
-                        </ul>
+                    <div class="bg-brand-card p-12 rounded-3xl border border-slate-800">
+                        <h3 class="text-2xl font-black text-brand-sky mb-6">Cloud & Strategy</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">Strategic IT consulting to modernize your legacy systems and implement secure cloud-based workflows.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>AWS/Azure Cloud Migration</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>Cybersecurity Audits</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs font-bold text-slate-300">
+                                <div class="w-1.5 h-1.5 bg-brand-sky rounded-full"></div>
+                                <span>Infrastructure Automation</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="text-center py-12">
-                    <p class="text-slate-500 mb-6 italic">Looking for a technical partner? Let's discuss your project.</p>
-                    <a href="mailto:natzconsul21@gmail.com" class="inline-block px-10 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-colors border border-slate-700">Get a Quote</a>
                 </div>
             </div>
         </div>
 
-        <!-- Footer / Contact -->
-        <footer id="contact" class="mt-24 pt-16 border-t border-slate-800">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Get in touch with <span class="text-brand-sky">NATZ</span></h2>
-                    <p class="text-slate-400 mb-8">We usually respond to education inquiries within 24 hours. Tech consultations are scheduled based on project scope.</p>
-                    <div class="space-y-4">
-                        <a href="mailto:natzconsul21@gmail.com" class="flex items-center text-slate-300 hover:text-brand-sky transition-colors">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            natzconsul21@gmail.com
-                        </a>
-                        <div class="flex space-x-4">
-                            <!-- Social Placeholders -->
-                            <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-sky hover:text-brand-dark transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-                            <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-sky hover:text-brand-dark transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919.058 1.265.068 1.645.068 4.849 0 3.204-.01 3.584-.068 4.849-.148 3.228-1.669 4.771-4.919 4.919-1.266.058-1.646.068-4.849.068-3.204 0-3.584-.01-4.849-.068-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.068-1.645-.068-4.849 0-3.204.01-3.584.068-4.849.148-3.228 1.669-4.771 4.919-4.919 1.266-.058 1.646-.068 4.849-.068zm0-2.163c-3.259 0-3.667.014-4.947.072C3.12 0 1.493 1.69.927 3.818c-.058 1.28-.074 1.688-.074 4.948 0 3.259.016 3.668.074 4.948.566 2.128 2.193 3.818 4.305 4.306 1.28.058 1.688.072 4.948.072 3.259 0 3.668-.014 4.948-.072 2.128-.565 3.818-2.192 4.306-4.305.058-1.28.072-1.688.072-4.948 0-3.259-.014-3.667-.072-4.947-.492-2.127-2.182-3.817-4.305-4.306-1.28-.058-1.688-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4c0 2.208-1.791 4-4 4zm7.98-9.814c0 1.341-1.089 2.43-2.43 2.43s-2.43-1.089-2.43-2.43 1.089-2.43 2.43-2.43 2.43 1.089 2.43 2.43z"/></svg></a>
-                        </div>
-                    </div>
+        <!-- FOOTER -->
+        <footer id="contact" class="mt-32 pt-16 border-t border-slate-800">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+                <div class="max-w-md space-y-4">
+                    <h2 class="text-2xl font-black text-white">Let's <span class="text-brand-sky">Connect</span></h2>
+                    <p class="text-slate-400 text-sm leading-relaxed">Ready to take the next step? Our consultants are available for personalized strategy sessions.</p>
+                    <a href="mailto:natzconsul21@gmail.com" class="inline-flex items-center text-sm font-bold text-brand-sky hover:underline decoration-2 underline-offset-8">
+                        natzconsul21@gmail.com
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
                 </div>
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center text-slate-500 text-xs">
-                    &copy; <span id="current-year"></span> NATZ Consult. All rights reserved. Registered Education & Tech Consultancy.
+                <div class="flex space-x-4">
+                    <a href="#" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-sky hover:text-brand-dark transition-all duration-300"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                    <a href="#" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-sky hover:text-brand-dark transition-all duration-300"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919.058 1.265.068 1.645.068 4.849 0 3.204-.01 3.584-.068 4.849-.148 3.228-1.669 4.771-4.919 4.919-1.266.058-1.646.068-4.849.068-3.204 0-3.584-.01-4.849-.068-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.068-1.645-.068-4.849 0-3.204.01-3.584.068-4.849.148-3.228 1.669-4.771 4.919-4.919 1.266-.058 1.646-.068 4.849-.068zm0-2.163c-3.259 0-3.667.014-4.947.072C3.12 0 1.493 1.69.927 3.818c-.058 1.28-.074 1.688-.074 4.948 0 3.259.016 3.668.074 4.948.566 2.128 2.193 3.818 4.305 4.306 1.28.058 1.688.072 4.948.072 3.259 0 3.668-.014 4.948-.072 2.128-.565 3.818-2.192 4.306-4.305.058-1.28.072-1.688.072-4.948 0-3.259-.014-3.667-.072-4.947-.492-2.127-2.182-3.817-4.305-4.306-1.28-.058-1.688-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4c0 2.208-1.791 4-4 4zm7.98-9.814c0 1.341-1.089 2.43-2.43 2.43s-2.43-1.089-2.43-2.43 1.089-2.43 2.43-2.43 2.43 1.089 2.43 2.43z"/></svg></a>
                 </div>
+            </div>
+            <div class="mt-16 py-8 border-t border-slate-900/50 text-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
+                &copy; <span id="current-year"></span> NATZ Consult. Registered Global Consultancy.
             </div>
         </footer>
     </main>
 
+    <!-- LOGIC -->
     <script>
+        // OFFICIAL FORM DATA
         const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse';
         
         const FORM_ENTRY_MAP = {
@@ -296,56 +323,58 @@
             other_means_details: 'entry.229597949',
         };
 
-        // UI Logic
+        // NAVIGATION LOGIC
         function switchTab(id) {
             const tabs = ['education', 'tech'];
             tabs.forEach(t => {
                 document.getElementById('content-' + t).classList.toggle('hidden', t !== id);
                 document.getElementById('nav-' + t).classList.toggle('tab-active', t === id);
             });
-            // Update hero
-            const titles = {
-                education: 'Navigate Your <span class="text-brand-sky">Education</span>',
-                tech: 'Innovative <span class="text-brand-sky">Technology</span>'
-            };
-            document.getElementById('hero').querySelector('h1').innerHTML = titles[id];
+            const h1 = document.getElementById('hero').querySelector('h1');
+            if (id === 'education') {
+                h1.innerHTML = 'Empowering Your <span class="text-brand-sky">Global Journey</span>';
+            } else {
+                h1.innerHTML = 'Innovative <span class="text-brand-sky">Digital Solutions</span>';
+            }
         }
 
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
+        // NOTIFICATION LOGIC
         function showMessage(type, content) {
             const box = document.getElementById('message-box');
             const messageContent = document.getElementById('message-content');
-            box.classList.remove('hidden', 'bg-slate-900', 'border-emerald-500/50', 'text-emerald-400', 'border-rose-500/50', 'text-rose-400', 'translate-x-full');
+            box.classList.remove('hidden', 'bg-brand-dark', 'border-brand-sky', 'text-brand-sky', 'border-rose-500', 'text-rose-500', 'translate-y-20');
             
             if (type === 'success') {
-                box.classList.add('bg-slate-900', 'border-emerald-500/50', 'text-emerald-400');
-                messageContent.innerHTML = `<span>${content}</span>`;
+                box.classList.add('bg-brand-dark', 'border-brand-sky', 'text-brand-sky');
+                messageContent.innerHTML = `<svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
             } else {
-                box.classList.add('bg-slate-900', 'border-rose-500/50', 'text-rose-400');
-                messageContent.innerHTML = `<span>${content}</span>`;
+                box.classList.add('bg-brand-dark', 'border-rose-500', 'text-rose-500');
+                messageContent.innerHTML = `<svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
             }
 
-            setTimeout(() => box.classList.add('translate-x-0'), 50);
+            setTimeout(() => box.classList.remove('translate-y-20'), 50);
             setTimeout(() => {
-                box.classList.remove('translate-x-0');
-                box.classList.add('translate-x-full');
+                box.classList.add('translate-y-20');
+                setTimeout(() => box.classList.add('hidden'), 500);
             }, 5000);
         }
 
-        // Form Submission logic
+        // SUBMISSION LOGIC
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.innerText;
+            
             submitBtn.disabled = true;
-            submitBtn.innerText = 'Sending...';
+            submitBtn.innerText = 'PROCESSING...';
 
             const params = new URLSearchParams();
             
-            // Standard fields
+            // Map inputs to IDs
             params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
             params.append(FORM_ENTRY_MAP.client_email, document.getElementById('client_email').value);
             params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
@@ -355,30 +384,26 @@
             params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
             params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
             
-            // Checkbox multi-append logic (Essential for Google Forms checkboxes)
+            // Checkbox multi-append
             const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value);
-            if (checkedDocs.length > 0) {
-                checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
-            }
+            checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
 
-            // Validation Guard for required/linked fields
+            // Optional/Validation Logic
             const link = document.getElementById('document_link').value;
-            if (link.trim()) {
-                params.append(FORM_ENTRY_MAP.document_link, link);
-            }
+            if (link.trim()) params.append(FORM_ENTRY_MAP.document_link, link);
             
             const otherMeans = document.getElementById('other_means_checkbox').checked;
             const details = document.getElementById('other_means_details').value;
             if (otherMeans) {
-                params.append(FORM_ENTRY_MAP.other_means_details, `YES: ${details || 'No additional details'}`);
+                params.append(FORM_ENTRY_MAP.other_means_details, `YES: ${details || 'Unspecified'}`);
             } else {
-                params.append(FORM_ENTRY_MAP.other_means_details, 'NO: Submitted via link or will be provided later');
+                params.append(FORM_ENTRY_MAP.other_means_details, 'NO: Submitted via link or provided later');
             }
 
-            console.log("DEBUG Payload:", params.toString());
+            console.log("DEBUG SUBMISSION PAYLOAD:", params.toString());
 
             try {
-                // Fetch with no-cors sends the data but suppresses the browser-level CORS block error
+                // Fetch with no-cors sends data but doesn't read the response header (prevents CORS block)
                 await fetch(GOOGLE_FORM_ACTION_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -386,19 +411,19 @@
                     body: params.toString()
                 });
 
-                showMessage('success', 'Application received! Check your email soon.');
+                showMessage('success', 'Consultation Request Sent Successfully!');
                 document.getElementById('education-form').reset();
                 document.getElementById('other_means_details').classList.add('hidden');
             } catch (error) {
-                console.error("Submission Error:", error);
-                showMessage('error', 'Network error. Please try again.');
+                console.error("Submission Failure:", error);
+                showMessage('error', 'Network failure. Check connection.');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerText = originalText;
             }
         }
 
-        // Init
+        // INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').innerText = new Date().getFullYear();
             
