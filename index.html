@@ -10,10 +10,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-sky': '#0EA5E9',   // Sky Blue
-                        'brand-grey': '#334155',  // Slate/Grey
-                        'brand-dark': '#0F172A',  // Dark Background
-                        'brand-card': '#1E293B',  // Card Background
+                        'brand-sky': '#0EA5E9',   // Vivid Sky Blue
+                        'brand-grey': '#94A3B8',  // Modern Grey
+                        'brand-dark': '#0F172A',  // Deep Slate background
+                        'brand-card': '#1E293B',  // Card background
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -24,7 +24,7 @@
     </script>
     <style>
         .tab-active {
-            border-bottom: 2px solid #0EA5E9;
+            border-bottom: 3px solid #0EA5E9;
             color: #0EA5E9;
         }
         .form-input {
@@ -36,7 +36,10 @@
         .form-input:focus {
             border-color: #0EA5E9;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
         }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0F172A; }
@@ -45,107 +48,133 @@
 </head>
 <body class="bg-brand-dark text-slate-200 min-h-screen selection:bg-brand-sky/30">
 
-    <!-- Header / Navbar -->
-    <nav class="sticky top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-9 h-9 bg-brand-sky rounded-lg flex items-center justify-center font-bold text-brand-dark transform group-hover:rotate-12 transition-transform">N</div>
-                <span class="text-xl font-bold tracking-tight text-white uppercase">NATZ <span class="text-brand-sky">Consult</span></span>
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-12 h-12 bg-brand-sky rounded-xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
+                    <svg class="w-7 h-7 text-brand-dark" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tighter text-slate-200 leading-none uppercase">NATZ CONSULT</span>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1">Global Strategy</span>
+                </div>
             </div>
             
-            <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest">
-                <button onclick="switchTab('education')" id="nav-education" class="tab-active py-5 hover:text-brand-sky transition-colors">Education</button>
-                <button onclick="switchTab('tech')" id="nav-tech" class="py-5 hover:text-brand-sky transition-colors">Technology</button>
-                <a href="#contact" class="py-5 hover:text-brand-sky transition-colors">Contact</a>
+            <div class="hidden md:flex items-center space-x-12 text-xs font-black uppercase tracking-[0.2em]">
+                <a href="#" class="text-brand-sky hover:text-white transition-colors">Home</a>
+                <button onclick="switchTab('education')" id="nav-education" class="tab-active py-2 hover:text-brand-sky transition-colors">Education</button>
+                <button onclick="switchTab('tech')" id="nav-tech" class="py-2 hover:text-brand-sky transition-colors">Technology</button>
+                <a href="#contact" class="px-6 py-2 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark transition-all">Contact</a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
-        </div>
-        <!-- Mobile Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-slate-800 px-6 py-6 space-y-4">
-            <button onclick="switchTab('education'); toggleMobileMenu();" class="block w-full text-left font-bold text-brand-sky">Education Agency</button>
-            <button onclick="switchTab('tech'); toggleMobileMenu();" class="block w-full text-left font-bold">Tech Solutions</button>
-            <a href="#contact" onclick="toggleMobileMenu();" class="block font-bold">Contact</a>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
-        <div id="message-box" class="hidden fixed bottom-8 right-8 p-5 rounded-xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2" role="alert">
+    <!-- Hero Section -->
+    <header class="relative w-full min-h-[85vh] flex items-center justify-center px-6 py-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
+                 alt="Global Consultancy Background" 
+                 class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <!-- Imposing Hero Card -->
+        <div class="relative z-10 max-w-5xl w-full bg-brand-card/80 backdrop-blur-xl border border-slate-700 rounded-[3rem] p-10 md:p-20 shadow-2xl text-center space-y-8 transform translate-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <!-- Font size reduced to fit two lines as requested -->
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-slate-300 leading-[1.15] tracking-tighter uppercase max-w-4xl mx-auto">
+                Empowering Education and Tech Excellence
+            </h1>
+
+            <!-- Updated slogan text and switched to single color as requested -->
+            <p class="text-slate-400 text-lg md:text-xl lg:text-2xl font-medium max-w-3xl mx-auto leading-relaxed">
+                Strategic Consultancy for Int'l Students & Innovative Technology
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
+                <a href="#education-form" class="w-full sm:w-auto px-12 py-5 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-sm">
+                    Start Intake Process
+                </a>
+                <button onclick="switchTab('tech')" class="w-full sm:w-auto px-12 py-5 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-sm">
+                    View Tech Strategy
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-24 space-y-32">
+        <div id="message-box" class="hidden fixed bottom-8 right-8 p-6 rounded-2xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2" role="alert">
             <div id="message-content" class="flex items-center text-sm font-bold"></div>
         </div>
 
-        <!-- HERO -->
-        <header id="hero" class="text-center mb-20 space-y-4">
-            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">Empowering Your <span class="text-brand-sky">Global Journey</span></h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto font-medium">Expert consultancy for international students and tailored digital solutions for modern businesses.</p>
-        </header>
-
-        <!-- TAB CONTENT -->
         <div id="tab-content">
             <!-- EDUCATION TAB -->
-            <div id="content-education" class="space-y-16">
-                <!-- SIMPLE CARDS GRID -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <div id="content-education" class="space-y-24">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Academic Search</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Identifying university programs that align with your background and professional goals.</p>
+                        <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">Academic Search</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Expert identification of university programs matching your unique career trajectory.</p>
                     </div>
-                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z"></path></svg>
+                    
+                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Visa Strategy</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Comprehensive document review and preparation to maximize your visa success rate.</p>
+                        <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">Visa strategy</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Direction on immigration programs, access to application documents, and authorized immigration representatives.</p>
                     </div>
-                    <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 group hover:border-brand-sky/40 transition-all duration-300">
-                        <div class="w-12 h-12 bg-brand-sky/10 text-brand-sky rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+
+                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Relocation</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Post-arrival support to help you settle into your new international community quickly.</p>
+                        <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">Settlement</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">End-to-end relocation guidance to ensure your first steps abroad are stable and well-supported.</p>
                     </div>
                 </div>
 
-                <!-- INTAKE FORM SECTION -->
-                <div class="bg-brand-card rounded-3xl border border-slate-800 shadow-2xl overflow-hidden relative">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
-                    
-                    <div class="p-8 md:p-14">
-                        <div class="mb-12">
-                            <h2 class="text-3xl font-black text-white mb-3">Consultation Intake</h2>
-                            <p class="text-slate-400 text-sm font-medium">Complete this form to start your international education journey with us.</p>
+                <!-- INTAKE FORM -->
+                <div id="education-form" class="bg-brand-card rounded-[4rem] border border-slate-800 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
+                    <div class="p-10 md:p-24">
+                        <div class="mb-20">
+                            <h2 class="text-4xl md:text-6xl font-black text-slate-300 mb-6 uppercase tracking-tighter italic">INTAKE PORTAL</h2>
+                            <p class="text-slate-400 text-lg font-medium">Please provide accurate data to ensure a smooth evaluation process.</p>
                         </div>
 
-                        <form id="education-form" class="space-y-12">
-                            <!-- Section 1 -->
-                            <div class="space-y-8">
-                                <div class="flex items-center space-x-4">
-                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">01</div>
-                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Profile Details</h4>
+                        <form id="consult-form" class="space-y-24">
+                            <!-- Section 01: Profile -->
+                            <div class="space-y-12">
+                                <div class="flex items-center space-x-6">
+                                    <span class="text-4xl font-black text-brand-sky opacity-20 italic tracking-tighter">01</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-sm">Primary Profile</h4>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                                        <input type="text" id="client_name" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="e.g. Samuel Adekunle">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+                                        <input type="text" id="client_name" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700" placeholder="e.g. John Doe">
                                     </div>
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
-                                        <input type="email" id="client_email" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="samuel@mail.com">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+                                        <input type="email" id="client_email" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700" placeholder="contact@email.com">
                                     </div>
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
-                                        <input type="tel" id="phone" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="+234 ...">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
+                                        <input type="tel" id="phone" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700" placeholder="+234 ...">
                                     </div>
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Current Country of Residence</label>
-                                        <!-- UPDATED TO DROPDOWN -->
-                                        <select id="country" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm appearance-none cursor-pointer">
-                                            <option value="" disabled selected>Select Country</option>
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Country of Residence</label>
+                                        <select id="country" required class="form-input w-full px-8 py-5 rounded-3xl text-sm appearance-none cursor-pointer">
+                                            <option value="" disabled selected>Select Current Country</option>
                                             <option value="Nigeria">Nigeria</option>
                                             <option value="Ghana">Ghana</option>
                                             <option value="Benin">Benin</option>
@@ -158,110 +187,106 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Residential Address</label>
-                                    <input type="text" id="address" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="Home or Office Address">
+                                <div class="space-y-3">
+                                    <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Residential Address</label>
+                                    <input type="text" id="address" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700" placeholder="Street, City, State">
                                 </div>
                             </div>
 
-                            <!-- Section 2 -->
-                            <div class="space-y-8">
-                                <div class="flex items-center space-x-4">
-                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">02</div>
-                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Aspirations</h4>
+                            <!-- Section 02: Aspirations -->
+                            <div class="space-y-12">
+                                <div class="flex items-center space-x-6">
+                                    <span class="text-4xl font-black text-brand-sky opacity-20 italic tracking-tighter">02</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-sm">Academic Aspirations</h4>
                                 </div>
-                                <div class="space-y-4">
-                                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Intended Study Level (Select more than one if flexible)</label>
-                                    <!-- UPDATED TO 5 CHECKBOXES -->
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
-                                        <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="checkbox" name="program" value="Certificate" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-medium">Certificate</span>
+                                <div class="space-y-8">
+                                    <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1 italic">Intended Study Level (Multi-select if flexible)</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="checkbox" name="program" value="Certificate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-xs">Certificate</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="checkbox" name="program" value="Diploma" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-medium">Diploma</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="checkbox" name="program" value="Diploma" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-xs">Diploma</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="checkbox" name="program" value="Undergraduate" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-medium">Undergraduate</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="checkbox" name="program" value="Undergraduate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-xs">Undergraduate</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="checkbox" name="program" value="Postgraduate" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-medium">Postgraduate</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="checkbox" name="program" value="Postgraduate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-xs">Postgraduate</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="checkbox" name="program" value="Other" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-medium">Other</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="checkbox" name="program" value="Other" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-xs">Other</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Section 3 -->
-                            <div class="space-y-8">
-                                <div class="flex items-center space-x-4">
-                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">03</div>
-                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Emergency Contact</h4>
+                            <!-- Section 03: Emergency -->
+                            <div class="space-y-12">
+                                <div class="flex items-center space-x-6">
+                                    <span class="text-4xl font-black text-brand-sky opacity-20 italic tracking-tighter">03</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-sm">Safety Protocols</h4>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Contact Name</label>
-                                        <input type="text" id="emergency_name" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Contact Name</label>
+                                        <input type="text" id="emergency_name" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700">
                                     </div>
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Contact Phone</label>
-                                        <input type="tel" id="emergency_phone" required class="form-input w-full px-5 py-3.5 rounded-xl text-sm">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Phone</label>
+                                        <input type="tel" id="emergency_phone" required class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Section 4 -->
-                            <div class="space-y-8">
-                                <div class="flex items-center space-x-4">
-                                    <div class="bg-brand-sky/10 text-brand-sky text-xs font-black p-2 rounded-lg">04</div>
-                                    <!-- UPDATED LABEL -->
-                                    <h4 class="text-white font-bold uppercase tracking-widest text-xs">Available Documentation</h4>
+                            <!-- Section 04: Documentation -->
+                            <div class="space-y-12">
+                                <div class="flex items-center space-x-6">
+                                    <span class="text-4xl font-black text-brand-sky opacity-20 italic tracking-tighter">04</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-sm">Documentation Check</h4>
                                 </div>
-                                
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-medium">Birth Certificate</span>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-xs">Birth Certificate</span>
                                     </label>
-                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-medium">WAEC/NECO O' Level</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-xs">WAEC/NECO O' Level</span>
                                     </label>
-                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-medium">English Test (IELTS/CELPIP)</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-xs">English Test</span>
                                     </label>
-                                    <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="Any Other Certification" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-medium">Other Certification</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Any Other Certification" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-xs">Certifications</span>
                                     </label>
                                 </div>
 
-                                <div class="space-y-6 pt-4">
-                                    <div class="space-y-2">
-                                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Shareable Cloud Link (G-Drive/Dropbox)</label>
-                                        <input type="url" id="document_link" class="form-input w-full px-5 py-3.5 rounded-xl text-sm" placeholder="https://...">
+                                <div class="space-y-8 pt-10">
+                                    <div class="space-y-3">
+                                        <label class="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Shareable Document Link (G-Drive / Dropbox)</label>
+                                        <input type="url" id="document_link" class="form-input w-full px-8 py-5 rounded-3xl text-sm placeholder-slate-700" placeholder="https://drive.google.com/...">
                                     </div>
                                     
-                                    <div class="bg-brand-dark/50 p-6 rounded-2xl border border-slate-800 space-y-4">
+                                    <div class="bg-brand-dark/50 p-10 rounded-[3rem] border border-slate-800 space-y-8">
                                         <label class="flex items-center cursor-pointer group">
-                                            <input type="checkbox" id="other_means_checkbox" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <!-- UPDATED CAPTION -->
-                                            <span class="ml-4 text-xs font-bold text-slate-400 group-hover:text-slate-200 transition-colors">I will provide documents via email, WhatsApp or other means.</span>
+                                            <input type="checkbox" id="other_means_checkbox" class="w-7 h-7 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-6 text-[12px] font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest text-wrap">Provide via WhatsApp, Email, or Other Means</span>
                                         </label>
-                                        <textarea id="other_means_details" rows="3" class="form-input w-full px-5 py-3.5 rounded-xl text-sm hidden" placeholder="Explain your submission plan..."></textarea>
+                                        <textarea id="other_means_details" rows="4" class="form-input w-full px-8 py-6 rounded-[2.5rem] text-sm hidden placeholder-slate-700" placeholder="Explain your submission timeline and method..."></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" id="submit-btn" class="w-full py-4 bg-brand-sky text-brand-dark font-black rounded-2xl hover:brightness-110 active:scale-[0.99] transition-all shadow-2xl shadow-brand-sky/10 uppercase tracking-widest text-sm">
-                                Submit Consultation Request
+                            <button type="submit" id="submit-btn" class="w-full py-6 bg-brand-sky text-brand-dark font-black rounded-3xl hover:brightness-110 active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-[0.3em] text-sm">
+                                Submit Formal Consultation Intake
                             </button>
                         </form>
                     </div>
@@ -269,25 +294,44 @@
             </div>
 
             <!-- TECHNOLOGY TAB -->
-            <div id="content-tech" class="hidden">
-                <!-- Tech content omitted for brevity as requested by focus on form updates -->
+            <div id="content-tech" class="hidden animate-in fade-in duration-700">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="bg-brand-card p-16 rounded-[3.5rem] border border-slate-800 shadow-2xl">
+                        <h3 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic">Digital Build</h3>
+                        <p class="text-slate-400 text-lg leading-relaxed mb-10">Scalable, secure software development focused on solving complex global business challenges.</p>
+                        <ul class="space-y-5 text-sm font-bold uppercase tracking-widest text-slate-300">
+                            <li class="flex items-center space-x-4"><span class="w-2.5 h-2.5 bg-brand-sky rounded-full"></span> <span>React Ecosystems</span></li>
+                            <li class="flex items-center space-x-4"><span class="w-2.5 h-2.5 bg-brand-sky rounded-full"></span> <span>Enterprise SaaS</span></li>
+                            <li class="flex items-center space-x-4"><span class="w-2.5 h-2.5 bg-brand-sky rounded-full"></span> <span>Cloud Optimization</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-brand-card p-16 rounded-[3.5rem] border border-slate-800 shadow-2xl text-right">
+                        <h3 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic">Strategy</h3>
+                        <p class="text-slate-400 text-lg leading-relaxed mb-10">High-level IT strategy and modernization for legacy infrastructure.</p>
+                        <ul class="space-y-5 text-sm font-bold uppercase tracking-widest text-slate-300">
+                            <li class="flex items-center justify-end space-x-4"><span>Infrastructure Audits</span> <span class="w-2.5 h-2.5 bg-slate-600 rounded-full"></span></li>
+                            <li class="flex items-center justify-end space-x-4"><span>Cloud Migration</span> <span class="w-2.5 h-2.5 bg-slate-600 rounded-full"></span></li>
+                            <li class="flex items-center justify-end space-x-4"><span>Cyber-Security</span> <span class="w-2.5 h-2.5 bg-slate-600 rounded-full"></span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- FOOTER -->
-        <footer id="contact" class="mt-32 pt-16 border-t border-slate-800">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
-                <div class="max-w-md space-y-4">
-                    <h2 class="text-2xl font-black text-white">Let's <span class="text-brand-sky">Connect</span></h2>
-                    <p class="text-slate-400 text-sm leading-relaxed">Ready to take the next step? Our consultants are available for personalized strategy sessions.</p>
-                    <a href="mailto:natzconsul21@gmail.com" class="inline-flex items-center text-sm font-bold text-brand-sky hover:underline decoration-2 underline-offset-8">
+        <!-- FOOTER / CONTACT -->
+        <footer id="contact" class="pt-32 border-t border-slate-800">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-16">
+                <div class="max-w-md text-center md:text-left space-y-6">
+                    <h2 class="text-4xl font-black text-slate-300 uppercase tracking-tighter italic">GLOBAL CONNECT</h2>
+                    <p class="text-slate-400 text-lg font-medium">Strategy sessions are available by appointment only. Our team is ready to scale your aspirations.</p>
+                    <a href="mailto:natzconsul21@gmail.com" class="inline-flex items-center text-brand-sky font-black uppercase tracking-widest text-sm hover:underline underline-offset-8">
                         natzconsul21@gmail.com
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        <svg class="w-4 h-4 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
-            </div>
-            <div class="mt-16 py-8 border-t border-slate-900/50 text-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
-                &copy; <span id="current-year"></span> NATZ Consult. Registered Global Consultancy.
+                <div class="bg-slate-900/50 border border-slate-800 p-10 rounded-[2.5rem] text-[11px] font-black uppercase tracking-[0.4em] text-slate-500 text-center">
+                    &copy; <span id="current-year"></span> NATZ Consult. Authorized Global Consultancy.
+                </div>
             </div>
         </footer>
     </main>
@@ -314,7 +358,8 @@
             tabs.forEach(t => {
                 const el = document.getElementById('content-' + t);
                 if (el) el.classList.toggle('hidden', t !== id);
-                document.getElementById('nav-' + t).classList.toggle('tab-active', t === id);
+                const nav = document.getElementById('nav-' + t);
+                if (nav) nav.classList.toggle('tab-active', t === id);
             });
         }
 
@@ -329,17 +374,17 @@
             
             if (type === 'success') {
                 box.classList.add('bg-brand-dark', 'border-brand-sky', 'text-brand-sky');
-                messageContent.innerHTML = `<span>${content}</span>`;
+                messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
             } else {
                 box.classList.add('bg-brand-dark', 'border-rose-500', 'text-rose-500');
-                messageContent.innerHTML = `<span>${content}</span>`;
+                messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
             }
 
             setTimeout(() => box.classList.remove('translate-y-20'), 50);
             setTimeout(() => {
                 box.classList.add('translate-y-20');
                 setTimeout(() => box.classList.add('hidden'), 500);
-            }, 5000);
+            }, 6000);
         }
 
         async function handleFormSubmit(event) {
@@ -347,15 +392,14 @@
             const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.innerText;
             submitBtn.disabled = true;
-            submitBtn.innerText = 'PROCESSING...';
+            submitBtn.innerText = 'PROCESSING SECURITY...';
 
             const params = new URLSearchParams();
             const emailValue = document.getElementById('client_email').value;
 
-            // System Email collector
+            // System Email Field (Required by Google Form)
             params.append('emailAddress', emailValue);
 
-            // Manual entries
             params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
             params.append(FORM_ENTRY_MAP.client_email, emailValue); 
             params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
@@ -364,24 +408,19 @@
             params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
             params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
             
-            // Programs - Support multi-select
             const checkedPrograms = Array.from(document.querySelectorAll('input[name="program"]:checked')).map(c => c.value);
             checkedPrograms.forEach(p => params.append(FORM_ENTRY_MAP.program, p));
 
-            // Docs - Support multi-select
             const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value);
             checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
 
-            // Optional
             const link = document.getElementById('document_link').value;
             if (link.trim()) params.append(FORM_ENTRY_MAP.document_link, link.trim());
             
             if (document.getElementById('other_means_checkbox').checked) {
                 const details = document.getElementById('other_means_details').value;
-                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'Submitted via WhatsApp/Email/Other');
+                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'WhatsApp/Email/Other');
             }
-
-            console.log("DEBUG SUBMISSION PAYLOAD:", params.toString());
 
             try {
                 await fetch(GOOGLE_FORM_ACTION_URL, {
@@ -391,12 +430,12 @@
                     body: params.toString()
                 });
 
-                showMessage('success', 'Consultation Request Sent Successfully!');
-                document.getElementById('education-form').reset();
+                showMessage('success', 'Formal Intake Received. A consultant will review your profile shortly.');
+                document.getElementById('consult-form').reset();
                 document.getElementById('other_means_details').classList.add('hidden');
             } catch (error) {
                 console.error("Submission Failure:", error);
-                showMessage('error', 'Network failure. Check connection.');
+                showMessage('error', 'Global Network Error. Please verify connection.');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerText = originalText;
@@ -408,7 +447,8 @@
             document.getElementById('other_means_checkbox').addEventListener('change', (e) => {
                 document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
             });
-            document.getElementById('education-form').addEventListener('submit', handleFormSubmit);
+            document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
+            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
         });
     </script>
 </body>
