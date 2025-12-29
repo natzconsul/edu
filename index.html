@@ -202,7 +202,6 @@
                                         <span class="ml-4 font-medium">Birth Certificate</span>
                                     </label>
                                     <label class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800/50 cursor-pointer transition-all active:scale-[0.98]">
-                                        <!-- Note: Spacing "O' Level" matches pre-filled link exactly -->
                                         <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-5 h-5 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-offset-0 focus:ring-0">
                                         <span class="ml-4 font-medium">WAEC/NECO O' Level</span>
                                     </label>
@@ -307,7 +306,7 @@
 
     <!-- LOGIC -->
     <script>
-        // OFFICIAL FORM DATA - Optimized by removing /u/0/
+        // OFFICIAL FORM DATA
         const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse';
         
         const FORM_ENTRY_MAP = {
@@ -389,16 +388,20 @@
             const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value);
             checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
 
-            // Optional/Validation Logic - GUARD: Only append if not empty to prevent 400 errors from validation rules
+            // Optional/Validation Logic - Only append if text exists to avoid validation triggers
             const link = document.getElementById('document_link').value;
-            if (link.trim()) params.append(FORM_ENTRY_MAP.document_link, link);
+            if (link.trim()) {
+                params.append(FORM_ENTRY_MAP.document_link, link.trim());
+            }
             
             const otherMeans = document.getElementById('other_means_checkbox').checked;
             const details = document.getElementById('other_means_details').value;
+            
+            // If the user checks the box, send the details as is. If not, send a generic string.
             if (otherMeans) {
-                params.append(FORM_ENTRY_MAP.other_means_details, `YES: ${details || 'Unspecified'}`);
+                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'YES: No additional details');
             } else {
-                params.append(FORM_ENTRY_MAP.other_means_details, 'NO: Submitted via link or provided later');
+                params.append(FORM_ENTRY_MAP.other_means_details, 'NO: Will provide via link or later');
             }
 
             console.log("DEBUG SUBMISSION PAYLOAD:", params.toString());
@@ -412,7 +415,6 @@
                     body: params.toString()
                 });
 
-                // With no-cors, we won't get a status back, so we assume success if no network error
                 showMessage('success', 'Consultation Request Sent Successfully!');
                 document.getElementById('education-form').reset();
                 document.getElementById('other_means_details').classList.add('hidden');
