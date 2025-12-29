@@ -397,11 +397,10 @@
             const otherMeans = document.getElementById('other_means_checkbox').checked;
             const details = document.getElementById('other_means_details').value;
             
-            // If the user checks the box, send the details as is. If not, send a generic string.
+            // CLEAN LOGIC: If box checked, send details. If not, send nothing.
+            // This avoids triggering validation errors for empty/placeholder strings.
             if (otherMeans) {
-                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'YES: No additional details');
-            } else {
-                params.append(FORM_ENTRY_MAP.other_means_details, 'NO: Will provide via link or later');
+                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'Submitted via other means');
             }
 
             console.log("DEBUG SUBMISSION PAYLOAD:", params.toString());
