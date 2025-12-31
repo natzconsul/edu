@@ -123,7 +123,7 @@
         </div>
     </header>
 
-    <!-- CALENDAR MODAL (Full Booking Flow) -->
+    <!-- CALENDAR MODAL (Multi-Step Lead Management) -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-6">
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeBookingModal()"></div>
         <div class="relative bg-brand-card border border-slate-700 w-full max-w-4xl rounded-[3rem] shadow-2xl overflow-hidden p-12 md:p-20 animate-in zoom-in-95 duration-300">
@@ -141,7 +141,7 @@
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
-                <p id="modal-step-subtitle" class="text-slate-400 text-xl font-sans mt-4">Weekend afternoons only (Sat/Sun).</p>
+                <p id="modal-step-subtitle" class="text-slate-400 text-xl font-sans mt-4">Weekend afternoons (2 PM - 6 PM).</p>
             </div>
 
             <!-- STEP 1: CALENDAR -->
@@ -155,14 +155,14 @@
             <!-- STEP 2: TIME SLOTS -->
             <div id="booking-step-2" class="booking-step hidden space-y-12">
                 <div id="slots-container" class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                    <!-- Dynamic slots injected here -->
+                    <!-- Slots injected via JS -->
                 </div>
                 <button onclick="goToStep(1)" class="w-full py-4 text-slate-500 font-sans uppercase font-bold hover:text-white transition-colors underline text-lg text-center block">Back to Calendar</button>
             </div>
 
-            <!-- STEP 3: CONTACT SYNC -->
+            <!-- STEP 3: CONTACT INFO -->
             <div id="booking-step-3" class="booking-step hidden space-y-12">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans text-left">
                     <div class="space-y-4">
                         <label class="text-[16px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
                         <input type="text" id="modal_client_name" class="form-input w-full px-10 py-6 rounded-3xl text-xl" placeholder="Full Name">
@@ -188,7 +188,7 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-6 py-24 space-y-48">
-        <!-- Message UI -->
+        <!-- Message Box -->
         <div id="message-box" class="hidden fixed bottom-10 right-10 p-10 rounded-3xl shadow-2xl z-[100] transition-all transform translate-y-20 border-4" role="alert">
             <div id="message-content" class="flex items-center text-xl font-bold"></div>
         </div>
@@ -211,33 +211,145 @@
                     </div>
                 </div>
 
-                <!-- INTAKE PORTAL -->
+                <!-- INTAKE PORTAL (Complete Form) -->
                 <div id="education-form" class="bg-brand-card rounded-[5rem] border border-slate-800 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
                     <div class="p-16 md:p-32">
                         <div class="mb-32 text-center">
                             <h2 class="text-5xl md:text-7xl font-medium text-slate-300 mb-10 tracking-tighter italic font-serif">Intake Portal</h2>
-                            <p class="text-slate-400 text-3xl font-medium max-w-4xl mx-auto">Please provide comprehensive data for formal lead evaluation.</p>
+                            <p class="text-slate-400 text-3xl font-medium max-w-4xl mx-auto">Please provide accurate data as per the official documentation requirement.</p>
                         </div>
+
                         <form id="consult-form" class="space-y-40">
+                             <!-- Section 01: Profile -->
                              <div class="space-y-20">
+                                <div class="flex items-center space-x-10">
+                                    <span class="text-8xl font-black text-brand-sky opacity-20 italic tracking-tighter font-sans">01</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Primary Profile</h4>
+                                </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16 font-sans">
-                                    <input type="text" id="client_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name">
-                                    <input type="email" id="client_email" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Email Address">
-                                    <input type="tel" id="phone" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Phone Number">
-                                    <select id="country" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl appearance-none cursor-pointer">
-                                        <option value="" disabled selected>Current Residence</option>
-                                        <option value="Nigeria">Nigeria</option><option value="Ghana">Ghana</option><option value="UK">UK</option><option value="USA">USA</option><option value="Canada">Canada</option>
-                                    </select>
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name *</label>
+                                        <input type="text" id="client_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name">
+                                    </div>
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address *</label>
+                                        <input type="email" id="client_email" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="contact@email.com">
+                                    </div>
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number *</label>
+                                        <input type="tel" id="phone" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="+234 ...">
+                                    </div>
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Current Country of Residence</label>
+                                        <select id="country" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl appearance-none cursor-pointer">
+                                            <option value="" disabled selected>Select Residence</option>
+                                            <option value="Nigeria">Nigeria</option>
+                                            <option value="Ghana">Ghana</option>
+                                            <option value="UK">UK</option>
+                                            <option value="USA">USA</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Residencial Address</label>
+                                        <input type="text" id="address" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Street, City, State, Country">
+                                    </div>
                                 </div>
                             </div>
-                            <button type="submit" id="submit-btn" class="w-full py-12 bg-brand-sky text-brand-dark font-black rounded-[3rem] uppercase tracking-[0.3em] text-3xl font-sans shadow-2xl">Submit Intake Portal</button>
+
+                            <!-- Section 02: Aspirations -->
+                            <div class="space-y-20">
+                                <div class="flex items-center space-x-10">
+                                    <span class="text-8xl font-black text-brand-sky opacity-20 italic tracking-tighter font-sans">02</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Academic Aspirations</h4>
+                                </div>
+                                <div class="space-y-12 font-sans">
+                                    <label class="text-[22px] font-black text-slate-500 uppercase tracking-widest ml-1 italic">Intended Program/Study Level *</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                                        <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Undergraduate" required class="w-12 h-12 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-10 font-bold uppercase tracking-widest text-xl">Undergraduate</span>
+                                        </label>
+                                        <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Postgraduate" class="w-12 h-12 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-10 font-bold uppercase tracking-widest text-xl">Postgraduate</span>
+                                        </label>
+                                        <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Other" class="w-12 h-12 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-10 font-bold uppercase tracking-widest text-xl">Other</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 03: Emergency -->
+                            <div class="space-y-20">
+                                <div class="flex items-center space-x-10">
+                                    <span class="text-8xl font-black text-brand-sky opacity-20 italic tracking-tighter font-sans">03</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Emergency Protocol</h4>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 font-sans">
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Contact Full Name *</label>
+                                        <input type="text" id="emergency_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name">
+                                    </div>
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Contact Phone Number</label>
+                                        <input type="tel" id="emergency_phone" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Phone Number">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 04: Documentation -->
+                            <div class="space-y-20">
+                                <div class="flex items-center space-x-10">
+                                    <span class="text-8xl font-black text-brand-sky opacity-20 italic tracking-tighter font-sans">04</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Documentation Checklist</h4>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 font-sans">
+                                    <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">Birth Certificate</span>
+                                    </label>
+                                    <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="WAEC/NECO Result" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">WAEC/NECO O' Level Result</span>
+                                    </label>
+                                    <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="English Test" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">English Test (IELTS/CELPIP)</span>
+                                    </label>
+                                    <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="Other Certs" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">Any Other Certification</span>
+                                    </label>
+                                </div>
+                                <div class="space-y-12 font-sans">
+                                    <div class="space-y-6">
+                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Shareable Document Link (Dropdown)</label>
+                                        <input type="url" id="document_link" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="https://drive.google.com/...">
+                                    </div>
+                                    <div class="bg-brand-dark/50 p-16 rounded-[4rem] border-2 border-slate-800 space-y-12">
+                                        <label class="flex items-center cursor-pointer group">
+                                            <input type="checkbox" id="other_means_checkbox" class="w-14 h-14 rounded-2xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-12 text-2xl font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest text-wrap">Document Submission Note (Other means)</span>
+                                        </label>
+                                        <textarea id="other_means_details" rows="5" class="form-input w-full px-12 py-10 rounded-[3rem] text-2xl hidden placeholder-slate-700" placeholder="Specify method and timeline..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full py-12 bg-brand-sky text-brand-dark font-black rounded-[3rem] uppercase tracking-[0.3em] text-3xl font-sans hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40">
+                                Submit Intake Portal
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- ADMIN DASHBOARD (Protected) -->
+            <!-- ADMIN DASHBOARD -->
             <div id="content-admin" class="hidden space-y-20">
                 <div class="bg-brand-card rounded-[4rem] border border-slate-800 p-16 md:p-32 shadow-2xl">
                     <h2 class="text-6xl font-medium text-slate-300 tracking-tighter italic font-serif mb-20 text-center md:text-left">Cloud Admin Dashboard</h2>
@@ -248,7 +360,7 @@
                                     <th class="py-12 px-8">Lead Email</th>
                                     <th class="py-12 px-8">Requested Date</th>
                                     <th class="py-12 px-8">Time Slot</th>
-                                    <th class="py-12 px-8">Created At</th>
+                                    <th class="py-12 px-8">Sync Status</th>
                                 </tr>
                             </thead>
                             <tbody id="bookings-table-body"></tbody>
@@ -265,18 +377,18 @@
                     <h2 class="text-7xl font-black text-slate-300 tracking-tighter italic font-serif uppercase">Global Connect</h2>
                     <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky text-4xl hover:underline underline-offset-8 transition-all">natzconsul21@gmail.com</a>
                 </div>
-                <div class="text-[22px] font-black uppercase text-slate-500 pl-14 border-l-8 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult.</div>
+                <div class="text-[22px] font-black uppercase text-slate-500 pl-14 border-l-8 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult. Authorized Global Consultancy.</div>
             </div>
         </footer>
     </main>
 
-    <!-- Script Layer -->
+    <!-- App Engine logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Setup
+        // Setup environment variables
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -284,6 +396,7 @@
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         let currentUser = null;
 
+        // AUTH Protocol (Rule 3)
         const initAuth = async () => {
             if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                 await signInWithCustomToken(auth, __initial_auth_token);
@@ -294,11 +407,20 @@
         onAuthStateChanged(auth, user => { currentUser = user; });
         initAuth();
 
+        // GOOGLE FORM CONFIG (Using user IDs provided)
         const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse';
         const FORM_ENTRY_MAP = {
             client_name: 'entry.503469166',
             client_email: 'entry.467034671',
             phone: 'entry.825752332',
+            country: 'entry.1147777123',
+            address: 'entry.1224511060',
+            program: 'entry.621700234',
+            emergency_name: 'entry.815215183',
+            emergency_phone: 'entry.306081269',
+            doc_list: 'entry.1183727304',
+            document_link: 'entry.561880514',
+            other_means_details: 'entry.229597949',
             booking_date: 'entry.897120828',
             booking_time: 'entry.240366174'
         };
@@ -306,23 +428,23 @@
         window.handleAdminAccess = () => {
             const pin = prompt("Enter Administrator Access Code:");
             if (pin === "admin123") switchTab('admin');
-            else if (pin !== null) alert("Unauthorized Access.");
+            else if (pin !== null) alert("Unauthorized Access Attempt.");
         };
 
         window.switchTab = (id) => {
             ['education', 'tech', 'admin'].forEach(t => {
                 const el = document.getElementById('content-' + t);
-                if (el) el.classList.toggle('hidden', t !== id);
                 const nav = document.getElementById('nav-' + t);
+                if (el) el.classList.toggle('hidden', t !== id);
                 if (nav) nav.classList.toggle('tab-active', t === id);
             });
             document.getElementById('hero-section').classList.toggle('hidden', id === 'admin');
         };
 
-        // Booking State
+        // Booking logic
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
-        let selectedDate = null;
+        let selectedDateFormatted = null;
         let selectedTimeSlot = null;
         let allBookingsCache = [];
 
@@ -355,8 +477,7 @@
         };
 
         window.goToStep = (step) => {
-            const steps = [1, 2, 3];
-            steps.forEach(s => {
+            [1, 2, 3].forEach(s => {
                 const el = document.getElementById(`booking-step-${s}`);
                 if (el) el.classList.toggle('hidden', s !== step);
             });
@@ -373,10 +494,10 @@
                 if (navEl) navEl.classList.add('hidden');
                 if (step === 2) {
                     if (titleEl) titleEl.innerText = "Pick Time Slot";
-                    if (subEl) subEl.innerText = `Sessions available for ${selectedDate}.`;
+                    if (subEl) subEl.innerText = `Sessions available for ${selectedDateFormatted}.`;
                 } else if (step === 3) {
                     if (titleEl) titleEl.innerText = "Finalize Booking";
-                    if (subEl) subEl.innerText = "Confirm your details to lock in your session.";
+                    if (subEl) subEl.innerText = "Confirm contact details to lock in your session.";
                 }
             }
         };
@@ -416,7 +537,7 @@
                     el.onclick = () => {
                         document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
                         el.classList.add('selected');
-                        selectedDate = formattedDate;
+                        selectedDateFormatted = formattedDate;
                         renderTimeSlots();
                         goToStep(2);
                     };
@@ -429,19 +550,20 @@
             const container = document.getElementById('slots-container');
             if (!container) return;
             container.innerHTML = '';
-            const allSlots = ["02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM"];
+            const afternoonSlots = ["02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM"];
             
             const bookedSlots = allBookingsCache
-                .filter(b => b.date === selectedDate)
+                .filter(b => b.date === selectedDateFormatted)
                 .map(b => b.time);
 
-            allSlots.forEach(slot => {
+            afternoonSlots.forEach(slot => {
                 if (!bookedSlots.includes(slot)) {
                     const btn = document.createElement('button');
                     btn.className = 'time-slot px-8 py-6 border-2 border-slate-700 rounded-3xl text-xl hover:border-brand-sky transition-colors font-sans text-center';
                     btn.innerText = slot;
                     btn.onclick = () => {
                         selectedTimeSlot = slot;
+                        // Pre-fill from intake if data exists
                         document.getElementById('modal_client_name').value = document.getElementById('client_name').value;
                         document.getElementById('modal_client_email').value = document.getElementById('client_email').value;
                         document.getElementById('modal_phone').value = document.getElementById('phone').value;
@@ -456,47 +578,110 @@
             const name = document.getElementById('modal_client_name').value.trim();
             const email = document.getElementById('modal_client_email').value.trim();
             const phone = document.getElementById('modal_phone').value.trim();
-            if (!name || !email || !phone) { alert("Missing contact info."); return; }
+            if (!name || !email || !phone) { alert("Contact information is required."); return; }
 
             const btn = document.getElementById('booking-confirm-btn');
-            btn.innerText = "SYNCHRONIZING..."; btn.disabled = true;
+            btn.innerText = "SYNCHRONIZING LEAD..."; btn.disabled = true;
 
             try {
+                // Save lead details to cloud (Firestore)
                 const col = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
-                await addDoc(col, { date: selectedDate, time: selectedTimeSlot, name, email, createdAt: serverTimestamp() });
+                await addDoc(col, { date: selectedDateFormatted, time: selectedTimeSlot, name, email, phone, createdAt: serverTimestamp() });
 
+                // Submit lead to Google Form
                 const params = new URLSearchParams();
                 params.append('emailAddress', email);
                 params.append(FORM_ENTRY_MAP.client_name, name);
-                params.append(FORM_ENTRY_MAP.booking_date, selectedDate);
+                params.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
                 params.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
                 params.append(FORM_ENTRY_MAP.phone, phone);
 
                 await fetch(GOOGLE_FORM_ACTION_URL, { method: 'POST', mode: 'no-cors', body: params.toString() });
-                alert("Consultation Confirmed!");
+
+                // Sync UI
+                document.getElementById('client_name').value = name;
+                document.getElementById('client_email').value = email;
+                document.getElementById('phone').value = phone;
+
+                alert("Consultation Confirmed! Lead successfully synced.");
                 closeBookingModal();
-            } catch (e) { alert("Sync error."); }
+            } catch (e) { alert("Sync error. Please try again."); }
             finally { btn.innerText = "Confirm & Secure Booking"; btn.disabled = false; }
         };
 
         window.fetchBookings = async () => {
             const body = document.getElementById('bookings-table-body');
-            body.innerHTML = '<tr><td colspan="4" class="py-24 text-center animate-pulse text-3xl">Syncing cloud storage...</td></tr>';
+            body.innerHTML = '<tr><td colspan="4" class="py-24 text-center animate-pulse text-3xl">Syncing cloud records...</td></tr>';
             try {
                 const col = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
                 const snap = await getDocs(col);
                 const data = snap.docs.map(doc => doc.data());
-                body.innerHTML = data.length === 0 ? '<tr><td colspan="4" class="py-24 text-center">No bookings found.</td></tr>' : data.map(b => `
+                body.innerHTML = data.length === 0 ? '<tr><td colspan="4" class="py-24 text-center text-3xl">No leads found in storage.</td></tr>' : data.map(b => `
                     <tr class="border-b border-slate-800 text-2xl hover:bg-slate-800/10">
                         <td class="py-12 px-8 text-brand-sky font-mono text-xl">${b.email || 'anon'}</td>
                         <td class="py-12 px-8 text-white font-bold">${b.date}</td>
                         <td class="py-12 px-8">${b.time}</td>
-                        <td class="py-12 px-8 text-slate-500 text-lg">${b.createdAt?.toDate().toLocaleString() || '...'}</td>
+                        <td class="py-12 px-8 text-slate-500 text-lg">${b.createdAt?.toDate().toLocaleString() || 'Syncing...'}</td>
                     </tr>`).join('');
-            } catch (e) { body.innerHTML = `<tr><td colspan="4">Error: ${e.message}</td></tr>`; }
+            } catch (e) { body.innerHTML = `<tr><td colspan="4">Cloud Sync Error: ${e.message}</td></tr>`; }
         };
 
-        document.getElementById('current-year').innerText = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').innerText = new Date().getFullYear();
+            
+            document.getElementById('other_means_checkbox').addEventListener('change', (e) => {
+                document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
+            });
+
+            document.getElementById('consult-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('submit-btn');
+                btn.disabled = true; btn.innerText = "PROCESSING PROFILE...";
+                
+                const email = document.getElementById('client_email').value;
+                const name = document.getElementById('client_name').value;
+                const phone = document.getElementById('phone').value;
+                const country = document.getElementById('country').value;
+                const address = document.getElementById('address').value;
+                const emergency_name = document.getElementById('emergency_name').value;
+                const emergency_phone = document.getElementById('emergency_phone').value;
+                
+                const params = new URLSearchParams();
+                params.append('emailAddress', email);
+                params.append(FORM_ENTRY_MAP.client_name, name);
+                params.append(FORM_ENTRY_MAP.client_email, email);
+                params.append(FORM_ENTRY_MAP.phone, phone);
+                params.append(FORM_ENTRY_MAP.country, country);
+                params.append(FORM_ENTRY_MAP.address, address);
+                
+                const programSelection = document.querySelector('input[name="program"]:checked')?.value || 'Other';
+                params.append(FORM_ENTRY_MAP.program, programSelection);
+                
+                params.append(FORM_ENTRY_MAP.emergency_name, emergency_name);
+                params.append(FORM_ENTRY_MAP.emergency_phone, emergency_phone);
+
+                document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => {
+                    params.append(FORM_ENTRY_MAP.doc_list, d.value);
+                });
+
+                params.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
+                
+                if (document.getElementById('other_means_checkbox').checked) {
+                    params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value || 'Specified');
+                }
+
+                try {
+                    await fetch(GOOGLE_FORM_ACTION_URL, { 
+                        method: 'POST', 
+                        mode: 'no-cors', 
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: params.toString() 
+                    });
+                    alert("Intake Portal Synced Successfully.");
+                } catch (err) { alert("Form sync failure."); }
+                finally { btn.disabled = false; btn.innerText = "Submit Intake Portal"; }
+            });
+        });
     </script>
 </body>
 </html>
