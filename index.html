@@ -24,28 +24,13 @@
         }
     </script>
     <style>
-        .tab-active {
-            border-bottom: 4px solid #0EA5E9;
-            color: #0EA5E9;
-        }
-        .form-input {
-            background-color: #0F172A;
-            border: 2px solid #334155;
-            color: #F8FAFC;
-            transition: all 0.2s ease;
-        }
-        .form-input:focus {
-            border-color: #0EA5E9;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
-        }
-        .hero-gradient {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
-        }
+        .tab-active { border-bottom: 4px solid #0EA5E9; color: #0EA5E9; }
+        .form-input { background-color: #0F172A; border: 2px solid #334155; color: #F8FAFC; transition: all 0.2s ease; }
+        .form-input:focus { border-color: #0EA5E9; outline: none; box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2); }
+        .hero-gradient { background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%); }
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #0F172A; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
-        
         .modal-open { overflow: hidden; }
         .calendar-day:not(.disabled):hover { background-color: #0EA5E9; color: #0F172A; }
         .calendar-day.selected { background-color: #0EA5E9; color: #0F172A; font-weight: bold; }
@@ -55,11 +40,11 @@
 </head>
 <body class="bg-brand-dark text-slate-200 min-h-screen selection:bg-brand-sky/30 font-serif">
 
-    <!-- Sticky Navigation (25% Increased Scale) -->
+    <!-- Navigation (25% Scaled) -->
     <nav class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
             <div class="flex items-center space-x-5 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="w-16 h-16 bg-brand-sky rounded-xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
+                <div class="w-16 h-16 bg-brand-sky rounded-2xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
                     <svg class="w-10 h-10 text-brand-dark" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
@@ -87,8 +72,7 @@
     <header id="hero-section" class="relative w-full min-h-[90vh] flex items-center justify-center px-6 py-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
-                 alt="Academic Background" 
-                 class="w-full h-full object-cover opacity-20">
+                 alt="Academic Background" class="w-full h-full object-cover opacity-20">
             <div class="absolute inset-0 hero-gradient"></div>
         </div>
 
@@ -108,12 +92,12 @@
                 Empowering Global Educational Opportunity and Excellence
             </h1>
 
-            <p class="text-[18px] font-bold text-slate-400 tracking-[0.3em] font-sans max-w-4xl mx-auto leading-relaxed">
+            <p class="text-[18px] font-bold text-slate-400 tracking-[0.3em] font-sans max-w-4xl mx-auto leading-relaxed uppercase">
                 Strategic consultancy for international students
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8">
-                <a href="#education-form" class="w-full sm:w-auto px-16 py-6 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-xl font-sans">
+                <a href="#education-form" class="w-full sm:w-auto px-16 py-6 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-xl font-sans">
                     Start Intake Process
                 </a>
                 <button onclick="openBookingModal()" class="w-full sm:w-auto px-16 py-6 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-xl font-sans">
@@ -123,7 +107,7 @@
         </div>
     </header>
 
-    <!-- CALENDAR MODAL (Multi-Step Lead Management) -->
+    <!-- CALENDAR MODAL -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-6">
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeBookingModal()"></div>
         <div class="relative bg-brand-card border border-slate-700 w-full max-w-4xl rounded-[3rem] shadow-2xl overflow-hidden p-12 md:p-20 animate-in zoom-in-95 duration-300">
@@ -144,7 +128,6 @@
                 <p id="modal-step-subtitle" class="text-slate-400 text-xl font-sans mt-4">Weekend afternoons (2 PM - 6 PM).</p>
             </div>
 
-            <!-- STEP 1: CALENDAR -->
             <div id="booking-step-1" class="booking-step space-y-8">
                 <div class="grid grid-cols-7 gap-4 text-center text-[16px] font-black uppercase text-slate-500 mb-2 font-sans">
                     <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
@@ -152,15 +135,11 @@
                 <div id="calendar-grid" class="grid grid-cols-7 gap-4 font-sans"></div>
             </div>
 
-            <!-- STEP 2: TIME SLOTS -->
             <div id="booking-step-2" class="booking-step hidden space-y-12">
-                <div id="slots-container" class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                    <!-- Slots injected via JS -->
-                </div>
+                <div id="slots-container" class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto"></div>
                 <button onclick="goToStep(1)" class="w-full py-4 text-slate-500 font-sans uppercase font-bold hover:text-white transition-colors underline text-lg text-center block">Back to Calendar</button>
             </div>
 
-            <!-- STEP 3: CONTACT INFO -->
             <div id="booking-step-3" class="booking-step hidden space-y-12">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans text-left">
                     <div class="space-y-4">
@@ -176,11 +155,8 @@
                         <input type="tel" id="modal_phone" class="form-input w-full px-10 py-6 rounded-3xl text-xl" placeholder="+234 ...">
                     </div>
                 </div>
-                
                 <div class="pt-8 text-center space-y-6">
-                    <button id="booking-confirm-btn" onclick="confirmBooking()" class="w-full py-10 bg-brand-sky text-brand-dark font-black rounded-3xl uppercase tracking-[0.2em] text-2xl font-sans shadow-2xl transform active:scale-95 transition-transform">
-                        Confirm & Secure Booking
-                    </button>
+                    <button id="booking-confirm-btn" onclick="confirmBooking()" class="w-full py-10 bg-brand-sky text-brand-dark font-black rounded-3xl uppercase tracking-widest text-2xl font-sans shadow-xl transform active:scale-95 transition-transform">Confirm & Secure Booking</button>
                     <button onclick="goToStep(2)" class="text-slate-500 text-base uppercase font-bold hover:text-white transition-colors font-sans underline">Change Time Slot</button>
                 </div>
             </div>
@@ -188,7 +164,6 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-6 py-24 space-y-48">
-        <!-- Message Box -->
         <div id="message-box" class="hidden fixed bottom-10 right-10 p-10 rounded-3xl shadow-2xl z-[100] transition-all transform translate-y-20 border-4" role="alert">
             <div id="message-content" class="flex items-center text-xl font-bold"></div>
         </div>
@@ -217,7 +192,7 @@
                     <div class="p-16 md:p-32">
                         <div class="mb-32 text-center">
                             <h2 class="text-5xl md:text-7xl font-medium text-slate-300 mb-10 tracking-tighter italic font-serif">Intake Portal</h2>
-                            <p class="text-slate-400 text-3xl font-medium max-w-4xl mx-auto">Please provide accurate data as per the official documentation requirement.</p>
+                            <p class="text-slate-400 text-3xl font-medium max-w-4xl mx-auto">Please provide comprehensive data per the official documentation requirement.</p>
                         </div>
 
                         <form id="consult-form" class="space-y-40">
@@ -228,33 +203,15 @@
                                     <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Primary Profile</h4>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16 font-sans">
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name *</label>
-                                        <input type="text" id="client_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name">
-                                    </div>
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address *</label>
-                                        <input type="email" id="client_email" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="contact@email.com">
-                                    </div>
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number *</label>
-                                        <input type="tel" id="phone" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="+234 ...">
-                                    </div>
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Current Country of Residence</label>
-                                        <select id="country" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl appearance-none cursor-pointer">
-                                            <option value="" disabled selected>Select Residence</option>
-                                            <option value="Nigeria">Nigeria</option>
-                                            <option value="Ghana">Ghana</option>
-                                            <option value="UK">UK</option>
-                                            <option value="USA">USA</option>
-                                            <option value="Canada">Canada</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                    </div>
-                                    <div class="md:col-span-2 space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Residencial Address</label>
-                                        <input type="text" id="address" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Street, City, State, Country">
+                                    <input type="text" id="client_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name *">
+                                    <input type="email" id="client_email" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Email Address *">
+                                    <input type="tel" id="phone" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Phone Number *">
+                                    <select id="country" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl appearance-none cursor-pointer">
+                                        <option value="" disabled selected>Current Residence</option>
+                                        <option value="Nigeria">Nigeria</option><option value="Ghana">Ghana</option><option value="UK">UK</option><option value="USA">USA</option><option value="Canada">Canada</option><option value="Others">Others</option>
+                                    </select>
+                                    <div class="md:col-span-2">
+                                        <input type="text" id="address" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Residential Address">
                                     </div>
                                 </div>
                             </div>
@@ -291,14 +248,8 @@
                                     <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Emergency Protocol</h4>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16 font-sans">
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Contact Full Name *</label>
-                                        <input type="text" id="emergency_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Full Name">
-                                    </div>
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Emergency Contact Phone Number</label>
-                                        <input type="tel" id="emergency_phone" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Phone Number">
-                                    </div>
+                                    <input type="text" id="emergency_name" required class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Emergency Contact Full Name *">
+                                    <input type="tel" id="emergency_phone" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Emergency Contact Phone">
                                 </div>
                             </div>
 
@@ -306,7 +257,7 @@
                             <div class="space-y-20">
                                 <div class="flex items-center space-x-10">
                                     <span class="text-8xl font-black text-brand-sky opacity-20 italic tracking-tighter font-sans">04</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Documentation Checklist</h4>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-2xl font-sans">Documentation checklist</h4>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 font-sans">
                                     <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
@@ -314,59 +265,48 @@
                                         <span class="ml-10 font-bold uppercase tracking-widest text-xl">Birth Certificate</span>
                                     </label>
                                     <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                        <input type="checkbox" name="doc_list" value="WAEC/NECO Result" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">WAEC/NECO O' Level Result</span>
+                                        <input type="checkbox" name="doc_list" value="WAEC Result" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">WAEC/NECO Result</span>
                                     </label>
                                     <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="English Test" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">English Test (IELTS/CELPIP)</span>
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">English Test</span>
                                     </label>
                                     <label class="flex items-center p-10 rounded-[3rem] border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="Other Certs" class="w-12 h-12 rounded-xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">Any Other Certification</span>
+                                        <span class="ml-10 font-bold uppercase tracking-widest text-xl">Other Certifications</span>
                                     </label>
                                 </div>
                                 <div class="space-y-12 font-sans">
-                                    <div class="space-y-6">
-                                        <label class="text-[18px] font-black text-slate-500 uppercase tracking-widest ml-1">Shareable Document Link (Dropdown)</label>
-                                        <input type="url" id="document_link" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="https://drive.google.com/...">
-                                    </div>
+                                    <input type="url" id="document_link" class="form-input w-full px-12 py-8 rounded-[2.5rem] text-2xl" placeholder="Shareable Document Link (Drive/Dropbox)">
                                     <div class="bg-brand-dark/50 p-16 rounded-[4rem] border-2 border-slate-800 space-y-12">
                                         <label class="flex items-center cursor-pointer group">
                                             <input type="checkbox" id="other_means_checkbox" class="w-14 h-14 rounded-2xl border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-12 text-2xl font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest text-wrap">Document Submission Note (Other means)</span>
+                                            <span class="ml-12 text-2xl font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest">Submit via other means</span>
                                         </label>
                                         <textarea id="other_means_details" rows="5" class="form-input w-full px-12 py-10 rounded-[3rem] text-2xl hidden placeholder-slate-700" placeholder="Specify method and timeline..."></textarea>
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" id="submit-btn" class="w-full py-12 bg-brand-sky text-brand-dark font-black rounded-[3rem] uppercase tracking-[0.3em] text-3xl font-sans hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40">
-                                Submit Intake Portal
-                            </button>
+                            <button type="submit" id="submit-btn" class="w-full py-12 bg-brand-sky text-brand-dark font-black rounded-[3rem] uppercase tracking-[0.3em] text-3xl font-sans hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40">Submit Intake Portal</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- ADMIN DASHBOARD -->
+            <!-- ADMIN VIEW -->
             <div id="content-admin" class="hidden space-y-20">
-                <div class="bg-brand-card rounded-[4rem] border border-slate-800 p-16 md:p-32 shadow-2xl">
-                    <h2 class="text-6xl font-medium text-slate-300 tracking-tighter italic font-serif mb-20 text-center md:text-left">Cloud Admin Dashboard</h2>
+                <div class="bg-brand-card rounded-[4rem] border border-slate-800 p-16 shadow-2xl">
+                    <h2 class="text-6xl font-medium text-slate-300 tracking-tighter italic font-serif mb-20 text-center">Cloud Admin Dashboard</h2>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left font-sans text-2xl">
                             <thead class="text-slate-500 border-b-2 border-slate-800">
-                                <tr>
-                                    <th class="py-12 px-8">Lead Email</th>
-                                    <th class="py-12 px-8">Requested Date</th>
-                                    <th class="py-12 px-8">Time Slot</th>
-                                    <th class="py-12 px-8">Sync Status</th>
-                                </tr>
+                                <tr><th class="py-12 px-8">Lead Detail</th><th class="py-12 px-8">Date</th><th class="py-12 px-8">Time</th><th class="py-12 px-8">Created</th></tr>
                             </thead>
                             <tbody id="bookings-table-body"></tbody>
                         </table>
                     </div>
-                    <button onclick="fetchBookings()" class="mt-20 px-16 py-8 bg-slate-800 rounded-[2.5rem] hover:bg-slate-700 transition-all font-sans text-2xl uppercase font-bold text-brand-sky shadow-xl">Sync Dashboard Data</button>
+                    <button onclick="fetchBookings()" class="mt-20 px-16 py-8 bg-slate-800 rounded-[2.5rem] hover:bg-slate-700 transition-all font-sans text-2xl uppercase font-bold text-brand-sky shadow-xl">Sync Records</button>
                 </div>
             </div>
         </div>
@@ -375,39 +315,33 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-24">
                 <div class="max-w-3xl text-center md:text-left space-y-12 leading-tight">
                     <h2 class="text-7xl font-black text-slate-300 tracking-tighter italic font-serif uppercase">Global Connect</h2>
-                    <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky text-4xl hover:underline underline-offset-8 transition-all">natzconsul21@gmail.com</a>
+                    <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky text-4xl hover:underline underline-offset-8">natzconsul21@gmail.com</a>
                 </div>
-                <div class="text-[22px] font-black uppercase text-slate-500 pl-14 border-l-8 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult. Authorized Global Consultancy.</div>
+                <div class="text-[22px] font-black uppercase text-slate-500 pl-14 border-l-8 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult. Authorized Agent.</div>
             </div>
         </footer>
     </main>
 
-    <!-- App Engine logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Setup environment variables
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        let currentUser = null;
+        // Environment
+        let db, auth, appId = 'default-id';
+        try {
+            const firebaseConfig = JSON.parse(__firebase_config || "{}");
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const initAuth = async () => {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
+                else await signInAnonymously(auth);
+            };
+            initAuth();
+        } catch(e) { console.warn(e); }
 
-        // AUTH Protocol (Rule 3)
-        const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        };
-        onAuthStateChanged(auth, user => { currentUser = user; });
-        initAuth();
-
-        // GOOGLE FORM CONFIG (Using user IDs provided)
         const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse';
         const FORM_ENTRY_MAP = {
             client_name: 'entry.503469166',
@@ -426,9 +360,9 @@
         };
 
         window.handleAdminAccess = () => {
-            const pin = prompt("Enter Administrator Access Code:");
+            const pin = prompt("Code:");
             if (pin === "admin123") switchTab('admin');
-            else if (pin !== null) alert("Unauthorized Access Attempt.");
+            else if (pin) alert("Access Denied");
         };
 
         window.switchTab = (id) => {
@@ -441,32 +375,22 @@
             document.getElementById('hero-section').classList.toggle('hidden', id === 'admin');
         };
 
-        // Booking logic
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
         let selectedDateFormatted = null;
-        let selectedTimeSlot = null;
         let allBookingsCache = [];
 
         window.openBookingModal = async () => {
             document.getElementById('booking-modal').classList.remove('hidden');
             document.body.classList.add('modal-open');
-            await fetchAllBookings();
+            window.goToStep(1);
+            if (db) await fetchAllBookings();
             renderCalendar();
-            goToStep(1);
         };
 
         window.closeBookingModal = () => {
             document.getElementById('booking-modal').classList.add('hidden');
             document.body.classList.remove('modal-open');
-        };
-
-        const fetchAllBookings = async () => {
-            try {
-                const col = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
-                const snap = await getDocs(col);
-                allBookingsCache = snap.docs.map(doc => doc.data());
-            } catch (e) { console.error(e); }
         };
 
         window.changeMonth = (dir) => {
@@ -481,38 +405,35 @@
                 const el = document.getElementById(`booking-step-${s}`);
                 if (el) el.classList.toggle('hidden', s !== step);
             });
-            
             const titleEl = document.getElementById('modal-step-title');
             const subEl = document.getElementById('modal-step-subtitle');
-            const navEl = document.getElementById('month-navigation');
-
+            const nav = document.getElementById('month-navigation');
             if (step === 1) {
-                if (navEl) navEl.classList.remove('hidden');
-                if (subEl) subEl.innerText = "Available weekends (Sat/Sun) this month.";
-                renderCalendar();
+                if (nav) nav.classList.remove('hidden');
+                if (subEl) subEl.innerText = "Weekend afternoons (Sat/Sun) only.";
             } else {
-                if (navEl) navEl.classList.add('hidden');
-                if (step === 2) {
-                    if (titleEl) titleEl.innerText = "Pick Time Slot";
-                    if (subEl) subEl.innerText = `Sessions available for ${selectedDateFormatted}.`;
-                } else if (step === 3) {
-                    if (titleEl) titleEl.innerText = "Finalize Booking";
-                    if (subEl) subEl.innerText = "Confirm contact details to lock in your session.";
-                }
+                if (nav) nav.classList.add('hidden');
+                if (step === 2 && titleEl) titleEl.innerText = "Pick Time Slot";
+                if (step === 3 && titleEl) titleEl.innerText = "Finalize Info";
             }
+        };
+
+        const fetchAllBookings = async () => {
+            try {
+                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
+                const snap = await getDocs(colRef);
+                allBookingsCache = snap.docs.map(doc => doc.data());
+            } catch(e) {}
         };
 
         const renderCalendar = () => {
             const grid = document.getElementById('calendar-grid');
             const titleEl = document.getElementById('modal-step-title');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
+            if (!grid) return; grid.innerHTML = '';
             const today = new Date();
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
             const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
             const monthName = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' });
-            
             if (titleEl) titleEl.innerText = `${monthName} ${currentYear}`;
 
             for (let i = 1; i < (firstDayIndex || 7); i++) grid.appendChild(document.createElement('div'));
@@ -522,52 +443,36 @@
                 const dateObj = new Date(currentYear, currentMonth, day);
                 const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
                 const isPast = dateObj < today.setHours(0,0,0,0);
-                
-                const formattedDate = `${monthName} ${day}, ${currentYear}`;
-                const slotsBooked = allBookingsCache.filter(b => b.date === formattedDate).length;
-                const isFullyBooked = slotsBooked >= 5;
-
+                const formatted = `${monthName} ${day}, ${currentYear}`;
+                const slotsCount = allBookingsCache.filter(b => b.date === formatted).length;
                 el.innerText = day;
                 el.className = 'calendar-day p-6 border-2 border-slate-800 rounded-3xl transition-all flex items-center justify-center text-2xl font-sans';
-                
-                if (!isWeekend || isPast || isFullyBooked) {
-                    el.classList.add('disabled');
-                    if (isFullyBooked && isWeekend) el.innerText = 'Full';
-                } else {
-                    el.onclick = () => {
-                        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
-                        el.classList.add('selected');
-                        selectedDateFormatted = formattedDate;
-                        renderTimeSlots();
-                        goToStep(2);
-                    };
-                }
+                if (!isWeekend || isPast || slotsCount >= 5) el.classList.add('disabled');
+                else el.onclick = () => {
+                    selectedDateFormatted = formatted;
+                    renderTimeSlots();
+                    window.goToStep(2);
+                };
                 grid.appendChild(el);
             }
         };
 
         const renderTimeSlots = () => {
             const container = document.getElementById('slots-container');
-            if (!container) return;
-            container.innerHTML = '';
-            const afternoonSlots = ["02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM"];
-            
-            const bookedSlots = allBookingsCache
-                .filter(b => b.date === selectedDateFormatted)
-                .map(b => b.time);
-
-            afternoonSlots.forEach(slot => {
-                if (!bookedSlots.includes(slot)) {
+            if (!container) return; container.innerHTML = '';
+            const allSlots = ["02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM"];
+            const booked = allBookingsCache.filter(b => b.date === selectedDateFormatted).map(b => b.time);
+            allSlots.forEach(slot => {
+                if (!booked.includes(slot)) {
                     const btn = document.createElement('button');
                     btn.className = 'time-slot px-8 py-6 border-2 border-slate-700 rounded-3xl text-xl hover:border-brand-sky transition-colors font-sans text-center';
                     btn.innerText = slot;
                     btn.onclick = () => {
-                        selectedTimeSlot = slot;
-                        // Pre-fill from intake if data exists
+                        window.selectedTimeSlot = slot;
                         document.getElementById('modal_client_name').value = document.getElementById('client_name').value;
                         document.getElementById('modal_client_email').value = document.getElementById('client_email').value;
                         document.getElementById('modal_phone').value = document.getElementById('phone').value;
-                        goToStep(3);
+                        window.goToStep(3);
                     };
                     container.appendChild(btn);
                 }
@@ -578,107 +483,65 @@
             const name = document.getElementById('modal_client_name').value.trim();
             const email = document.getElementById('modal_client_email').value.trim();
             const phone = document.getElementById('modal_phone').value.trim();
-            if (!name || !email || !phone) { alert("Contact information is required."); return; }
-
+            if (!name || !email || !phone) return alert("Contact required.");
             const btn = document.getElementById('booking-confirm-btn');
-            btn.innerText = "SYNCHRONIZING LEAD..."; btn.disabled = true;
-
+            btn.innerText = "SYNCING..."; btn.disabled = true;
             try {
-                // Save lead details to cloud (Firestore)
-                const col = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
-                await addDoc(col, { date: selectedDateFormatted, time: selectedTimeSlot, name, email, phone, createdAt: serverTimestamp() });
-
-                // Submit lead to Google Form
+                if (db) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings'), { date: selectedDateFormatted, time: window.selectedTimeSlot, name, email, createdAt: serverTimestamp() });
                 const params = new URLSearchParams();
                 params.append('emailAddress', email);
                 params.append(FORM_ENTRY_MAP.client_name, name);
                 params.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
-                params.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
+                params.append(FORM_ENTRY_MAP.booking_time, window.selectedTimeSlot);
                 params.append(FORM_ENTRY_MAP.phone, phone);
-
                 await fetch(GOOGLE_FORM_ACTION_URL, { method: 'POST', mode: 'no-cors', body: params.toString() });
-
-                // Sync UI
-                document.getElementById('client_name').value = name;
-                document.getElementById('client_email').value = email;
-                document.getElementById('phone').value = phone;
-
-                alert("Consultation Confirmed! Lead successfully synced.");
+                alert("Consultation Confirmed!");
                 closeBookingModal();
-            } catch (e) { alert("Sync error. Please try again."); }
+            } catch(e) { alert("Error"); }
             finally { btn.innerText = "Confirm & Secure Booking"; btn.disabled = false; }
         };
 
         window.fetchBookings = async () => {
             const body = document.getElementById('bookings-table-body');
-            body.innerHTML = '<tr><td colspan="4" class="py-24 text-center animate-pulse text-3xl">Syncing cloud records...</td></tr>';
+            body.innerHTML = '<tr><td colspan="4" class="py-24 text-center animate-pulse">Syncing...</td></tr>';
             try {
-                const col = collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings');
-                const snap = await getDocs(col);
+                const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings'));
                 const data = snap.docs.map(doc => doc.data());
-                body.innerHTML = data.length === 0 ? '<tr><td colspan="4" class="py-24 text-center text-3xl">No leads found in storage.</td></tr>' : data.map(b => `
-                    <tr class="border-b border-slate-800 text-2xl hover:bg-slate-800/10">
-                        <td class="py-12 px-8 text-brand-sky font-mono text-xl">${b.email || 'anon'}</td>
-                        <td class="py-12 px-8 text-white font-bold">${b.date}</td>
-                        <td class="py-12 px-8">${b.time}</td>
-                        <td class="py-12 px-8 text-slate-500 text-lg">${b.createdAt?.toDate().toLocaleString() || 'Syncing...'}</td>
-                    </tr>`).join('');
-            } catch (e) { body.innerHTML = `<tr><td colspan="4">Cloud Sync Error: ${e.message}</td></tr>`; }
+                body.innerHTML = data.map(b => `<tr class="border-b border-slate-800 text-2xl">
+                    <td class="py-12 px-8 text-brand-sky text-xl">${b.email || 'anon'}</td>
+                    <td class="py-12 px-8 text-white font-bold">${b.date}</td>
+                    <td class="py-12 px-8">${b.time}</td>
+                    <td class="py-12 px-8 text-slate-500 text-lg">${b.createdAt?.toDate().toLocaleString() || '...'}</td>
+                </tr>`).join('');
+            } catch(e) { body.innerHTML = '<tr><td colspan="4">Error</td></tr>'; }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').innerText = new Date().getFullYear();
-            
             document.getElementById('other_means_checkbox').addEventListener('change', (e) => {
                 document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
             });
-
             document.getElementById('consult-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
-                btn.disabled = true; btn.innerText = "PROCESSING PROFILE...";
-                
-                const email = document.getElementById('client_email').value;
-                const name = document.getElementById('client_name').value;
-                const phone = document.getElementById('phone').value;
-                const country = document.getElementById('country').value;
-                const address = document.getElementById('address').value;
-                const emergency_name = document.getElementById('emergency_name').value;
-                const emergency_phone = document.getElementById('emergency_phone').value;
-                
+                btn.disabled = true; btn.innerText = "PROCESSING...";
                 const params = new URLSearchParams();
-                params.append('emailAddress', email);
-                params.append(FORM_ENTRY_MAP.client_name, name);
-                params.append(FORM_ENTRY_MAP.client_email, email);
-                params.append(FORM_ENTRY_MAP.phone, phone);
-                params.append(FORM_ENTRY_MAP.country, country);
-                params.append(FORM_ENTRY_MAP.address, address);
-                
-                const programSelection = document.querySelector('input[name="program"]:checked')?.value || 'Other';
-                params.append(FORM_ENTRY_MAP.program, programSelection);
-                
-                params.append(FORM_ENTRY_MAP.emergency_name, emergency_name);
-                params.append(FORM_ENTRY_MAP.emergency_phone, emergency_phone);
-
-                document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => {
-                    params.append(FORM_ENTRY_MAP.doc_list, d.value);
-                });
-
+                params.append('emailAddress', document.getElementById('client_email').value);
+                params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
+                params.append(FORM_ENTRY_MAP.client_email, document.getElementById('client_email').value);
+                params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
+                params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
+                params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
+                params.append(FORM_ENTRY_MAP.program, document.querySelector('input[name="program"]:checked')?.value || '');
+                params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
+                params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
+                document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => params.append(FORM_ENTRY_MAP.doc_list, d.value));
                 params.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
-                
-                if (document.getElementById('other_means_checkbox').checked) {
-                    params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value || 'Specified');
-                }
-
+                if (document.getElementById('other_means_checkbox').checked) params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
                 try {
-                    await fetch(GOOGLE_FORM_ACTION_URL, { 
-                        method: 'POST', 
-                        mode: 'no-cors', 
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: params.toString() 
-                    });
-                    alert("Intake Portal Synced Successfully.");
-                } catch (err) { alert("Form sync failure."); }
+                    await fetch(GOOGLE_FORM_ACTION_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() });
+                    alert("Intake Portal Synced.");
+                } catch(err) { alert("Error"); }
                 finally { btn.disabled = false; btn.innerText = "Submit Intake Portal"; }
             });
         });
