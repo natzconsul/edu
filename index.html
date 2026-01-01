@@ -24,14 +24,15 @@
         }
     </script>
     <style>
-        /* Global 10% reduction */
+        /* Global 10% reduction (Base 14px instead of 16px) */
         html { font-size: 14px; }
-        body { font-size: 0.95rem; line-height: 1.5; }
+        body { font-size: 1rem; line-height: 1.5; }
         
         .tab-active { border-bottom: 3px solid #0EA5E9; color: #0EA5E9; }
         .form-input { background-color: #0F172A; border: 2px solid #334155; color: #F8FAFC; transition: all 0.2s ease; }
         .form-input:focus { border-color: #0EA5E9; outline: none; box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2); }
         .hero-gradient { background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%); }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0F172A; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -41,16 +42,16 @@
         .calendar-day.selected { background-color: #0EA5E9; color: #0F172A; font-weight: bold; }
         .calendar-day.disabled { opacity: 0.15; cursor: not-allowed; pointer-events: none; background: rgba(255,255,255,0.05); }
         
-        /* Intake Portal 15% reduction */
-        #education-form label { font-size: 0.8rem; }
-        #education-form input, #education-form select, #education-form textarea { font-size: 0.9rem; padding: 0.8rem 1.2rem; }
-        #education-form h4 { font-size: 1rem; }
-        #education-form .section-num { font-size: 4rem; }
+        /* Intake Portal Content - 15% Reduction */
+        .portal-content label { font-size: 0.8rem; letter-spacing: 0.025em; }
+        .portal-content input, .portal-content select, .portal-content textarea { font-size: 0.9rem; padding: 0.75rem 1rem; }
+        .portal-content h4 { font-size: 1.1rem; }
+        .portal-content .section-num { font-size: 3.5rem; }
         
-        /* Footer 20% reduction */
-        footer { font-size: 0.75rem; }
-        footer h2 { font-size: 2.5rem !important; }
-        footer a { font-size: 1.2rem !important; }
+        /* Footer - 20% Reduction */
+        .footer-small { font-size: 0.8rem; }
+        .footer-small h2 { font-size: 2.5rem !important; }
+        .footer-small a { font-size: 1.1rem !important; }
         
         .booking-step { transition: all 0.3s ease-in-out; }
     </style>
@@ -126,7 +127,7 @@
     <!-- CALENDAR MODAL -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-6">
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeBookingModal()"></div>
-        <div class="relative bg-brand-card border border-slate-700 w-full max-w-3xl rounded-[2.5rem] shadow-2xl overflow-hidden p-8 md:p-12 animate-in zoom-in-95 duration-300">
+        <div class="relative bg-brand-card border border-slate-700 w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden p-8 md:p-12 animate-in zoom-in-95 duration-300">
             <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -141,39 +142,39 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
-                <p id="modal-step-subtitle" class="text-slate-400 text-base font-sans mt-2">Weekend afternoons (2 PM - 6 PM).</p>
+                <p id="modal-step-subtitle" class="text-slate-400 text-sm font-sans mt-1">Weekend afternoons (2 PM - 6 PM) only.</p>
             </div>
 
             <div id="booking-step-1" class="booking-step space-y-6">
-                <div class="grid grid-cols-7 gap-2 text-center text-[12px] font-black uppercase text-slate-500 mb-2 font-sans">
+                <div class="grid grid-cols-7 gap-2 text-center text-[10px] font-black uppercase text-slate-500 mb-1 font-sans">
                     <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
                 </div>
-                <div id="calendar-grid" class="grid grid-cols-7 gap-2 font-sans text-sm"></div>
+                <div id="calendar-grid" class="grid grid-cols-7 gap-2 font-sans text-xs"></div>
             </div>
 
             <div id="booking-step-2" class="booking-step hidden space-y-8">
-                <div id="slots-container" class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto"></div>
-                <button onclick="goToStep(1)" class="w-full py-2 text-slate-500 font-sans uppercase font-bold hover:text-white transition-colors underline text-sm text-center block">Back to Calendar</button>
+                <div id="slots-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                <button onclick="goToStep(1)" class="w-full py-2 text-slate-500 font-sans uppercase font-bold hover:text-white transition-colors underline text-xs text-center block">Back to Calendar</button>
             </div>
 
-            <div id="booking-step-3" class="booking-step hidden space-y-8">
+            <div id="booking-step-3" class="booking-step hidden space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans text-left">
-                    <div class="space-y-2">
-                        <label class="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                        <input type="text" id="modal_client_name" class="form-input w-full px-6 py-4 rounded-xl text-base" placeholder="Full Name">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name *</label>
+                        <input type="text" id="modal_client_name" class="form-input w-full px-4 py-3 rounded-xl text-sm" placeholder="John Doe">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
-                        <input type="email" id="modal_client_email" class="form-input w-full px-6 py-4 rounded-xl text-base" placeholder="email@address.com">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address *</label>
+                        <input type="email" id="modal_client_email" class="form-input w-full px-4 py-3 rounded-xl text-sm" placeholder="email@address.com">
                     </div>
-                    <div class="md:col-span-2 space-y-2">
-                        <label class="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
-                        <input type="tel" id="modal_phone" class="form-input w-full px-6 py-4 rounded-xl text-base" placeholder="+234 ...">
+                    <div class="md:col-span-2 space-y-1">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number *</label>
+                        <input type="tel" id="modal_phone" class="form-input w-full px-4 py-3 rounded-xl text-sm" placeholder="+234 ...">
                     </div>
                 </div>
-                <div class="pt-4 text-center space-y-4">
-                    <button id="booking-confirm-btn" onclick="confirmBooking()" class="w-full py-6 bg-brand-sky text-brand-dark font-black rounded-xl uppercase tracking-widest text-lg font-sans shadow-xl transform active:scale-95 transition-transform">Confirm & Secure Booking</button>
-                    <button onclick="goToStep(2)" class="text-slate-500 text-xs uppercase font-bold hover:text-white transition-colors font-sans underline">Change Time Slot</button>
+                <div class="pt-4 text-center space-y-3">
+                    <button id="booking-confirm-btn" onclick="confirmBooking()" class="w-full py-5 bg-brand-sky text-brand-dark font-black rounded-xl uppercase tracking-widest text-base font-sans shadow-xl transform active:scale-95 transition-transform">Confirm & Secure Booking</button>
+                    <button onclick="goToStep(2)" class="text-slate-500 text-[10px] uppercase font-bold hover:text-white transition-colors font-sans underline">Change Time Slot</button>
                 </div>
             </div>
         </div>
@@ -184,51 +185,64 @@
             <!-- PORTAL VIEW -->
             <div id="content-education" class="space-y-32">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-sans">
-                    <div class="bg-brand-card p-10 rounded-[2.5rem] border border-slate-800 shadow-xl">
-                        <h3 class="text-2xl font-black text-white mb-6 font-sans uppercase tracking-tight">Academic Search</h3>
-                        <p class="text-slate-400 leading-relaxed text-base">Official identification of verified university programs worldwide matching your goals.</p>
+                    <div class="bg-brand-card p-8 rounded-[2rem] border border-slate-800 shadow-xl">
+                        <h3 class="text-xl font-black text-white mb-4 font-sans uppercase tracking-tight">Academic Search</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Official identification of verified university programs worldwide matching your goals.</p>
                     </div>
-                    <div class="bg-brand-card p-10 rounded-[2.5rem] border border-slate-800 shadow-xl">
-                        <h3 class="text-2xl font-black text-white mb-6 font-sans uppercase tracking-tight">Visa Strategy</h3>
-                        <p class="text-slate-400 leading-relaxed text-base">Authorized representation and strategy development for study visa applications.</p>
+                    <div class="bg-brand-card p-8 rounded-[2rem] border border-slate-800 shadow-xl">
+                        <h3 class="text-xl font-black text-white mb-4 font-sans uppercase tracking-tight">Visa Strategy</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Authorized representation and strategy development for study visa applications.</p>
                     </div>
-                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 shadow-xl">
-                        <h3 class="text-2xl font-black text-white mb-6 font-sans uppercase tracking-tight">Settlement</h3>
-                        <p class="text-slate-400 leading-relaxed text-base">End-to-end relocation strategy ensuring stability in your destination country.</p>
+                    <div class="bg-brand-card p-8 rounded-[2rem] border border-slate-800 shadow-xl">
+                        <h3 class="text-xl font-black text-white mb-4 font-sans uppercase tracking-tight">Settlement</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">End-to-end relocation strategy ensuring stability in your destination country.</p>
                     </div>
                 </div>
 
-                <!-- INTAKE PORTAL -->
-                <div id="education-form" class="bg-brand-card rounded-[4rem] border border-slate-800 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
-                    <div class="p-10 md:p-20">
-                        <div class="mb-20 text-center">
-                            <h2 class="text-4xl md:text-5xl font-medium text-slate-300 mb-6 tracking-tighter italic font-serif">Intake Portal</h2>
-                            <p class="text-slate-400 text-lg font-medium max-w-3xl mx-auto">Please provide accurate data per the official documentation requirement.</p>
+                <!-- INTAKE PORTAL (Complete Form Restore) -->
+                <div id="education-form" class="bg-brand-card rounded-[3.5rem] border border-slate-800 shadow-2xl relative overflow-hidden portal-content">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
+                    <div class="p-10 md:p-16">
+                        <div class="mb-16 text-center">
+                            <h2 class="text-4xl md:text-5xl font-medium text-slate-300 mb-4 tracking-tighter italic font-serif">Intake Portal</h2>
+                            <p class="text-slate-400 text-base font-medium max-w-3xl mx-auto italic">Please provide accurate data per the official documentation requirement.</p>
                         </div>
 
-                        <form id="consult-form" class="space-y-24">
+                        <form id="consult-form" class="space-y-20">
                              <!-- Section 1 -->
                              <div class="space-y-10">
                                 <div class="flex items-center space-x-6">
                                     <span class="section-num font-black text-brand-sky opacity-20 italic tracking-tighter font-sans leading-none">01</span>
                                     <h4 class="text-white font-black uppercase tracking-[0.4em] font-sans">Primary Profile</h4>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans">
-                                    <input type="text" id="client_name" required class="form-input w-full rounded-xl" placeholder="Full Name *">
-                                    <input type="email" id="client_email" required class="form-input w-full rounded-xl" placeholder="Email Address *">
-                                    <input type="tel" id="phone" required class="form-input w-full rounded-xl" placeholder="Phone Number *">
-                                    <select id="country" class="form-input w-full rounded-xl appearance-none cursor-pointer">
-                                        <option value="" disabled selected>Current Residence</option>
-                                        <option value="Nigeria">Nigeria</option><option value="Ghana">Ghana</option><option value="UK">UK</option><option value="USA">USA</option><option value="Canada">Canada</option><option value="Others">Others</option>
-                                    </select>
-                                    <div class="md:col-span-2">
-                                        <input type="text" id="address" class="form-input w-full rounded-xl" placeholder="Residential Address (Street, City, State)">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Full Name *</label>
+                                        <input type="text" id="client_name" required class="form-input w-full rounded-xl" placeholder="Full Name">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Email Address *</label>
+                                        <input type="email" id="client_email" required class="form-input w-full rounded-xl" placeholder="email@example.com">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Phone Number *</label>
+                                        <input type="tel" id="phone" required class="form-input w-full rounded-xl" placeholder="+234 ...">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Residence Country</label>
+                                        <select id="country" class="form-input w-full rounded-xl appearance-none cursor-pointer">
+                                            <option value="" disabled selected>Current Residence</option>
+                                            <option value="Nigeria">Nigeria</option><option value="Ghana">Ghana</option><option value="UK">UK</option><option value="USA">USA</option><option value="Canada">Canada</option><option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Residential Address</label>
+                                        <input type="text" id="address" class="form-input w-full rounded-xl" placeholder="Street, City, State, Country">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Section 2: Expanded options -->
+                            <!-- Section 2 -->
                             <div class="space-y-10">
                                 <div class="flex items-center space-x-6">
                                     <span class="section-num font-black text-brand-sky opacity-20 italic tracking-tighter font-sans leading-none">02</span>
@@ -236,26 +250,26 @@
                                 </div>
                                 <div class="space-y-6 font-sans">
                                     <label class="text-sm font-black text-slate-500 uppercase tracking-widest ml-1 italic">Intended Program/Study Level *</label>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Certificate" required class="w-6 h-6 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-bold uppercase tracking-widest text-xs">Certificate</span>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Certificate" required class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-3 font-bold uppercase text-[10px]">Certificate</span>
                                         </label>
-                                        <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Diploma" class="w-6 h-6 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-bold uppercase tracking-widest text-xs">Diploma</span>
+                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Diploma" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-3 font-bold uppercase text-[10px]">Diploma</span>
                                         </label>
-                                        <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Undergraduate" class="w-6 h-6 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-bold uppercase tracking-widest text-xs">Undergraduate</span>
+                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Undergraduate" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-3 font-bold uppercase text-[10px]">Undergrad</span>
                                         </label>
-                                        <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Postgraduate" class="w-6 h-6 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-bold uppercase tracking-widest text-xs">Postgraduate</span>
+                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Postgraduate" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-3 font-bold uppercase text-[10px]">Postgrad</span>
                                         </label>
-                                        <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Other" class="w-6 h-6 border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-4 font-bold uppercase tracking-widest text-xs">Other</span>
+                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Other" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-3 font-bold uppercase text-[10px]">Other</span>
                                         </label>
                                     </div>
                                 </div>
@@ -268,8 +282,14 @@
                                     <h4 class="text-white font-black uppercase tracking-[0.4em] font-sans">Emergency Protocol</h4>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
-                                    <input type="text" id="emergency_name" required class="form-input w-full rounded-xl" placeholder="Emergency Contact Name *">
-                                    <input type="tel" id="emergency_phone" class="form-input w-full rounded-xl" placeholder="Emergency Contact Phone">
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Contact Full Name *</label>
+                                        <input type="text" id="emergency_name" required class="form-input w-full rounded-xl" placeholder="Full Name">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="uppercase font-bold text-slate-500">Contact Phone</label>
+                                        <input type="tel" id="emergency_phone" class="form-input w-full rounded-xl" placeholder="Phone Number">
+                                    </div>
                                 </div>
                             </div>
 
@@ -277,51 +297,51 @@
                             <div class="space-y-10">
                                 <div class="flex items-center space-x-6">
                                     <span class="section-num font-black text-brand-sky opacity-20 italic tracking-tighter font-sans leading-none">04</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] font-sans">Documentation checklist</h4>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] font-sans">Documentation Checklist</h4>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 font-sans">
-                                    <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-8 h-8 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-bold uppercase tracking-widest text-xs">Birth Certificate</span>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
+                                    <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-4 h-4 rounded text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-4 font-bold uppercase text-[11px]">Birth Certificate</span>
                                     </label>
-                                    <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                        <input type="checkbox" name="doc_list" value="WAEC Result" class="w-8 h-8 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-bold uppercase tracking-widest text-xs">WAEC/NECO Result</span>
+                                    <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="WAEC Result" class="w-4 h-4 rounded text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-4 font-bold uppercase text-[11px]">WAEC/NECO Result</span>
                                     </label>
-                                    <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                        <input type="checkbox" name="doc_list" value="English Test" class="w-8 h-8 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-bold uppercase tracking-widest text-xs">English Test</span>
+                                    <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="English Test" class="w-4 h-4 rounded text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-4 font-bold uppercase text-[11px]">English Test</span>
                                     </label>
-                                    <label class="flex items-center p-6 rounded-xl border-2 border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                        <input type="checkbox" name="doc_list" value="Other Certs" class="w-8 h-8 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-4 font-bold uppercase tracking-widest text-xs">Other Certs</span>
+                                    <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        <input type="checkbox" name="doc_list" value="Other Certs" class="w-4 h-4 rounded text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-4 font-bold uppercase text-[11px]">Other Certifications</span>
                                     </label>
                                 </div>
-                                <div class="space-y-8 font-sans">
-                                    <input type="url" id="document_link" class="form-input w-full rounded-xl" placeholder="Document Drive/Dropbox Link">
-                                    <div class="bg-brand-dark/50 p-8 rounded-[2rem] border-2 border-slate-800 space-y-6">
+                                <div class="space-y-6 font-sans">
+                                    <input type="url" id="document_link" class="form-input w-full rounded-xl" placeholder="Shareable Link (G-Drive / Dropbox)">
+                                    <div class="bg-brand-dark/50 p-6 rounded-3xl border border-slate-800 space-y-4">
                                         <label class="flex items-center cursor-pointer group">
-                                            <input type="checkbox" id="other_means_checkbox" class="w-8 h-8 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-6 text-sm font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest">Other submission means</span>
+                                            <input type="checkbox" id="other_means_checkbox" class="w-6 h-6 rounded text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-4 text-xs font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest">Other submission means</span>
                                         </label>
                                         <textarea id="other_means_details" rows="3" class="form-input w-full rounded-xl hidden" placeholder="Specify method and timeline..."></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" id="submit-btn" class="w-full py-8 bg-brand-sky text-brand-dark font-black rounded-2xl uppercase tracking-[0.3em] text-xl font-sans hover:scale-[1.02] transition-all">Submit Intake Portal</button>
+                            <button type="submit" id="submit-btn" class="w-full py-8 bg-brand-sky text-brand-dark font-black rounded-2xl uppercase tracking-[0.3em] text-xl font-sans hover:scale-[1.01] transition-all shadow-lg">Submit Intake Portal</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer id="contact" class="pt-24 border-t border-slate-800 font-sans text-center md:text-left">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-16">
-                <div class="max-w-2xl space-y-6 leading-tight">
+        <footer id="contact" class="pt-20 border-t border-slate-800 font-sans footer-small text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-12">
+                <div class="max-w-2xl space-y-4 leading-tight">
                     <h2 class="font-black text-slate-300 tracking-tighter italic font-serif uppercase leading-none">Global Connect</h2>
-                    <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky text-xl hover:underline underline-offset-8 transition-all">natzconsul21@gmail.com</a>
+                    <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky hover:underline underline-offset-4 transition-all">natzconsul21@gmail.com</a>
                 </div>
-                <div class="font-black uppercase text-slate-500 pl-8 border-l-4 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult. Authorized Agent.</div>
+                <div class="font-black uppercase text-slate-500 pl-8 border-l-4 border-slate-800">&copy; <span id="current-year"></span> NATZ Consult. Authorized Global Agent.</div>
             </div>
         </footer>
     </main>
@@ -404,14 +424,12 @@
                 if (el) el.classList.toggle('hidden', s !== step);
             });
             const titleEl = document.getElementById('modal-step-title');
-            const subEl = document.getElementById('modal-step-subtitle');
             const nav = document.getElementById('month-navigation');
             if (step === 1) {
                 if (nav) nav.classList.remove('hidden');
-                if (subEl) subEl.innerText = "Weekend afternoons (Sat/Sun) only.";
             } else {
                 if (nav) nav.classList.add('hidden');
-                if (step === 2 && titleEl) titleEl.innerText = "Pick Time Slot";
+                if (step === 2 && titleEl) titleEl.innerText = "Available Slot";
                 if (step === 3 && titleEl) titleEl.innerText = "Finalize Info";
             }
         };
@@ -446,8 +464,9 @@
                 const isPast = dateObj < today.setHours(0,0,0,0);
                 const formatted = `${monthName} ${day}, ${currentYear}`;
                 const slotsCount = allBookingsCache.filter(b => b.date === formatted).length;
+                
                 el.innerText = day;
-                el.className = 'calendar-day p-4 border-2 border-slate-800 rounded-xl transition-all flex items-center justify-center font-sans cursor-pointer';
+                el.className = 'calendar-day p-3 border border-slate-800 rounded-lg transition-all flex items-center justify-center font-sans cursor-pointer';
                 if (!isWeekend || isPast || slotsCount >= 5) el.classList.add('disabled');
                 else el.onclick = () => {
                     document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
@@ -468,7 +487,7 @@
             allSlots.forEach(slot => {
                 if (!booked.includes(slot)) {
                     const btn = document.createElement('button');
-                    btn.className = 'time-slot px-6 py-4 border-2 border-slate-700 rounded-xl text-lg hover:border-brand-sky transition-colors font-sans text-center';
+                    btn.className = 'time-slot px-4 py-3 border border-slate-700 rounded-xl text-sm hover:border-brand-sky transition-colors font-sans text-center';
                     btn.innerText = slot;
                     btn.onclick = () => {
                         selectedTimeSlot = slot;
@@ -490,27 +509,29 @@
             const btn = document.getElementById('booking-confirm-btn');
             btn.innerText = "SYNCHRONIZING..."; btn.disabled = true;
             try {
+                // Firestore tracking
                 if (db) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings'), { date: selectedDateFormatted, time: selectedTimeSlot, name, email, createdAt: serverTimestamp() });
                 
-                const formData = new URLSearchParams();
-                formData.append('emailAddress', email); 
-                formData.append(FORM_ENTRY_MAP.client_name, name);
-                formData.append(FORM_ENTRY_MAP.client_email, email);
-                formData.append(FORM_ENTRY_MAP.phone, phone);
-                formData.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
-                formData.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
-                // Satisfy Required Fields from PDF to ensure Form Acceptance
-                formData.append(FORM_ENTRY_MAP.program, "Consultation Selection");
-                formData.append(FORM_ENTRY_MAP.emergency_name, "Verified via Website Modal");
+                // Form Submission
+                const params = new URLSearchParams();
+                params.append('emailAddress', email); 
+                params.append(FORM_ENTRY_MAP.client_name, name);
+                params.append(FORM_ENTRY_MAP.client_email, email);
+                params.append(FORM_ENTRY_MAP.phone, phone);
+                params.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
+                params.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
+                // Placeholder entries to ensure required validation on Google end passes
+                params.append(FORM_ENTRY_MAP.program, "Consultation Selection");
+                params.append(FORM_ENTRY_MAP.emergency_name, "Verified via Website");
 
                 await fetch(GOOGLE_FORM_ACTION_URL, { 
                     method: 'POST', 
                     mode: 'no-cors', 
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: formData.toString() 
+                    body: params.toString() 
                 });
                 
-                alert("Consultation Confirmed! Data has been logged.");
+                alert("Consultation Confirmed! Data successfully synchronized.");
                 closeBookingModal();
             } catch(e) { alert("Registration Error."); }
             finally { btn.innerText = "Confirm & Secure Booking"; btn.disabled = false; }
@@ -525,41 +546,32 @@
             document.getElementById('consult-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
-                btn.disabled = true; btn.innerText = "PROCESSING...";
+                btn.disabled = true; btn.innerText = "PROCESSING PROFILE...";
                 
                 const clientEmail = document.getElementById('client_email').value;
-                const formData = new URLSearchParams();
-                formData.append('emailAddress', clientEmail);
-                formData.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
-                formData.append(FORM_ENTRY_MAP.client_email, clientEmail);
-                formData.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
-                formData.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
-                formData.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
-                
-                const prog = document.querySelector('input[name="program"]:checked')?.value || '';
-                formData.append(FORM_ENTRY_MAP.program, prog);
-                
-                formData.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
-                formData.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
-                
-                const docs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(d => d.value);
-                docs.forEach(d => formData.append(FORM_ENTRY_MAP.doc_list, d));
-                
-                formData.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
-                
-                if (document.getElementById('other_means_checkbox').checked) {
-                    formData.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
-                }
+                const params = new URLSearchParams();
+                params.append('emailAddress', clientEmail);
+                params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
+                params.append(FORM_ENTRY_MAP.client_email, clientEmail);
+                params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
+                params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
+                params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
+                params.append(FORM_ENTRY_MAP.program, document.querySelector('input[name="program"]:checked')?.value || '');
+                params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
+                params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
+                document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => params.append(FORM_ENTRY_MAP.doc_list, d.value));
+                params.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
+                if (document.getElementById('other_means_checkbox').checked) params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
                 
                 try {
                     await fetch(GOOGLE_FORM_ACTION_URL, { 
                         method: 'POST', 
                         mode: 'no-cors', 
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-                        body: formData.toString() 
+                        body: params.toString() 
                     });
                     alert("Intake Portal Synced Successfully.");
-                } catch(err) { alert("Submission error."); }
+                } catch(err) { alert("Submission failure."); }
                 finally { btn.disabled = false; btn.innerText = "Submit Intake Portal"; }
             });
         });
