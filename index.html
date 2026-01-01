@@ -24,7 +24,7 @@
         }
     </script>
     <style>
-        /* Global 10% reduction (Base 14px instead of 16px) */
+        /* Global 10% reduction */
         html { font-size: 14px; }
         body { font-size: 1rem; line-height: 1.5; }
         
@@ -127,7 +127,7 @@
     <!-- CALENDAR MODAL -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-6">
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeBookingModal()"></div>
-        <div class="relative bg-brand-card border border-slate-700 w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden p-8 md:p-12 animate-in zoom-in-95 duration-300">
+        <div class="relative bg-brand-card border border-slate-700 w-full max-w-3xl rounded-[2.5rem] shadow-2xl overflow-hidden p-8 md:p-12 animate-in zoom-in-95 duration-300">
             <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -242,7 +242,7 @@
                                 </div>
                             </div>
 
-                            <!-- Section 2: Expanded options from PDF -->
+                            <!-- Section 2: Expanded Options -->
                             <div class="space-y-10">
                                 <div class="flex items-center space-x-6">
                                     <span class="section-num font-black text-brand-sky opacity-20 italic tracking-tighter font-sans leading-none">02</span>
@@ -250,26 +250,34 @@
                                 </div>
                                 <div class="space-y-6 font-sans">
                                     <label class="text-sm font-black text-slate-500 uppercase tracking-widest ml-1 italic">Intended Program/Study Level *</label>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Certificate" required class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-3 font-bold uppercase text-[10px]">Certificate</span>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Foundation" required class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Foundation</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Diploma" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-3 font-bold uppercase text-[10px]">Diploma</span>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Certificate" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Cert</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Undergraduate" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-3 font-bold uppercase text-[10px]">Undergrad</span>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Diploma" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Diploma</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Postgraduate" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-3 font-bold uppercase text-[10px]">Postgrad</span>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Undergraduate" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Undergrad</span>
                                         </label>
-                                        <label class="flex items-center p-4 rounded-xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
-                                            <input type="radio" name="program" value="Other" class="w-4 h-4 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span class="ml-3 font-bold uppercase text-[10px]">Other</span>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Masters" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Masters</span>
+                                        </label>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="PhD" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">PhD</span>
+                                        </label>
+                                        <label class="flex items-center p-3 rounded-lg border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                            <input type="radio" name="program" value="Other" class="w-3 h-3 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-2 font-bold uppercase text-[9px]">Other</span>
                                         </label>
                                     </div>
                                 </div>
@@ -509,25 +517,22 @@
             const btn = document.getElementById('booking-confirm-btn');
             btn.innerText = "SYNCHRONIZING..."; btn.disabled = true;
             try {
-                // Firestore tracking
+                // Track in Firestore for availability removal
                 if (db) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings'), { date: selectedDateFormatted, time: selectedTimeSlot, name, email, createdAt: serverTimestamp() });
                 
-                // Form Submission with COMPLETE DUMMY DATA for all PDF-mapped fields
+                // Form Submission with COMPLETE DUMMY DATA set for mandatory questions
                 const params = new URLSearchParams();
-                // Google system fields
                 params.append('emailAddress', email); 
-                // Mapped entries with Dummies for non-modal fields
                 params.append(FORM_ENTRY_MAP.client_name, name);
                 params.append(FORM_ENTRY_MAP.client_email, email);
                 params.append(FORM_ENTRY_MAP.phone, phone);
                 params.append(FORM_ENTRY_MAP.country, "N/A");
                 params.append(FORM_ENTRY_MAP.address, "N/A");
-                params.append(FORM_ENTRY_MAP.program, "Other"); // One of the options
+                params.append(FORM_ENTRY_MAP.program, "Other"); // Matches required Oval
                 params.append(FORM_ENTRY_MAP.emergency_name, "N/A");
                 params.append(FORM_ENTRY_MAP.emergency_phone, "000000");
                 params.append(FORM_ENTRY_MAP.document_link, "N/A");
                 params.append(FORM_ENTRY_MAP.other_means_details, "N/A");
-                // The booking data
                 params.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
                 params.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
 
@@ -576,6 +581,10 @@
                     params.append(FORM_ENTRY_MAP.other_means_details, "N/A");
                 }
                 
+                // Add dummies for booking date/time if portal submitted without booking
+                params.append(FORM_ENTRY_MAP.booking_date, "Portal Only");
+                params.append(FORM_ENTRY_MAP.booking_time, "N/A");
+
                 try {
                     await fetch(GOOGLE_FORM_ACTION_URL, { 
                         method: 'POST', 
