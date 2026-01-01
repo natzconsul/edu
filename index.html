@@ -315,9 +315,9 @@
             </div>
         </div>
 
-        <footer id="contact" class="pt-24 border-t border-slate-800 font-sans">
+        <footer id="contact" class="pt-24 border-t border-slate-800 font-sans text-center md:text-left">
             <div class="flex flex-col md:flex-row justify-between items-center gap-16">
-                <div class="max-w-2xl text-center md:text-left space-y-6 leading-tight">
+                <div class="max-w-2xl space-y-6 leading-tight">
                     <h2 class="font-black text-slate-300 tracking-tighter italic font-serif uppercase leading-none">Global Connect</h2>
                     <a href="mailto:natzconsul21@gmail.com" class="text-brand-sky text-xl hover:underline underline-offset-8 transition-all">natzconsul21@gmail.com</a>
                 </div>
@@ -499,11 +499,9 @@
                 formData.append(FORM_ENTRY_MAP.phone, phone);
                 formData.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
                 formData.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
-                // Placeholder entries to ensure the form is registered (satisfied required fields)
-                formData.append(FORM_ENTRY_MAP.program, "Consultation Inquiry");
-                formData.append(FORM_ENTRY_MAP.emergency_name, "Verified via Modal");
-                formData.append(FORM_ENTRY_MAP.country, "User Profile Link");
-                formData.append(FORM_ENTRY_MAP.address, "Verified via Modal");
+                // Satisfy Required Fields from PDF to ensure Form Acceptance
+                formData.append(FORM_ENTRY_MAP.program, "Consultation Selection");
+                formData.append(FORM_ENTRY_MAP.emergency_name, "Verified via Website Modal");
 
                 await fetch(GOOGLE_FORM_ACTION_URL, { 
                     method: 'POST', 
@@ -512,7 +510,7 @@
                     body: formData.toString() 
                 });
                 
-                alert("Consultation Confirmed! Lead successfully registered.");
+                alert("Consultation Confirmed! Data has been logged.");
                 closeBookingModal();
             } catch(e) { alert("Registration Error."); }
             finally { btn.innerText = "Confirm & Secure Booking"; btn.disabled = false; }
@@ -528,19 +526,30 @@
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
                 btn.disabled = true; btn.innerText = "PROCESSING...";
+                
+                const clientEmail = document.getElementById('client_email').value;
                 const formData = new URLSearchParams();
-                formData.append('emailAddress', document.getElementById('client_email').value);
+                formData.append('emailAddress', clientEmail);
                 formData.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
-                formData.append(FORM_ENTRY_MAP.client_email, document.getElementById('client_email').value);
+                formData.append(FORM_ENTRY_MAP.client_email, clientEmail);
                 formData.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
                 formData.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
                 formData.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
-                formData.append(FORM_ENTRY_MAP.program, document.querySelector('input[name="program"]:checked')?.value || '');
+                
+                const prog = document.querySelector('input[name="program"]:checked')?.value || '';
+                formData.append(FORM_ENTRY_MAP.program, prog);
+                
                 formData.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
                 formData.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
-                document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => formData.append(FORM_ENTRY_MAP.doc_list, d.value));
+                
+                const docs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(d => d.value);
+                docs.forEach(d => formData.append(FORM_ENTRY_MAP.doc_list, d));
+                
                 formData.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
-                if (document.getElementById('other_means_checkbox').checked) formData.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
+                
+                if (document.getElementById('other_means_checkbox').checked) {
+                    formData.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
+                }
                 
                 try {
                     await fetch(GOOGLE_FORM_ACTION_URL, { 
