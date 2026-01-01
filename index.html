@@ -199,7 +199,7 @@
                     </div>
                 </div>
 
-                <!-- INTAKE PORTAL (Complete Form Restore) -->
+                <!-- INTAKE PORTAL -->
                 <div id="education-form" class="bg-brand-card rounded-[3.5rem] border border-slate-800 shadow-2xl relative overflow-hidden portal-content">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
                     <div class="p-10 md:p-16">
@@ -242,7 +242,7 @@
                                 </div>
                             </div>
 
-                            <!-- Section 2 -->
+                            <!-- Section 2: Expanded options from PDF -->
                             <div class="space-y-10">
                                 <div class="flex items-center space-x-6">
                                     <span class="section-num font-black text-brand-sky opacity-20 italic tracking-tighter font-sans leading-none">02</span>
@@ -512,17 +512,24 @@
                 // Firestore tracking
                 if (db) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'consultation_bookings'), { date: selectedDateFormatted, time: selectedTimeSlot, name, email, createdAt: serverTimestamp() });
                 
-                // Form Submission
+                // Form Submission with COMPLETE DUMMY DATA for all PDF-mapped fields
                 const params = new URLSearchParams();
+                // Google system fields
                 params.append('emailAddress', email); 
+                // Mapped entries with Dummies for non-modal fields
                 params.append(FORM_ENTRY_MAP.client_name, name);
                 params.append(FORM_ENTRY_MAP.client_email, email);
                 params.append(FORM_ENTRY_MAP.phone, phone);
+                params.append(FORM_ENTRY_MAP.country, "N/A");
+                params.append(FORM_ENTRY_MAP.address, "N/A");
+                params.append(FORM_ENTRY_MAP.program, "Other"); // One of the options
+                params.append(FORM_ENTRY_MAP.emergency_name, "N/A");
+                params.append(FORM_ENTRY_MAP.emergency_phone, "000000");
+                params.append(FORM_ENTRY_MAP.document_link, "N/A");
+                params.append(FORM_ENTRY_MAP.other_means_details, "N/A");
+                // The booking data
                 params.append(FORM_ENTRY_MAP.booking_date, selectedDateFormatted);
                 params.append(FORM_ENTRY_MAP.booking_time, selectedTimeSlot);
-                // Placeholder entries to ensure required validation on Google end passes
-                params.append(FORM_ENTRY_MAP.program, "Consultation Selection");
-                params.append(FORM_ENTRY_MAP.emergency_name, "Verified via Website");
 
                 await fetch(GOOGLE_FORM_ACTION_URL, { 
                     method: 'POST', 
@@ -554,14 +561,20 @@
                 params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
                 params.append(FORM_ENTRY_MAP.client_email, clientEmail);
                 params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
-                params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
-                params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
-                params.append(FORM_ENTRY_MAP.program, document.querySelector('input[name="program"]:checked')?.value || '');
-                params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
-                params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
+                params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value || "N/A");
+                params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value || "N/A");
+                params.append(FORM_ENTRY_MAP.program, document.querySelector('input[name="program"]:checked')?.value || 'Other');
+                params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value || "N/A");
+                params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value || "000000");
+                
                 document.querySelectorAll('input[name="doc_list"]:checked').forEach(d => params.append(FORM_ENTRY_MAP.doc_list, d.value));
-                params.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value);
-                if (document.getElementById('other_means_checkbox').checked) params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value);
+                params.append(FORM_ENTRY_MAP.document_link, document.getElementById('document_link').value || "N/A");
+                
+                if (document.getElementById('other_means_checkbox').checked) {
+                    params.append(FORM_ENTRY_MAP.other_means_details, document.getElementById('other_means_details').value || "N/A");
+                } else {
+                    params.append(FORM_ENTRY_MAP.other_means_details, "N/A");
+                }
                 
                 try {
                     await fetch(GOOGLE_FORM_ACTION_URL, { 
