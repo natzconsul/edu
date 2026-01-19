@@ -26,7 +26,14 @@
     <style>
         /* Base font reduction - 10% smaller than standard 16px */
         html { font-size: 14.4px; }
-        body { font-size: 1rem; }
+        body { 
+            font-size: 1rem; 
+            /* Global Background: Adjusted opacity to 85% for better image visibility */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('image_eac3c7.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
 
         .tab-active {
             border-bottom: 3px solid #0EA5E9;
@@ -44,14 +51,14 @@
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
         }
         .hero-gradient {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
         }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0F172A; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-200 min-h-screen selection:bg-brand-sky/30 font-serif">
+<body class="text-slate-200 min-h-screen selection:bg-brand-sky/30 font-serif">
 
     <!-- Sticky Navigation -->
     <nav class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-slate-800">
@@ -64,7 +71,7 @@
                 </div>
                 <div class="flex flex-col">
                     <span class="text-2xl font-black tracking-tighter text-slate-200 leading-none uppercase font-sans">NATZ CONSULT</span>
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1 font-sans">Global Strategy</span>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1 font-sans">Global Education Strategy</span>
                 </div>
             </div>
             
@@ -84,9 +91,8 @@
     <!-- Hero Section -->
     <header class="relative w-full min-h-[85vh] flex items-center justify-center px-6 py-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
-                 alt="Global Consultancy Background" 
-                 class="w-full h-full object-cover opacity-30">
+            <!-- Global Asset Applied to Hero -->
+            <img src="image_eac3c7.jpg" alt="Educational Excellence Background" class="w-full h-full object-cover opacity-30">
             <div class="absolute inset-0 hero-gradient"></div>
         </div>
 
@@ -96,10 +102,11 @@
             <!-- Dynamic Badge Section -->
             <div class="flex justify-center mb-4">
                 <div class="inline-flex items-center space-x-5 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl">
-                    <svg class="w-20 h-8" viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text id="badge-icon-text" x="5" y="35" font-family="Arial, sans-serif" font-weight="900" font-size="26" fill="#0EA5E9">ICEF</text>
-                        <circle cx="105" cy="25" r="8" fill="#0EA5E9" fill-opacity="0.2" />
-                        <circle cx="105" cy="25" r="4" fill="#0EA5E9" />
+                    <!-- Adjusted width to 160 for better text padding -->
+                    <svg class="w-28 h-10" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text id="badge-icon-text" x="15" y="35" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#0EA5E9">ICEF</text>
+                        <circle cx="140" cy="25" r="8" fill="#0EA5E9" fill-opacity="0.2" />
+                        <circle cx="140" cy="25" r="4" fill="#0EA5E9" />
                     </svg>
                     <span id="badge-label" class="text-[14px] font-bold text-slate-400 uppercase tracking-widest font-sans border-l border-white/20 pl-6">Certified Agent</span>
                 </div>
@@ -117,7 +124,7 @@
                 <a href="#education-form" id="intake-btn" class="w-full sm:w-auto px-12 py-5 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-base font-sans text-center">
                     Start Intake Process
                 </a>
-                <a href="#contact" class="w-full sm:w-auto px-12 py-5 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-base font-sans flex items-center justify-center text-center">
+                <a href="mailto:info@natzconsult.com" class="w-full sm:w-auto px-12 py-5 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-base font-sans flex items-center justify-center text-center">
                     Email for a free consultation
                 </a>
             </div>
@@ -133,7 +140,7 @@
             <!-- EDUCATION TAB -->
             <div id="content-education" class="space-y-24">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-sans">
-                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
                         <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
@@ -141,7 +148,7 @@
                         <p class="text-slate-400 leading-relaxed text-base">Official identification of verified university programs worldwide.</p>
                     </div>
                     
-                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
                         <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z"></path></svg>
                         </div>
@@ -149,7 +156,7 @@
                         <p class="text-slate-400 leading-relaxed text-base">Authorized representation and strategy for global study visas.</p>
                     </div>
 
-                    <div class="bg-brand-card p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
                         <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
@@ -164,7 +171,7 @@
                     <div class="p-10 md:p-24">
                         <div class="mb-20">
                             <!-- Title Case applied to "Intake Portal" -->
-                            <h2 class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 mb-6 uppercase tracking-tighter italic font-serif">Intake Portal</h2>
+                            <h2 class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 mb-6 tracking-tighter italic font-serif">Intake Portal</h2>
                             <p class="text-slate-400 text-xl font-medium">Please provide accurate data to ensure a smooth evaluation process.</p>
                         </div>
 
@@ -302,13 +309,13 @@
                 </div>
             </div>
 
-            <!-- TECHNOLOGY TAB (Now Software Quality Solutions) -->
+            <!-- TECHNOLOGY TAB -->
             <div id="content-tech" class="hidden animate-in fade-in duration-700">
-                <div class="bg-brand-card p-16 rounded-[4rem] border border-slate-800 shadow-2xl text-center">
-                    <h2 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic font-sans">Software Quality Solutions</h2>
+                <div class="bg-brand-card/90 backdrop-blur-md p-16 rounded-[4rem] border border-slate-800 shadow-2xl text-center font-sans">
+                    <h2 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic">Software Quality Solutions</h2>
                     <p class="text-slate-400 text-xl leading-relaxed mb-16 max-w-4xl mx-auto italic">Strategic excellence in software reliability and quality assurance for global platforms.</p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left font-sans">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
                         <div class="p-10 bg-brand-dark/50 rounded-[3rem] border border-slate-800">
                             <h4 class="text-white font-black uppercase tracking-[0.3em] mb-6 text-lg">Quality Assurance Strategy</h4>
                             <p class="text-slate-400 leading-relaxed">Comprehensive QA frameworks designed to ensure zero-defect deployments for critical academic and enterprise systems.</p>
@@ -323,17 +330,18 @@
         </div>
 
         <!-- FOOTER / CONTACT -->
-        <footer id="contact" class="pt-32 border-t border-slate-800">
+        <footer id="contact" class="pt-32 border-t border-slate-800 font-sans">
             <div class="flex flex-col md:flex-row justify-between items-center gap-16">
                 <div class="max-w-md text-center md:text-left space-y-6">
-                    <h2 class="text-4xl font-black text-slate-300 uppercase tracking-tighter italic font-sans">GLOBAL CONNECT</h2>
+                    <h2 class="text-4xl font-black text-slate-300 uppercase tracking-tighter italic">GLOBAL CONNECT</h2>
+                    <!-- Succinct One-Liner -->
                     <p class="text-slate-400 text-xl font-medium">Professional strategy sessions by appointment</p>
-                    <a href="mailto:natzconsul21@gmail.com" class="inline-flex items-center text-brand-sky font-black uppercase tracking-widest text-base hover:underline underline-offset-8 font-sans">
-                        natzconsul21@gmail.com
+                    <a href="mailto:info@natzconsult.com" class="inline-flex items-center text-brand-sky font-black uppercase tracking-widest text-base hover:underline underline-offset-8">
+                        info@natzconsult.com
                         <svg class="w-5 h-5 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
-                <div class="bg-slate-900/50 border border-slate-800 p-10 rounded-[2.5rem] text-[13px] font-black uppercase tracking-[0.4em] text-slate-500 text-center font-sans">
+                <div class="bg-slate-900/50 border border-slate-800 p-10 rounded-[2.5rem] text-[13px] font-black uppercase tracking-[0.4em] text-slate-500 text-center">
                     &copy; <span id="current-year"></span> NATZ Consult. Authorized Global Consultancy.
                 </div>
             </div>
@@ -366,7 +374,7 @@
                 if (nav) nav.classList.toggle('tab-active', t === id);
             });
 
-            // Update Hero Section dynamically for branding changes
+            // Update Hero dynamically with textContent for SVG reliability
             const heroHeading = document.getElementById('hero-heading');
             const heroTagline = document.getElementById('hero-tagline');
             const badgeIconText = document.getElementById('badge-icon-text');
@@ -377,7 +385,6 @@
                 if (badgeIconText) badgeIconText.textContent = 'ISTQB';
                 if (badgeLabel) badgeLabel.textContent = 'Certified QA';
                 heroHeading.innerText = 'Professional Software Quality Assurance Solutions';
-                // Updated tagline as requested
                 heroTagline.innerText = 'Strategic software quality services for web, simulations, and training systems.';
                 intakeBtn.classList.add('hidden');
             } else {
@@ -419,7 +426,9 @@
             const params = new URLSearchParams();
             const emailValue = document.getElementById('client_email').value;
 
+            // System Email Field (Required by Google Form)
             params.append('emailAddress', emailValue);
+
             params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
             params.append(FORM_ENTRY_MAP.client_email, emailValue); 
             params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
