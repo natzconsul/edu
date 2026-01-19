@@ -817,11 +817,17 @@
                 </div>
         </main>
 
-        <script>
+    <script type="module">
             // Firebase Configuration (Placeholders)
             // TODO: Replace with your actual project keys
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
             import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <script type="module">
+        // Firebase Configuration (Placeholders)
+        // TODO: Replace with your actual project keys
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+>>>>>>> 2141859 (Fix Book Consultation button by enabling ES module and exposing functions)
 
             const firebaseConfig = {
                 apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
@@ -1179,7 +1185,12 @@
                 });
                 document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
             });
+            // Expose functions to global scope for inline HTML handlers
+            window.switchTab = switchTab;
+            window.openBookingModal = openBookingModal;
+            window.closeBookingModal = closeBookingModal;
+            window.changeMonth = changeMonth;
+            window.backToCalendar = backToCalendar;
         </script>
     </body>
-
 </html>
