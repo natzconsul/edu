@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // TEMPORARY SIMPLIFIED RULES FOR DEBUGGING
+    // This will help us identify what's failing
+    
+    match /bookings/{bookingId} {
+      // Allow anyone to read
+      allow read: if true;
+      
+      // Simplified create rule - just check basic structure
+      allow create: if request.resource.data.keys().hasAll([
+        'name', 'email', 'phone', 'citizenship', 
+        'residence', 'education', 'desired', 
+        'slotKey', 'slotLabel', 'monthKey', 'bookedAt'
+      ]) && request.resource.data.bookedAt is timestamp;
+      
+      // No updates or deletes
+      allow update, delete: if false;
+    }
+    
+    // Deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
