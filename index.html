@@ -1,11 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NATZ Consult</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -26,152 +24,111 @@
         }
     </script>
     <style>
-        /* Base font reduction - 10% smaller than standard 16px */
-        html {
-            font-size: 14.4px;
-        }
-
-        body {
-            font-size: 1rem;
+        /* Global font scale reduction */
+        html { font-size: 14.4px; }
+        body { 
+            font-size: 1rem; 
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('image_eac3c7.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: #E2E8F0;
         }
 
         .tab-active {
             border-bottom: 3px solid #0EA5E9;
             color: #0EA5E9;
         }
-
         .form-input {
             background-color: #0F172A;
             border: 1px solid #334155;
             color: #F8FAFC;
             transition: all 0.2s ease;
         }
-
         .form-input:focus {
             border-color: #0EA5E9;
             outline: none;
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
         }
-
         .hero-gradient {
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
         }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0F172A;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     </style>
 </head>
-
-<body class="bg-brand-dark text-slate-200 min-h-screen selection:bg-brand-sky/30 font-serif">
-
-    <!-- Fixed Global Background -->
-    <div class="fixed inset-0 z-0 pointer-events-none">
-        <img src="assets/images/background.jpg" alt="Global Consultancy Background"
-            class="w-full h-full object-cover opacity-80">
-        <div class="absolute inset-0 bg-brand-dark/80 mix-blend-multiply"></div>
-    </div>
+<body class="min-h-screen selection:bg-brand-sky/30 font-serif">
 
     <!-- Sticky Navigation -->
-    <nav class="sticky top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-slate-800">
+    <nav class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-4 group cursor-pointer"
-                onclick="switchTab('education'); window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div
-                    class="w-12 h-12 bg-brand-sky rounded-xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
+            <div class="flex items-center space-x-4 group cursor-pointer" onclick="switchTab('education'); window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-12 h-12 bg-brand-sky rounded-xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
                     <svg class="w-7 h-7 text-brand-dark" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
-                <div class="flex flex-col">
-                    <span
-                        class="text-2xl font-black tracking-tighter text-slate-200 leading-none uppercase font-sans">NATZ
-                        CONSULT</span>
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1 font-sans">Global
-                        Strategy</span>
+                <div class="flex flex-col text-slate-200">
+                    <span class="text-2xl font-black tracking-tighter leading-none uppercase font-sans">NATZ CONSULT</span>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1 font-sans">Global Education Strategy</span>
                 </div>
             </div>
-
+            
             <div class="hidden md:flex items-center space-x-12 text-sm font-black uppercase tracking-[0.2em] font-sans">
-                <a href="#" onclick="switchTab('education')"
-                    class="text-brand-sky hover:text-white transition-colors">Home</a>
-                <button onclick="switchTab('education')" id="nav-education"
-                    class="tab-active py-2 hover:text-brand-sky transition-colors">Education</button>
-                <button onclick="switchTab('tech')" id="nav-tech" class="py-2 hover:text-brand-sky transition-colors">QA
-                    Tech</button>
-                <a href="#contact"
-                    class="px-6 py-2 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark transition-all">Contact</a>
+                <button onclick="switchTab('education')" id="nav-education" class="tab-active py-2 hover:text-brand-sky transition-colors text-slate-200">Education</button>
+                <button onclick="switchTab('about')" id="nav-about" class="py-2 hover:text-brand-sky transition-colors text-slate-200">About Us</button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="py-2 hover:text-brand-sky transition-colors text-slate-200">Contact</button>
             </div>
 
             <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
-                </svg>
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="relative w-full min-h-[85vh] flex items-center justify-center px-6 py-20 overflow-hidden">
-        <!-- Background removed from here, now global -->
+        <div class="absolute inset-0 z-0">
+            <img src="image_eac3c7.jpg" alt="Hero Background" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
 
-        <!-- Imposing Hero Card -->
-        <!-- Imposing Hero Card -->
-        <div
-            class="relative z-10 max-w-5xl w-full bg-brand-card/85 backdrop-blur-xl border border-slate-700/50 rounded-[3rem] p-10 md:p-20 shadow-2xl text-center space-y-8 transform translate-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-
-            <!-- Dynamic Badge Section -->
+        <div class="relative z-10 max-w-5xl w-full bg-brand-card/80 backdrop-blur-xl border border-slate-700 rounded-[3rem] p-10 md:p-20 shadow-2xl text-center space-y-8 transform translate-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            
+            <!-- Badge Section -->
             <div class="flex justify-center mb-4">
                 <div class="inline-flex items-center space-x-5 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl">
-                    <svg class="w-20 h-8" viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text id="badge-icon-text" x="5" y="35" font-family="Arial, sans-serif" font-weight="900"
-                            font-size="26" fill="#0EA5E9">ICEF</text>
-                        <circle cx="105" cy="25" r="8" fill="#0EA5E9" fill-opacity="0.2" />
-                        <circle cx="105" cy="25" r="4" fill="#0EA5E9" />
+                    <svg class="w-28 h-10" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text id="badge-icon-text" x="15" y="35" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#0EA5E9">ICEF</text>
+                        <circle cx="140" cy="25" r="8" fill="#0EA5E9" fill-opacity="0.2" />
+                        <circle cx="140" cy="25" r="4" fill="#0EA5E9" />
                     </svg>
-                    <span id="badge-label"
-                        class="text-[14px] font-bold text-slate-400 uppercase tracking-widest font-sans border-l border-white/20 pl-6">Certified
-                        Agent</span>
+                    <span id="badge-label" class="text-[14px] font-bold text-slate-400 uppercase tracking-widest font-sans border-l border-white/20 pl-6">Certified Agent</span>
                 </div>
             </div>
 
-            <h1 id="hero-heading"
-                class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 leading-[1.15] tracking-tighter max-w-4xl mx-auto">
+            <h1 id="hero-heading" class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 leading-[1.15] tracking-tighter max-w-4xl mx-auto">
                 Empowering Global Educational Opportunity and Excellence
             </h1>
 
-            <p id="hero-tagline"
-                class="text-[13px] font-bold text-slate-400 tracking-[0.3em] font-sans max-w-3xl mx-auto leading-relaxed">
+            <p id="hero-tagline" class="text-[13px] font-bold text-slate-400 tracking-[0.3em] font-sans max-w-3xl mx-auto leading-relaxed">
                 Strategic consultancy for international students
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 text-sans">
-                <a href="#education-form" id="intake-btn"
-                    class="w-full sm:w-auto px-12 py-5 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-base font-sans text-center">
+                <a href="#education-form" id="intake-btn" class="w-full sm:w-auto px-12 py-5 bg-brand-sky text-brand-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-base font-sans text-center">
                     Start Intake Process
                 </a>
-                <button onclick="openBookingModal()"
-                    class="w-full sm:w-auto px-12 py-5 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-base font-sans flex items-center justify-center text-center">
-                    Book A Consultation
+                <button onclick="switchTab('contact'); window.location.href='mailto:info@natzconsult.com';" class="w-full sm:w-auto px-12 py-5 border-2 border-slate-600 text-white font-black rounded-2xl hover:bg-white hover:text-brand-dark transition-all uppercase tracking-widest text-base font-sans flex items-center justify-center text-center">
+                    Email for a free consultation
                 </button>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-24 space-y-32">
-        <div id="message-box"
-            class="hidden fixed bottom-8 right-8 p-6 rounded-2xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2"
-            role="alert">
+        <div id="message-box" class="hidden fixed bottom-8 right-8 p-6 rounded-2xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2" role="alert">
             <div id="message-content" class="flex items-center text-base font-bold"></div>
         </div>
 
@@ -179,113 +136,63 @@
             <!-- EDUCATION TAB -->
             <div id="content-education" class="space-y-24">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-sans">
-                    <div
-                        class="bg-brand-card/85 backdrop-blur-sm p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
-                        <div
-                            class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                                </path>
-                            </svg>
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
-                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight">Academic Search
-                        </h3>
-                        <p class="text-slate-400 leading-relaxed text-base">Official identification of verified
-                            university programs worldwide.</p>
+                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight font-sans">Academic Search</h3>
+                        <p class="text-slate-400 leading-relaxed text-base">Official identification of verified university programs worldwide.</p>
+                    </div>
+                    
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z"></path></svg>
+                        </div>
+                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight font-sans">Visa Strategy</h3>
+                        <p class="text-slate-400 leading-relaxed text-base">Authorized representation and strategy for global study visas.</p>
                     </div>
 
-                    <div
-                        class="bg-brand-card/85 backdrop-blur-sm p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
-                        <div
-                            class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-7.618 3.016L4 7v5c0 4.781 3.139 8.991 7.426 10.302L12 22.5l.574-.198C16.861 21.01 20 16.791 20 12V7l-.382-.016z">
-                                </path>
-                            </svg>
+                    <div class="bg-brand-card/90 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
+                        <div class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
-                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight">Visa Strategy
-                        </h3>
-                        <p class="text-slate-400 leading-relaxed text-base">Authorized representation and
-                            strategy for
-                            global study visas.</p>
-                    </div>
-
-                    <div
-                        class="bg-brand-card/85 backdrop-blur-sm p-12 rounded-[2.5rem] border border-slate-800 hover:border-brand-sky/40 transition-all duration-500 shadow-xl group">
-                        <div
-                            class="w-16 h-16 bg-brand-sky/10 text-brand-sky rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-sky group-hover:text-brand-dark transition-all">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight">Settlement</h3>
-                        <p class="text-slate-400 leading-relaxed text-base">Relocation strategy to ensure a
-                            stable start
-                            in your host country.</p>
+                        <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tight font-sans">Settlement</h3>
+                        <p class="text-slate-400 leading-relaxed text-base">Relocation strategy to ensure a stable start in your host country.</p>
                     </div>
                 </div>
 
-                <!-- INTAKE FORM -->
-                <div id="education-form"
-                    class="bg-brand-card/90 backdrop-blur-md rounded-[4rem] border border-slate-800 shadow-2xl relative overflow-hidden">
-                    <div
-                        class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20">
-                    </div>
+                <!-- Intake Portal Section -->
+                <div id="education-form" class="bg-brand-card rounded-[4rem] border border-slate-800 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20"></div>
                     <div class="p-10 md:p-24">
                         <div class="mb-20">
-                            <!-- Title Case applied to "Intake Portal" -->
-                            <h2
-                                class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 mb-6 uppercase tracking-tighter italic font-serif">
-                                Intake Portal</h2>
-                            <p class="text-slate-400 text-xl font-medium">Please provide accurate data to
-                                ensure a
-                                smooth evaluation process.</p>
+                            <h2 class="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-300 mb-6 tracking-tighter italic font-serif">Intake Portal</h2>
+                            <p class="text-slate-400 text-xl font-medium font-sans">Please provide accurate data to ensure a smooth evaluation process.</p>
                         </div>
 
                         <form id="consult-form" class="space-y-24">
                             <!-- Section 01: Profile -->
-                            <div class="space-y-12">
+                            <div class="space-y-12 text-left">
                                 <div class="flex items-center space-x-6">
-                                    <span
-                                        class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">01</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">
-                                        Primary Profile</h4>
+                                    <span class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">01</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">Primary Profile</h4>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans">
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Full
-                                            Name *</label>
-                                        <input type="text" id="client_name" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans"
-                                            placeholder="e.g. John Doe">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name *</label>
+                                        <input type="text" id="client_name" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700" placeholder="e.g. John Doe">
                                     </div>
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Email
-                                            Address *</label>
-                                        <input type="email" id="client_email" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans"
-                                            placeholder="contact@email.com">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address *</label>
+                                        <input type="email" id="client_email" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans" placeholder="contact@email.com">
                                     </div>
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Phone
-                                            Number *</label>
-                                        <input type="tel" id="phone" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans"
-                                            placeholder="+234 ...">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1">Phone Number *</label>
+                                        <input type="tel" id="phone" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700" placeholder="+234 ...">
                                     </div>
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Country
-                                            of Residence *</label>
-                                        <select id="country" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base appearance-none cursor-pointer font-sans">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1">Country of Residence *</label>
+                                        <select id="country" required class="form-input w-full px-8 py-5 rounded-3xl text-base appearance-none cursor-pointer">
                                             <option value="" disabled selected>Select Current Country</option>
                                             <option value="Nigeria">Nigeria</option>
                                             <option value="Ghana">Ghana</option>
@@ -299,148 +206,97 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="space-y-3">
-                                    <label
-                                        class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Residential
-                                        Address *</label>
-                                    <input type="text" id="address" required
-                                        class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans"
-                                        placeholder="Street, City, State">
+                                <div class="space-y-3 font-sans">
+                                    <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1">Residential Address *</label>
+                                    <input type="text" id="address" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700" placeholder="Street, City, State">
                                 </div>
                             </div>
 
                             <!-- Section 02: Aspirations -->
-                            <div class="space-y-12">
+                            <div class="space-y-12 text-left">
                                 <div class="flex items-center space-x-6">
-                                    <span
-                                        class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">02</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">
-                                        Academic Aspirations</h4>
+                                    <span class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">02</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">Academic Aspirations</h4>
                                 </div>
                                 <div class="space-y-8">
-                                    <label
-                                        class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 italic font-sans">Intended
-                                        Program/Study Level *</label>
+                                    <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 italic font-sans">Intended Program/Study Level *</label>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                        <label
-                                            class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="radio" name="program" value="Undergraduate" required
-                                                class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span
-                                                class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Undergraduate</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="radio" name="program" value="Undergraduate" required class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Undergraduate</span>
                                         </label>
-                                        <label
-                                            class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="radio" name="program" value="Postgraduate"
-                                                class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span
-                                                class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Postgraduate</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="radio" name="program" value="Postgraduate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Postgraduate</span>
                                         </label>
-                                        <label
-                                            class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                            <input type="radio" name="program" value="Other"
-                                                class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span
-                                                class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Other</span>
+                                        <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                            <input type="radio" name="program" value="Other" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Other</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Section 03: Emergency -->
-                            <div class="space-y-12">
+                            <div class="space-y-12 text-left">
                                 <div class="flex items-center space-x-6">
-                                    <span
-                                        class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">03</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">
-                                        Safety Protocols</h4>
+                                    <span class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">03</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">Safety Protocols</h4>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 font-sans">
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Emergency
-                                            Contact Full Name *</label>
-                                        <input type="text" id="emergency_name" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Emergency Contact Full Name *</label>
+                                        <input type="text" id="emergency_name" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans">
                                     </div>
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Emergency
-                                            Phone *</label>
-                                        <input type="tel" id="emergency_phone" required
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Emergency Phone *</label>
+                                        <input type="tel" id="emergency_phone" required class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans">
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Section 04: Documentation -->
-                            <div class="space-y-12">
+                            <div class="space-y-12 text-left">
                                 <div class="flex items-center space-x-6">
-                                    <span
-                                        class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">04</span>
-                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">
-                                        Documentation Check</h4>
+                                    <span class="text-5xl font-black text-brand-sky opacity-20 italic tracking-tighter">04</span>
+                                    <h4 class="text-white font-black uppercase tracking-[0.4em] text-base font-sans">Documentation Check</h4>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <label
-                                        class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="Birth Certificate"
-                                            class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Birth
-                                            Certificate</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Birth Certificate" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Birth Certificate</span>
                                     </label>
-                                    <label
-                                        class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result"
-                                            class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span
-                                            class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">WAEC/NECO
-                                            O' Level</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="WAEC/NECO O' Level Result" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">WAEC/NECO O' Level</span>
                                     </label>
-                                    <label
-                                        class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)"
-                                            class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">English
-                                            Test</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="English Test (IELTS/CELPIP)" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">English Test</span>
                                     </label>
-                                    <label
-                                        class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
-                                        <input type="checkbox" name="doc_list" value="Any Other Certification"
-                                            class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                        <span
-                                            class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Certifications</span>
+                                    <label class="flex items-center p-6 rounded-3xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all active:scale-[0.98]">
+                                        <input type="checkbox" name="doc_list" value="Any Other Certification" class="w-6 h-6 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                        <span class="ml-5 font-bold uppercase tracking-widest text-sm font-sans">Certifications</span>
                                     </label>
                                 </div>
 
                                 <div class="space-y-8 pt-10">
                                     <div class="space-y-3">
-                                        <label
-                                            class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Shareable
-                                            Document Link (G-Drive / Dropbox)</label>
-                                        <input type="url" id="document_link"
-                                            class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans"
-                                            placeholder="https://drive.google.com/...">
+                                        <label class="text-[13px] font-black text-slate-500 uppercase tracking-widest ml-1 font-sans">Shareable Document Link (G-Drive / Dropbox)</label>
+                                        <input type="url" id="document_link" class="form-input w-full px-8 py-5 rounded-3xl text-base placeholder-slate-700 font-sans" placeholder="https://drive.google.com/...">
                                     </div>
-
-                                    <div
-                                        class="bg-brand-dark/50 backdrop-blur-sm p-10 rounded-[3rem] border border-slate-800 space-y-8">
+                                    
+                                    <div class="bg-brand-dark/50 p-10 rounded-[3rem] border border-slate-800 space-y-8">
                                         <label class="flex items-center cursor-pointer group">
-                                            <input type="checkbox" id="other_means_checkbox"
-                                                class="w-7 h-7 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
-                                            <span
-                                                class="ml-6 text-sm font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest text-wrap font-sans">Provide
-                                                via WhatsApp, Email, or Other Means</span>
+                                            <input type="checkbox" id="other_means_checkbox" class="w-7 h-7 rounded-lg border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            <span class="ml-6 text-sm font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest text-wrap font-sans">Provide via WhatsApp, Email, or Other Means</span>
                                         </label>
-                                        <textarea id="other_means_details" rows="4"
-                                            class="form-input w-full px-8 py-6 rounded-[2.5rem] text-base hidden placeholder-slate-700 font-sans"
-                                            placeholder="Explain your submission plan..."></textarea>
+                                        <textarea id="other_means_details" rows="4" class="form-input w-full px-8 py-6 rounded-[2.5rem] text-base hidden placeholder-slate-700 font-sans" placeholder="Explain your submission plan..."></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" id="submit-btn"
-                                class="w-full py-6 bg-brand-sky text-brand-dark font-black rounded-3xl hover:brightness-110 active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-[0.3em] text-base font-sans">
+                            <button type="submit" id="submit-btn" class="w-full py-6 bg-brand-sky text-brand-dark font-black rounded-3xl hover:brightness-110 active:scale-[0.98] transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-[0.3em] text-base font-sans">
                                 Submit Formal Consultation Intake
                             </button>
                         </form>
@@ -448,461 +304,110 @@
                 </div>
             </div>
 
-            <!-- TECHNOLOGY TAB -->
-            <div id="content-tech" class="hidden animate-in fade-in duration-700">
-                <div
-                    class="bg-brand-card/90 backdrop-blur-md p-16 rounded-[4rem] border border-slate-800 shadow-2xl text-center">
-                    <h2 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic font-sans">
-                        Software Quality Solutions</h2>
-                    <p class="text-slate-400 text-xl leading-relaxed mb-16 max-w-4xl mx-auto italic">
-                        Strategic
-                        excellence in software reliability and quality assurance for global
-                        platforms.</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left font-sans">
-                        <div class="p-10 bg-brand-dark/50 backdrop-blur-sm rounded-[3rem] border border-slate-800">
-                            <h4 class="text-white font-black uppercase tracking-[0.3em] mb-6 text-lg">
-                                Quality Assurance
-                                Strategy</h4>
-                            <p class="text-slate-400 leading-relaxed">Comprehensive QA frameworks
-                                designed to ensure
-                                zero-defect deployments for critical academic and enterprise
-                                systems.</p>
+            <!-- ABOUT US TAB -->
+            <div id="content-about" class="hidden animate-in fade-in duration-700">
+                <div class="bg-brand-card/90 backdrop-blur-md p-16 rounded-[4rem] border border-slate-800 shadow-2xl text-center font-sans">
+                    <h2 class="text-4xl font-black text-brand-sky mb-8 uppercase tracking-tighter italic">Bridging Aspirations and Excellence</h2>
+                    <p class="text-slate-400 text-xl leading-relaxed mb-12 max-w-4xl mx-auto italic">
+                        Our vision is to provide unparalleled strategic guidance to West African students, ensuring a seamless transition into the Canadian educational landscape through certified expertise.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <div class="bg-brand-dark/50 p-10 rounded-[3rem] border border-slate-800">
+                            <div class="text-brand-sky font-black text-4xl mb-4 italic">7+</div>
+                            <h4 class="text-white font-black uppercase tracking-[0.2em] mb-4 text-sm font-sans">Years Experience</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Dedicated to helping students navigate complex admissions and relocation strategies since 2017.</p>
                         </div>
-                        <div class="p-10 bg-brand-dark/50 backdrop-blur-sm rounded-[3rem] border border-slate-800">
-                            <h4 class="text-white font-black uppercase tracking-[0.3em] mb-6 text-lg">
-                                Automated Systems
-                            </h4>
-                            <p class="text-slate-400 leading-relaxed">Implementation of robust
-                                automated testing
-                                pipelines to maintain software integrity at global scale.</p>
+                        <div class="bg-brand-dark/50 p-10 rounded-[3rem] border border-slate-800">
+                            <div class="text-brand-sky font-black text-4xl mb-4 italic">ICEF</div>
+                            <h4 class="text-white font-black uppercase tracking-[0.2em] mb-4 text-sm font-sans">Certified Agency</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Recognized global standard of excellence and professional practice in international education.</p>
+                        </div>
+                        <div class="bg-brand-dark/50 p-10 rounded-[3rem] border border-slate-800">
+                            <div class="text-brand-sky font-black text-4xl mb-4 italic">Dual</div>
+                            <h4 class="text-white font-black uppercase tracking-[0.2em] mb-4 text-sm font-sans">System Expertise</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Profound understanding of both West African (WAEC/NECO) and Canadian academic requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT TAB -->
+            <div id="content-contact" class="hidden animate-in fade-in duration-700">
+                <div class="bg-brand-card/80 backdrop-blur-xl border border-slate-800 p-12 md:p-20 rounded-[4rem] shadow-2xl font-sans">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                        <div class="space-y-12 text-left">
+                            <div class="space-y-6">
+                                <h2 class="text-4xl font-black text-brand-sky uppercase tracking-tighter italic">GLOBAL CONNECT</h2>
+                                <p class="text-slate-300 text-xl font-medium leading-relaxed">Professional strategy sessions by appointment. Connect with our experts across borders.</p>
+                                <a href="mailto:info@natzconsult.com" class="inline-flex items-center text-brand-sky font-black uppercase tracking-widest text-base hover:underline underline-offset-8">
+                                    info@natzconsult.com
+                                    <svg class="w-5 h-5 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </a>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div class="p-8 bg-brand-dark/40 rounded-[2.5rem] border border-slate-800/50">
+                                    <h4 class="text-brand-sky font-black uppercase tracking-widest text-xs mb-4 font-sans">Nigeria Office</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">
+                                        18, Sode Street, Sagamu,<br>
+                                        Ogun State, Nigeria
+                                    </p>
+                                </div>
+                                <div class="p-8 bg-brand-dark/40 rounded-[2.5rem] border border-slate-800/50">
+                                    <h4 class="text-brand-sky font-black uppercase tracking-widest text-xs mb-4 font-sans">Canada Office</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">
+                                        727 Cassiar Crescent,<br>
+                                        Kelowna, BC, Canada
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hidden lg:flex justify-center items-center h-full">
+                            <div class="w-full aspect-square bg-brand-dark/60 rounded-[3rem] border border-slate-800 flex flex-col items-center justify-center p-10 text-center">
+                                <div class="w-20 h-20 bg-brand-sky rounded-2xl flex items-center justify-center mb-6">
+                                    <svg class="w-10 h-10 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2 2 2 0 012 2v.657M7 20h11a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h5 class="text-white font-black uppercase tracking-[0.2em] mb-4">Global Network</h5>
+                                <p class="text-slate-500 text-sm">Strategic presence in Africa and North America to serve you better.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- FOOTER / CONTACT -->
-        <footer id="contact" class="pt-32 border-t border-slate-800 font-sans">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-16">
-                <div class="max-w-md text-center md:text-left space-y-6">
-                    <h2 class="text-4xl font-black text-slate-300 uppercase tracking-tighter italic font-sans">
-                        GLOBAL
-                        CONNECT</h2>
-                    <p class="text-slate-400 text-xl font-medium">Professional strategy sessions by
-                        appointment</p>
-                    <a href="mailto:info@natzconsult.com,natzconsul21@gmail.com"
-                        class="inline-flex items-center text-brand-sky font-black uppercase tracking-widest text-base hover:underline underline-offset-8 font-sans">
-                        info@natzconsult.com
-                        <svg class="w-5 h-5 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
+        <!-- Footer -->
+        <footer class="pt-12 pb-20 border-t border-slate-800/50 font-sans text-center">
+            <div class="space-y-6">
+                <p class="text-slate-500 text-[11px] font-black uppercase tracking-[0.5em]">Copyright &copy; <span id="current-year"></span></p>
+                <div class="flex items-center justify-center space-x-3">
+                    <span class="h-px w-8 bg-slate-800"></span>
+                    <p class="text-slate-300 text-sm font-black uppercase tracking-[0.3em]">NATZ CONSULT</p>
+                    <span class="h-px w-8 bg-slate-800"></span>
                 </div>
-                <div
-                    class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-10 rounded-[2.5rem] text-[13px] font-black uppercase tracking-[0.4em] text-slate-500 text-center font-sans">
-                    &copy; <span id="current-year"></span> NATZ Consult. Authorized Global
-                    Consultancy.
-                </div>
+                <p class="text-slate-600 text-xs italic uppercase tracking-widest">Authorized Global Education Consultancy</p>
             </div>
         </footer>
-
-        <!-- BOOKING MODAL -->
-        <div id="booking-modal" class="fixed inset-0 z-[100] hidden">
-            <div class="absolute inset-0 bg-brand-dark/90 backdrop-blur-md" onclick="closeBookingModal()"></div>
-            <div class="absolute inset-0 flex items-center justify-center p-4">
-                <div
-                    class="bg-brand-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-slate-700 shadow-2xl flex flex-col md:flex-row relative">
-                    <!-- Close Button -->
-                    <button onclick="closeBookingModal()"
-                        class="absolute top-6 right-6 p-2 text-slate-400 hover:text-white z-10 bg-slate-800/50 rounded-full">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-
-                    <!-- Sidebar / Info -->
-                    <div
-                        class="w-full md:w-1/3 bg-slate-900/50 p-8 md:p-10 border-b md:border-b-0 md:border-r border-slate-700">
-                        <h3 class="text-2xl font-black text-brand-sky mb-2 uppercase tracking-tight">Book
-                            Consultation
-                        </h3>
-                        <p class="text-slate-400 text-sm mb-8">Select a time slot for your 30-minute strategy
-                            session.
-                        </p>
-
-                        <div class="space-y-6 text-sm text-slate-300 font-medium">
-                            <div class="flex items-start">
-                                <div class="w-8 flex-shrink-0 text-brand-sky">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <span
-                                        class="block text-brand-sky text-xs uppercase tracking-wider mb-1">Duration</span>
-                                    30 Minutes
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-8 flex-shrink-0 text-brand-sky">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <span
-                                        class="block text-brand-sky text-xs uppercase tracking-wider mb-1">Format</span>
-                                    Video / Voice Call
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Calendar & Form Area -->
-                    <div class="w-full md:w-2/3 p-8 md:p-10 bg-brand-card">
-                        <!-- Step 1: Calendar -->
-                        <div id="booking-step-1">
-                            <div class="flex justify-between items-center mb-6">
-                                <h4 class="text-xl font-black text-white uppercase tracking-tight">Select Date &
-                                    Time
-                                </h4>
-                                <div class="space-x-2">
-                                    <button onclick="changeMonth(-1)"
-                                        class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&larr;</button>
-                                    <span id="current-month-label"
-                                        class="text-sm font-bold text-slate-200 uppercase tracking-wider"></span>
-                                    <button onclick="changeMonth(1)"
-                                        class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&rarr;</button>
-                                </div>
-                            </div>
-
-                            <div
-                                class="grid grid-cols-7 gap-1 mb-2 text-center text-xs font-black text-slate-500 uppercase tracking-widest">
-                                <div>Su</div>
-                                <div>Mo</div>
-                                <div>Tu</div>
-                                <div>We</div>
-                                <div>Th</div>
-                                <div>Fr</div>
-                                <div>Sa</div>
-                            </div>
-                            <div id="calendar-grid" class="grid grid-cols-7 gap-1 mb-8"></div>
-
-                            <div id="time-slots-container" class="hidden animate-in fade-in slide-in-from-top-4">
-                                <h5
-                                    class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-t border-slate-800 pt-6">
-                                    Available Slots <span id="selected-date-label" class="text-brand-sky ml-2"></span>
-                                </h5>
-                                <div id="slots-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Details Form -->
-                        <div id="booking-step-2" class="hidden animate-in fade-in slide-in-from-right-8">
-                            <div class="flex items-center mb-8">
-                                <button onclick="backToCalendar()"
-                                    class="mr-4 p-2 text-slate-400 hover:text-white font-bold text-sm bg-slate-800 rounded-lg">&larr;
-                                    Back</button>
-                                <h4 class="text-xl font-black text-white uppercase tracking-tight">Confirm
-                                    Booking</h4>
-                            </div>
-
-                            <div
-                                class="bg-brand-sky/10 border border-brand-sky/20 p-4 rounded-xl mb-8 flex items-center justify-between">
-                                <div class="text-sm">
-                                    <span
-                                        class="block text-brand-sky font-bold uppercase tracking-wider text-xs mb-1">Chosen
-                                        Slot</span>
-                                    <span id="confirm-slot-label" class="text-white font-bold text-lg"></span>
-                                </div>
-                            </div>
-
-                            <form id="booking-form" class="space-y-4 font-sans">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="text" id="bk_name" required placeholder="Full Name"
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                    <input type="email" id="bk_email" required placeholder="Email Address"
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="tel" id="bk_phone" required placeholder="Phone"
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                    <input type="text" id="bk_citizenship" required placeholder="Citizenship"
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                </div>
-                                <input type="text" id="bk_residence" required
-                                    placeholder="Current Residence (City, Country)"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <select id="bk_education_level" required
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                        <option value="" disabled selected>Current Education Level</option>
-                                        <option value="High School">High School</option>
-                                        <option value="Undergraduate">Undergraduate</option>
-                                        <option value="Graduate">Graduate</option>
-                                    </select>
-                                    <input type="text" id="bk_desired" required placeholder="Desired Program/Goal"
-                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                </div>
-
-                                <button type="submit"
-                                    class="w-full py-4 mt-4 bg-brand-sky text-brand-dark font-black rounded-xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-widest text-sm shadow-xl shadow-brand-sky/20">
-                                    Confirm Appointment
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
-    <script type="module">
-        // Firebase Configuration (Placeholders)
-        // TODO: Replace with your actual project keys
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
-            authDomain: "natzconsul.firebaseapp.com",
-            projectId: "natzconsul",
-            storageBucket: "natzconsul.firebasestorage.app",
-            messagingSenderId: "734592808171",
-            appId: "1:734592808171:web:2625848980a2d0d8fbbaae"
+    <script>
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSezsQzXDlCwY0MjzHpTcoAH1NK7n_I8AWXoHmj_0IA7Ptz2UQ/formResponse';
+        
+        const FORM_ENTRY_MAP = {
+            client_name: 'entry.503469166',
+            client_email: 'entry.467034671',
+            phone: 'entry.825752332',
+            country: 'entry.1147777123',
+            address: 'entry.1224511060',
+            program: 'entry.621700234',
+            emergency_name: 'entry.815215183',
+            emergency_phone: 'entry.306081269',
         };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        let currentMonth = new Date();
-        let selectedDate = null;
-        let selectedSlot = null;
-
-        // DB for booked slots (Set of strings "YYYY-MM-DD-HH-mm")
-        const bookedSlots = new Set();
-
-        const AVAILABILITY = {
-            1: { ranges: [[8, 10], [14, 16]] },      // Mon: 8-10am, 2-4pm (14-16)
-            2: { ranges: [[8, 16]] },                // Tue: 8-4pm (8-16)
-            3: { ranges: [[15, 16]] },               // Wed: 3-4pm (15-16)
-            4: { ranges: [[8, 13]] },                // Thu: 8-1pm (8-13)
-            5: { ranges: [[8, 11], [15, 16]] },      // Fri: 8-11am, 3-4pm (15-16)
-            0: { ranges: [] },                       // Sun: Closed
-            6: { ranges: [] }                        // Sat: Closed
-        };
-
-        async function openBookingModal() {
-            document.getElementById('booking-modal').classList.remove('hidden');
-            await fetchBookings(); // Fetch latest slots
-            renderCalendar();
-        }
-
-        async function fetchBookings() {
-            bookedSlots.clear();
-            try {
-                const q = query(collection(db, "bookings"));
-                const querySnapshot = await getDocs(q);
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    if (data.slotKey) {
-                        bookedSlots.add(data.slotKey);
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching bookings:", error);
-                // Optionally show a warning that specific availability might be outdated if offline
-            }
-        }
-
-        function closeBookingModal() {
-            document.getElementById('booking-modal').classList.add('hidden');
-            // Reset state
-            selectedDate = null;
-            selectedSlot = null;
-            document.getElementById('booking-step-1').classList.remove('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('time-slots-container').classList.add('hidden');
-            document.getElementById('booking-form').reset();
-        }
-
-        function changeMonth(delta) {
-            currentMonth.setMonth(currentMonth.getMonth() + delta);
-            renderCalendar();
-        }
-
-        function renderCalendar() {
-            const grid = document.getElementById('calendar-grid');
-            const label = document.getElementById('current-month-label');
-
-            grid.innerHTML = '';
-            label.textContent = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-            const year = currentMonth.getFullYear();
-            const month = currentMonth.getMonth();
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            // Empty cells for padding
-            for (let i = 0; i < firstDay; i++) {
-                grid.appendChild(document.createElement('div'));
-            }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(year, month, day);
-                const dayOfWeek = date.getDay();
-                const isPast = date < today;
-                const hasSlots = AVAILABILITY[dayOfWeek] && AVAILABILITY[dayOfWeek].ranges.length > 0;
-
-                const cell = document.createElement('button');
-                cell.textContent = day;
-                cell.className = `p-3 rounded-lg text-sm font-bold transition-all relative ${isPast || !hasSlots
-                    ? 'text-slate-600 cursor-not-allowed'
-                    : 'text-white hover:bg-slate-700 hover:text-brand-sky'
-                    } ${selectedDate && date.getTime() === selectedDate.getTime()
-                        ? 'bg-brand-sky text-brand-dark hover:bg-brand-sky hover:text-brand-dark shadow-lg shadow-brand-sky/20'
-                        : ''
-                    }`;
-
-                if (!isPast && hasSlots) {
-                    cell.onclick = () => selectDate(date);
-                    // Indicator for availability
-                    const dot = document.createElement('div');
-                    dot.className = 'absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-slate-600';
-                    if (selectedDate && date.getTime() === selectedDate.getTime()) dot.classList.add('bg-brand-dark');
-                    cell.appendChild(dot);
-                } else {
-                    cell.disabled = true;
-                }
-
-                grid.appendChild(cell);
-            }
-        }
-
-        function selectDate(date) {
-            selectedDate = date;
-            renderCalendar(); // Re-render to show active state
-
-            const label = document.getElementById('selected-date-label');
-            label.textContent = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
-            document.getElementById('time-slots-container').classList.remove('hidden');
-            generateSlots(date);
-        }
-
-        function generateSlots(date) {
-            const container = document.getElementById('slots-grid');
-            container.innerHTML = '';
-
-            const dayOfWeek = date.getDay();
-            const config = AVAILABILITY[dayOfWeek];
-
-            if (!config) return;
-
-            config.ranges.forEach(range => {
-                const [startHour, endHour] = range;
-                for (let h = startHour; h < endHour; h++) {
-                    // Create :00 and :30 slots
-                    [0, 30].forEach(minutes => {
-                        // Create simpler key for demo: "YYYY-MM-DD-HH-mm"
-                        const slotKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${h}-${minutes}`;
-
-                        // Check if booked
-                        if (bookedSlots.has(slotKey)) return;
-
-                        const timeLabel = new Date(0, 0, 0, h, minutes).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                        const btn = document.createElement('button');
-                        btn.textContent = timeLabel;
-                        btn.className = "py-3 px-4 rounded-xl border border-slate-700 hover:border-brand-sky text-slate-300 hover:text-brand-sky text-sm font-bold transition-all bg-slate-800/50 hover:bg-slate-800";
-                        btn.onclick = () => {
-                            selectedSlot = { key: slotKey, label: `${date.toLocaleDateString()} at ${timeLabel}` };
-                            document.getElementById('confirm-slot-label').textContent = selectedSlot.label;
-                            document.getElementById('booking-step-1').classList.add('hidden');
-                            document.getElementById('booking-step-2').classList.remove('hidden');
-                        };
-                        container.appendChild(btn);
-                    });
-                }
-            });
-        }
-
-        function backToCalendar() {
-            document.getElementById('booking-step-1').classList.remove('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-        }
-
-        document.getElementById('booking-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!selectedSlot) return;
-
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerText = 'SECURING SLOT...';
-            submitBtn.disabled = true;
-
-            const bookingData = {
-                name: document.getElementById('bk_name').value,
-                email: document.getElementById('bk_email').value,
-                phone: document.getElementById('bk_phone').value,
-                citizenship: document.getElementById('bk_citizenship').value,
-                residence: document.getElementById('bk_residence').value,
-                education: document.getElementById('bk_education_level').value,
-                desired: document.getElementById('bk_desired').value,
-                slotKey: selectedSlot.key,
-                slotLabel: selectedSlot.label,
-                bookedAt: Timestamp.now()
-            };
-
-            try {
-                // 1. Save to Firestore to block the slot
-                await addDoc(collection(db, "bookings"), bookingData);
-
-                // 2. Add to local set immediately for feedback
-                bookedSlots.add(selectedSlot.key);
-
-                // 3. Prepare Mailto Link
-                const subject = encodeURIComponent(`Consultation Booking: ${selectedSlot.label}`);
-                const body = encodeURIComponent(
-                    `BOOKING DETAILS\n\n` +
-                    `Name: ${bookingData.name}\n` +
-                    `Email: ${bookingData.email}\n` +
-                    `Phone: ${bookingData.phone}\n` +
-                    `Citizenship: ${bookingData.citizenship}\n` +
-                    `Residence: ${bookingData.residence}\n` +
-                    `Education Level: ${bookingData.education}\n` +
-                    `Desired Program: ${bookingData.desired}\n\n` +
-                    `Requested Slot: ${bookingData.slotLabel}\n` +
-                    `(This slot has been reserved in the system database)`
-                );
-
-                window.location.href = `mailto:natzconsul@gmail.com?subject=${subject}&body=${body}`;
-
-                showMessage('success', 'Slot Reserved! Please send the generated email to confirm.');
-                closeBookingModal();
-                renderCalendar();
-
-            } catch (error) {
-                console.error("Booking Error: ", error);
-                showMessage('error', 'Could not reserve slot. Please check connection.');
-            } finally {
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-
 
         function switchTab(id) {
-            const tabs = ['education', 'tech'];
+            const tabs = ['education', 'about', 'contact'];
             tabs.forEach(t => {
                 const el = document.getElementById('content-' + t);
                 if (el) el.classList.toggle('hidden', t !== id);
@@ -910,33 +415,32 @@
                 if (nav) nav.classList.toggle('tab-active', t === id);
             });
 
-            // Update Hero dynamically with textContent for SVG reliability
             const heroHeading = document.getElementById('hero-heading');
             const heroTagline = document.getElementById('hero-tagline');
-            const badgeIconText = document.getElementById('badge-icon-text');
-            const badgeLabel = document.getElementById('badge-label');
             const intakeBtn = document.getElementById('intake-btn');
 
-            if (id === 'tech') {
-                if (badgeIconText) badgeIconText.textContent = 'ISTQB';
-                if (badgeLabel) badgeLabel.textContent = 'Certified QA';
-                heroHeading.innerText = 'Professional Software Quality Assurance Solutions';
-                heroTagline.innerText = 'Strategic software quality services for web, simulations, and training systems.';
+            if (id === 'about') {
+                heroHeading.innerText = 'Bridging Ambition with Global Educational Excellence';
+                heroTagline.innerText = 'Seven years of certified expertise in West African and Canadian education systems.';
+                intakeBtn.classList.add('hidden');
+            } else if (id === 'contact') {
+                heroHeading.innerText = 'Connect With Our Global Network';
+                heroTagline.innerText = 'Direct strategic access to our offices in Nigeria and Canada.';
                 intakeBtn.classList.add('hidden');
             } else {
-                if (badgeIconText) badgeIconText.textContent = 'ICEF';
-                if (badgeLabel) badgeLabel.textContent = 'Certified Agent';
                 heroHeading.innerText = 'Empowering Global Educational Opportunity and Excellence';
                 heroTagline.innerText = 'Strategic consultancy for international students';
                 intakeBtn.classList.remove('hidden');
             }
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function showMessage(type, content) {
             const box = document.getElementById('message-box');
             const messageContent = document.getElementById('message-content');
             box.classList.remove('hidden', 'bg-brand-dark', 'border-brand-sky', 'text-brand-sky', 'border-rose-500', 'text-rose-500', 'translate-y-20');
-
+            
             if (type === 'success') {
                 box.classList.add('bg-brand-dark', 'border-brand-sky', 'text-brand-sky');
                 messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
@@ -957,65 +461,62 @@
             const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.innerText;
             submitBtn.disabled = true;
-            submitBtn.innerText = 'OPENING EMAIL CLIENT...';
+            submitBtn.innerText = 'PROCESSING SECURITY...';
 
-            const formData = {
-                name: document.getElementById('client_name').value,
-                email: document.getElementById('client_email').value,
-                phone: document.getElementById('phone').value,
-                country: document.getElementById('country').value,
-                address: document.getElementById('address').value,
-                emergencyName: document.getElementById('emergency_name').value,
-                emergencyPhone: document.getElementById('emergency_phone').value,
-                program: document.querySelector('input[name="program"]:checked')?.value || 'Not Specified',
-                docs: Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value).join(', '),
-                link: document.getElementById('document_link').value,
-                details: document.getElementById('other_means_checkbox').checked ? document.getElementById('other_means_details').value : 'N/A'
-            };
+            const params = new URLSearchParams();
+            const emailValue = document.getElementById('client_email').value;
 
-            const subject = encodeURIComponent(`Intake Submission: ${formData.name}`);
-            const body = encodeURIComponent(
-                `INTAKE PORTAL SUBMISSION\n\n` +
-                `1. PRIMARY PROFILE\n` +
-                `Name: ${formData.name}\n` +
-                `Email: ${formData.email}\n` +
-                `Phone: ${formData.phone}\n` +
-                `Country: ${formData.country}\n` +
-                `Address: ${formData.address}\n\n` +
-                `2. ASPIRATIONS\n` +
-                `Program Level: ${formData.program}\n\n` +
-                `3. EMERGENCY CONTACT\n` +
-                `Name: ${formData.emergencyName}\n` +
-                `Phone: ${formData.emergencyPhone}\n\n` +
-                `4. DOCUMENTATION\n` +
-                `Documents Available: ${formData.docs}\n` +
-                `Drive Link: ${formData.link}\n` +
-                `Additional Details: ${formData.details}`
-            );
+            params.append('emailAddress', emailValue);
+            params.append(FORM_ENTRY_MAP.client_name, document.getElementById('client_name').value);
+            params.append(FORM_ENTRY_MAP.client_email, emailValue); 
+            params.append(FORM_ENTRY_MAP.phone, document.getElementById('phone').value);
+            params.append(FORM_ENTRY_MAP.country, document.getElementById('country').value);
+            params.append(FORM_ENTRY_MAP.address, document.getElementById('address').value);
+            params.append(FORM_ENTRY_MAP.emergency_name, document.getElementById('emergency_name').value);
+            params.append(FORM_ENTRY_MAP.emergency_phone, document.getElementById('emergency_phone').value);
+            
+            const selectedProgram = document.querySelector('input[name="program"]:checked')?.value;
+            if (selectedProgram) params.append(FORM_ENTRY_MAP.program, selectedProgram);
 
-            setTimeout(() => {
-                window.location.href = `mailto:natzconsul@gmail.com?subject=${subject}&body=${body}`;
-                showMessage('success', 'Intake Form processed. Please send the drafted email.');
+            const checkedDocs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value);
+            checkedDocs.forEach(doc => params.append(FORM_ENTRY_MAP.doc_list, doc));
+
+            const link = document.getElementById('document_link').value;
+            if (link.trim()) params.append(FORM_ENTRY_MAP.document_link, link.trim());
+            
+            if (document.getElementById('other_means_checkbox')?.checked) {
+                const details = document.getElementById('other_means_details')?.value;
+                params.append(FORM_ENTRY_MAP.other_means_details, details.trim() || 'WhatsApp/Email/Other');
+            }
+
+            try {
+                await fetch(GOOGLE_FORM_ACTION_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+
+                showMessage('success', 'Formal Intake Received. A consultant will review your profile shortly.');
                 document.getElementById('consult-form').reset();
+            } catch (error) {
+                console.error("Submission Failure:", error);
+                showMessage('error', 'Global Network Error. Please verify connection.');
+            } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerText = originalText;
-            }, 800);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').innerText = new Date().getFullYear();
+            
             document.getElementById('other_means_checkbox')?.addEventListener('change', (e) => {
-                document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
+                document.getElementById('other_means_details')?.classList.toggle('hidden', !e.target.checked);
             });
-            document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
+            
+            document.getElementById('consult-form')?.addEventListener('submit', handleFormSubmit);
         });
-        // Expose functions to global scope for inline HTML handlers
-        window.switchTab = switchTab;
-        window.openBookingModal = openBookingModal;
-        window.closeBookingModal = closeBookingModal;
-        window.changeMonth = changeMonth;
-        window.backToCalendar = backToCalendar;
     </script>
 </body>
-
 </html>
