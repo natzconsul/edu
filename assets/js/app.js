@@ -18,7 +18,7 @@ const db = getFirestore(app);
 
 // Configuration
 const CONFIG = {
-    CONTACT_EMAIL: 'natzconsul@gmail.com',
+    CONTACT_EMAIL: 'natzconsul21@gmail.com',
     MAX_NAME_LENGTH: 100,
     MIN_PHONE_LENGTH: 10,
     MAX_PHONE_LENGTH: 20
