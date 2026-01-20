@@ -16,6 +16,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Configuration
+const CONFIG = {
+    CONTACT_EMAIL: 'natzconsul@gmail.com',
+    MAX_NAME_LENGTH: 100,
+    MIN_PHONE_LENGTH: 10,
+    MAX_PHONE_LENGTH: 20
+};
+
+// Validation Helper Functions
+function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+function validatePhone(phone) {
+    const cleanPhone = phone.replace(/[\s()-]/g, '');
+    return cleanPhone.length >= CONFIG.MIN_PHONE_LENGTH && cleanPhone.length <= CONFIG.MAX_PHONE_LENGTH;
+}
+
+function sanitizeInput(input) {
+    if (typeof input !== 'string') return '';
+    return input.trim().replace(/[<>]/g, '');
+}
+
+function validateName(name) {
+    return name.length > 0 && name.length <= CONFIG.MAX_NAME_LENGTH;
+}
+
 let currentMonth = new Date();
 let selectedDate = null;
 let selectedSlot = null;
@@ -208,28 +236,59 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
 
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
+
+    // Collect and sanitize form data
+    const name = sanitizeInput(document.getElementById('bk_name').value);
+    const email = document.getElementById('bk_email').value.trim();
+    const phone = document.getElementById('bk_phone').value.trim();
+    const citizenship = sanitizeInput(document.getElementById('bk_citizenship').value);
+    const residence = sanitizeInput(document.getElementById('bk_residence').value);
+    const education = document.getElementById('bk_education_level').value;
+    const desired = sanitizeInput(document.getElementById('bk_desired').value);
+
+    // Client-side validation (matches Firestore security rules)
+    if (!validateName(name)) {
+        showMessage('error', 'Please enter a valid name (1-100 characters)');
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        showMessage('error', 'Please enter a valid email address');
+        return;
+    }
+
+    if (!validatePhone(phone)) {
+        showMessage('error', `Phone number must be ${CONFIG.MIN_PHONE_LENGTH}-${CONFIG.MAX_PHONE_LENGTH} characters`);
+        return;
+    }
+
+    if (!citizenship || !residence || !education || !desired) {
+        showMessage('error', 'Please fill out all required fields');
+        return;
+    }
+
     submitBtn.innerText = 'SECURING SLOT...';
     submitBtn.disabled = true;
 
-    // Extract year and month from the slot date for indexing
-    const slotDate = selectedSlot.dateObj || new Date(selectedSlot.label.split(' at ')[0]); // Fallback if dateObj not present
-    const monthKey = `${slotDate.getFullYear()}-${slotDate.getMonth()}`;
-
-    const bookingData = {
-        name: document.getElementById('bk_name').value,
-        email: document.getElementById('bk_email').value,
-        phone: document.getElementById('bk_phone').value,
-        citizenship: document.getElementById('bk_citizenship').value,
-        residence: document.getElementById('bk_residence').value,
-        education: document.getElementById('bk_education_level').value,
-        desired: document.getElementById('bk_desired').value,
-        slotKey: selectedSlot.key,
-        slotLabel: selectedSlot.label,
-        monthKey: monthKey, // optimized query key
-        bookedAt: Timestamp.now()
-    };
-
     try {
+        // Extract year and month from the slot date for indexing
+        const slotDate = selectedSlot.dateObj || new Date(selectedSlot.label.split(' at ')[0]);
+        const monthKey = `${slotDate.getFullYear()}-${slotDate.getMonth()}`;
+
+        const bookingData = {
+            name: name,
+            email: email,
+            phone: phone,
+            citizenship: citizenship,
+            residence: residence,
+            education: education,
+            desired: desired,
+            slotKey: selectedSlot.key,
+            slotLabel: selectedSlot.label,
+            monthKey: monthKey,
+            bookedAt: Timestamp.now()
+        };
+
         // 1. Save to Firestore to block the slot
         await addDoc(collection(db, "bookings"), bookingData);
 
@@ -251,7 +310,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
             `(This slot has been reserved in the system database)`
         );
 
-        window.location.href = `mailto:natzconsul@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
         showMessage('success', 'Slot Reserved! Please send the generated email to confirm.');
         closeBookingModal();
@@ -261,7 +320,15 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
 
     } catch (error) {
         console.error("Booking Error: ", error);
-        showMessage('error', 'Could not reserve slot. Please check connection.');
+
+        // Provide more specific error messages
+        if (error.code === 'permission-denied') {
+            showMessage('error', 'Booking validation failed. Please check all fields.');
+        } else if (error.code === 'unavailable') {
+            showMessage('error', 'Network error. Please check your connection.');
+        } else {
+            showMessage('error', 'Could not reserve slot. Please try again.');
+        }
     } finally {
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
@@ -384,21 +451,56 @@ async function handleFormSubmit(event) {
     event.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
     const originalText = submitBtn.innerText;
+
+    // Collect and sanitize form data
+    const name = sanitizeInput(document.getElementById('client_name').value);
+    const email = document.getElementById('client_email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const country = document.getElementById('country').value;
+    const address = sanitizeInput(document.getElementById('address').value);
+    const emergencyName = sanitizeInput(document.getElementById('emergency_name').value);
+    const emergencyPhone = document.getElementById('emergency_phone').value.trim();
+    const program = document.querySelector('input[name="program"]:checked')?.value || 'Not Specified';
+    const docs = Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value).join(', ');
+    const link = document.getElementById('document_link').value.trim();
+    const details = document.getElementById('other_means_checkbox').checked ? sanitizeInput(document.getElementById('other_means_details').value) : 'N/A';
+
+    // Client-side validation
+    if (!validateName(name)) {
+        showMessage('error', 'Please enter a valid name (1-100 characters)');
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        showMessage('error', 'Please enter a valid email address');
+        return;
+    }
+
+    if (!validatePhone(phone)) {
+        showMessage('error', `Phone number must be ${CONFIG.MIN_PHONE_LENGTH}-${CONFIG.MAX_PHONE_LENGTH} characters`);
+        return;
+    }
+
+    if (!validatePhone(emergencyPhone)) {
+        showMessage('error', 'Emergency contact phone number is invalid');
+        return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.innerText = 'OPENING EMAIL CLIENT...';
 
     const formData = {
-        name: document.getElementById('client_name').value,
-        email: document.getElementById('client_email').value,
-        phone: document.getElementById('phone').value,
-        country: document.getElementById('country').value,
-        address: document.getElementById('address').value,
-        emergencyName: document.getElementById('emergency_name').value,
-        emergencyPhone: document.getElementById('emergency_phone').value,
-        program: document.querySelector('input[name="program"]:checked')?.value || 'Not Specified',
-        docs: Array.from(document.querySelectorAll('input[name="doc_list"]:checked')).map(c => c.value).join(', '),
-        link: document.getElementById('document_link').value,
-        details: document.getElementById('other_means_checkbox').checked ? document.getElementById('other_means_details').value : 'N/A'
+        name: name,
+        email: email,
+        phone: phone,
+        country: country,
+        address: address,
+        emergencyName: emergencyName,
+        emergencyPhone: emergencyPhone,
+        program: program,
+        docs: docs,
+        link: link,
+        details: details
     };
 
     const subject = encodeURIComponent(`Intake Submission: ${formData.name}`);
@@ -422,7 +524,7 @@ async function handleFormSubmit(event) {
     );
 
     setTimeout(() => {
-        window.location.href = `mailto:natzconsul@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
         showMessage('success', 'Intake Form processed. Please send the drafted email.');
         document.getElementById('consult-form').reset();
         submitBtn.disabled = false;
