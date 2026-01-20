@@ -5,9 +5,9 @@ import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } fr
 
 const firebaseConfig = {
     apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
-    authDomain: "natzconsul.firebaseapp.com",
-    projectId: "natzconsul",
-    storageBucket: "natzconsul.firebasestorage.app",
+    authDomain: "natzconsult.firebaseapp.com",
+    projectId: "natzconsult",
+    storageBucket: "natzconsult.firebasestorage.app",
     messagingSenderId: "734592808171",
     appId: "1:734592808171:web:2625848980a2d0d8fbbaae"
 };
@@ -529,14 +529,8 @@ async function handleFormSubmit(event) {
     }, 800);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('current-year').innerText = new Date().getFullYear();
-    document.getElementById('other_means_checkbox')?.addEventListener('change', (e) => {
-        document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
-    });
-    document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
-});
 // Expose functions to global scope for inline HTML handlers
+// This MUST happen before DOMContentLoaded to ensure onclick handlers work
 window.switchTab = switchTab;
 window.openIntakeModal = openIntakeModal;
 window.closeIntakeModal = closeIntakeModal;
@@ -544,3 +538,11 @@ window.openBookingModal = openBookingModal;
 window.closeBookingModal = closeBookingModal;
 window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('current-year').innerText = new Date().getFullYear();
+    document.getElementById('other_means_checkbox')?.addEventListener('change', (e) => {
+        document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
+    });
+    document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
+});
