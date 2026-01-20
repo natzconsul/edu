@@ -86,23 +86,20 @@ async function fetchBookings(date) {
     const monthKey = `${year}-${month}`;
 
     try {
-        // Create a query against the collection.
-        // We filter by 'monthKey' to only get bookings for the current view.
-        // Note: Requires an index if the dataset grows large, but fine for now.
-        const q = query(
-            collection(db, "bookings"),
-            where("monthKey", "==", monthKey)
-        );
+        // Simplified query - fetch all bookings and filter client-side
+        // This avoids needing a Firestore index
+        const querySnapshot = await getDocs(collection(db, "bookings"));
 
-        const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            if (data.slotKey) {
+            // Filter by monthKey client-side
+            if (data.slotKey && data.monthKey === monthKey) {
                 bookedSlots.add(data.slotKey);
             }
         });
     } catch (error) {
         console.error("Error fetching bookings:", error);
+        showMessage('error', 'Unable to load availability. Please refresh.');
     }
 }
 
