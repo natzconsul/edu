@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Availability Setup - NATZ Consult</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            min-height: 100vh;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #0EA5E9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full bg-slate-800 rounded-3xl shadow-2xl p-8 border border-slate-700">
+        <h1 class="text-3xl font-bold text-white mb-2">Quick Setup</h1>
+        <p class="text-slate-400 mb-6">Initialize booking availability schedule</p>
+
+        <div class="bg-slate-900 rounded-xl p-6 mb-6 border border-slate-700">
+            <h2 class="text-lg font-bold text-sky-400 mb-3">Schedule</h2>
+            <ul class="space-y-1 text-sm text-slate-300">
+                <li>• Mon/Wed: 3-4pm</li>
+                <li>• Friday: 10am-12pm, 3-4pm</li>
+            </ul>
+        </div>
+
+        <button id="initBtn" onclick="initializeAvailability()"
+            class="w-full py-4 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl transition-all mb-4">
+            Initialize Now
+        </button>
+
+        <div id="status" class="hidden"></div>
+
+        <div id="progress" class="hidden mb-4">
+            <div class="flex items-center justify-center p-4 bg-slate-900 rounded-xl border border-slate-700">
+                <div class="spinner mr-3"></div>
+                <span class="text-slate-300" id="progressText">Initializing...</span>
+            </div>
+        </div>
+
+        <div class="bg-amber-900/20 border border-amber-700/50 rounded-xl p-4 text-sm">
+            <p class="text-amber-200">
+                <strong>⚠️ Important:</strong> Make sure Firestore rules are deployed first!
+            </p>
+        </div>
+
+        <details class="mt-4 text-sm">
+            <summary class="cursor-pointer text-sky-400 font-bold">Troubleshooting</summary>
+            <div class="mt-3 p-4 bg-slate-900 rounded-xl text-slate-300 space-y-2">
+                <p><strong>If it's taking too long:</strong></p>
+                <ul class="list-disc list-inside space-y-1 ml-2">
+                    <li>Check browser console (F12) for errors</li>
+                    <li>Verify Firestore rules are deployed</li>
+                    <li>Check network connectivity</li>
+                    <li>Try refreshing the page</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
+            authDomain: "natzconsul.firebaseapp.com",
+            projectId: "natzconsul",
+            storageBucket: "natzconsul.firebasestorage.app",
+            messagingSenderId: "734592808171",
+            appId: "1:734592808171:web:2625848980a2d0d8fbbaae"
+        };
+
+        console.log('Initializing Firebase...');
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        console.log('Firebase initialized ✓');
+
+        const availabilitySchedule = {
+            0: { ranges: [] },
+            1: { ranges: [{ start: 15, end: 16 }] },
+            2: { ranges: [] },
+            3: { ranges: [{ start: 15, end: 16 }] },
+            4: { ranges: [] },
+            5: { ranges: [{ start: 10, end: 12 }, { start: 15, end: 16 }] },
+            6: { ranges: [] }
+        };
+
+        window.initializeAvailability = async function () {
+            const btn = document.getElementById('initBtn');
+            const status = document.getElementById('status');
+            const progress = document.getElementById('progress');
+            const progressText = document.getElementById('progressText');
+
+            btn.disabled = true;
+            btn.textContent = 'Initializing...';
+            status.className = 'hidden';
+            progress.classList.remove('hidden');
+
+            try {
+                console.log('Starting initialization...');
+                progressText.textContent = 'Connecting to Firestore...';
+
+                const availabilityRef = doc(db, 'config', 'availability');
+
+                progressText.textContent = 'Writing schedule data...';
+                console.log('Writing to Firestore...');
+
+                // Add timeout to detect hanging
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Request timeout after 15 seconds')), 15000)
+                );
+
+                const writePromise = setDoc(availabilityRef, {
+                    schedule: availabilitySchedule,
+                    lastUpdated: new Date().toISOString(),
+                    version: '1.0',
+                    description: 'Booking availability schedule'
+                });
+
+                await Promise.race([writePromise, timeoutPromise]);
+
+                console.log('Write successful ✓');
+                progress.classList.add('hidden');
+
+                status.className = 'p-4 rounded-xl bg-green-900/30 border border-green-700 text-green-200';
+                status.innerHTML = `
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <strong>Success!</strong> Schedule initialized in Firestore.
+                        </div>
+                    </div>
+                `;
+                btn.textContent = '✓ Done';
+                btn.className = 'w-full py-4 bg-green-600 text-white font-bold rounded-xl cursor-not-allowed';
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                progress.classList.add('hidden');
+
+                let errorMessage = error.message;
+                let helpText = 'Check the console for details.';
+
+                if (error.code === 'permission-denied') {
+                    errorMessage = 'Permission denied';
+                    helpText = 'Deploy Firestore rules first (see AVAILABILITY_SETUP.md)';
+                } else if (error.message.includes('timeout')) {
+                    errorMessage = 'Request timeout';
+                    helpText = 'Check your internet connection and try again';
+                } else if (error.code === 'unavailable') {
+                    errorMessage = 'Firestore unavailable';
+                    helpText = 'Check your network connection';
+                }
+
+                status.className = 'p-4 rounded-xl bg-red-900/30 border border-red-700 text-red-200';
+                status.innerHTML = `
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
+                            <strong>Error: ${errorMessage}</strong>
+                        </div>
+                        <p class="text-sm ml-9">${helpText}</p>
+                        <p class="text-xs ml-9 mt-2 text-red-300">Technical: ${error.code || 'unknown'}</p>
+                    </div>
+                `;
+                btn.disabled = false;
+                btn.textContent = 'Retry';
+                btn.className = 'w-full py-4 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl transition-all';
+            }
+        };
+
+        // Auto-check connection on load
+        console.log('Page loaded. Ready to initialize.');
+    </script>
+</body>
+
+</html>

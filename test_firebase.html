@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Connection Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 text-white p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Firebase Connection Test</h1>
+        <div id="results" class="space-y-2 font-mono text-sm"></div>
+        <button onclick="runTest()" class="mt-4 px-6 py-3 bg-blue-500 rounded">Run Test</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
+            authDomain: "natzconsul.firebaseapp.com",
+            projectId: "natzconsul",
+            storageBucket: "natzconsul.firebasestorage.app",
+            messagingSenderId: "734592808171",
+            appId: "1:734592808171:web:2625848980a2d0d8fbbaae"
+        };
+
+        const results = document.getElementById('results');
+
+        function log(msg, type = 'info') {
+            const colors = {
+                info: 'text-blue-400',
+                success: 'text-green-400',
+                error: 'text-red-400'
+            };
+            results.innerHTML += `<div class="${colors[type]}">${msg}</div>`;
+        }
+
+        window.runTest = async function () {
+            results.innerHTML = '';
+
+            try {
+                log('1. Initializing Firebase...');
+                const app = initializeApp(firebaseConfig);
+                log('✓ Firebase initialized', 'success');
+
+                log('2. Getting Firestore instance...');
+                const db = getFirestore(app);
+                log('✓ Firestore instance created', 'success');
+
+                log('3. Testing write to config/test...');
+                const testRef = doc(db, 'config', 'test');
+                await setDoc(testRef, {
+                    timestamp: new Date().toISOString(),
+                    test: true
+                });
+                log('✓ Write successful!', 'success');
+
+                log('4. Testing read from config/test...');
+                const docSnap = await getDoc(testRef);
+                if (docSnap.exists()) {
+                    log('✓ Read successful! Data: ' + JSON.stringify(docSnap.data()), 'success');
+                } else {
+                    log('✗ Document not found', 'error');
+                }
+
+                log('5. Testing write to config/availability...');
+                const availRef = doc(db, 'config', 'availability');
+                await setDoc(availRef, {
+                    schedule: {
+                        0: { ranges: [] },
+                        1: { ranges: [{ start: 15, end: 16 }] },
+                        2: { ranges: [] },
+                        3: { ranges: [{ start: 15, end: 16 }] },
+                        4: { ranges: [] },
+                        5: { ranges: [{ start: 10, end: 12 }, { start: 15, end: 16 }] },
+                        6: { ranges: [] }
+                    },
+                    lastUpdated: new Date().toISOString(),
+                    version: '1.0'
+                });
+                log('✓ Availability schedule written successfully!', 'success');
+                log('', 'info');
+                log('=== ALL TESTS PASSED ===', 'success');
+                log('Initialization complete! Check Firebase Console to verify.', 'success');
+
+            } catch (error) {
+                log('✗ Error: ' + error.message, 'error');
+                log('Error code: ' + (error.code || 'unknown'), 'error');
+                log('Full error: ' + JSON.stringify(error, null, 2), 'error');
+            }
+        };
+    </script>
+</body>
+
+</html>

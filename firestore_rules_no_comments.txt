@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidEmail(email) {
+      return email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    }
+    function isValidPhone(phone) {
+      return phone.size() >= 10 && phone.size() <= 20;
+    }
+    function isValidBookingData(data) {
+      return data.keys().hasAll(['name', 'email', 'phone', 'citizenship', 'residence', 'education', 'desired', 'slotKey', 'slotLabel', 'monthKey', 'bookedAt']) && data.name is string && data.name.size() > 0 && data.name.size() <= 100 && data.email is string && isValidEmail(data.email) && data.phone is string && isValidPhone(data.phone) && data.citizenship is string && data.citizenship.size() > 0 && data.residence is string && data.residence.size() > 0 && data.education is string && data.education.size() > 0 && data.desired is string && data.desired.size() > 0 && data.slotKey is string && data.slotKey.size() > 0 && data.slotLabel is string && data.slotLabel.size() > 0 && data.monthKey is string && data.monthKey.matches('^[0-9]{4}-[0-9]{1,2}$') && data.bookedAt is timestamp;
+    }
+    match /bookings/{bookingId} {
+      allow read: if true;
+      allow create: if isValidBookingData(request.resource.data) && request.resource.data.bookedAt >= request.time - duration.value(5, 'm') && request.resource.data.bookedAt < request.time + duration.value(1, 'h');
+      allow update: if false;
+      allow delete: if false;
+    }
+    match /config/{configId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

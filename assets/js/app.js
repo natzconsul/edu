@@ -1,7 +1,7 @@
 // Firebase Configuration (Placeholders)
 // TODO: Replace with your actual project keys
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC6EDtwoyKUfaYWp7injNFfyWq_YIqtW48",
@@ -51,15 +51,42 @@ let selectedSlot = null;
 // DB for booked slots (Set of strings "YYYY-MM-DD-HH-mm")
 const bookedSlots = new Set();
 
-const AVAILABILITY = {
-    1: { ranges: [[8, 10], [14, 16]] },      // Mon: 8-10am, 2-4pm (14-16)
-    2: { ranges: [[8, 16]] },                // Tue: 8-4pm (8-16)
-    3: { ranges: [[15, 16]] },               // Wed: 3-4pm (15-16)
-    4: { ranges: [[8, 13]] },                // Thu: 8-1pm (8-13)
-    5: { ranges: [[8, 11], [15, 16]] },      // Fri: 8-11am, 3-4pm (15-16)
-    0: { ranges: [] },                       // Sun: Closed
-    6: { ranges: [] }                        // Sat: Closed
+// Availability schedule - loaded from Firestore on app initialization
+// Fallback schedule used if Firestore fetch fails
+// Note: Using objects instead of nested arrays (Firestore limitation)
+let AVAILABILITY = {
+    1: { ranges: [{ start: 15, end: 16 }] },                       // Monday: 3:00 PM - 4:00 PM
+    2: { ranges: [] },                                              // Tuesday: Closed
+    3: { ranges: [{ start: 15, end: 16 }] },                       // Wednesday: 3:00 PM - 4:00 PM
+    4: { ranges: [] },                                              // Thursday: Closed
+    5: { ranges: [{ start: 10, end: 12 }, { start: 15, end: 16 }] }, // Friday: 10:00 AM - 12:00 PM, 3:00 PM - 4:00 PM
+    0: { ranges: [] },                                              // Sunday: Closed
+    6: { ranges: [] }                                               // Saturday: Closed
 };
+
+// Fetch availability schedule from Firestore
+async function loadAvailabilityFromFirestore() {
+    try {
+        const availabilityRef = doc(db, 'config', 'availability');
+        const availabilityDoc = await getDoc(availabilityRef);
+
+        if (availabilityDoc.exists()) {
+            const data = availabilityDoc.data();
+            if (data.schedule) {
+                AVAILABILITY = data.schedule;
+                console.log('✅ Availability schedule loaded from Firestore');
+                return true;
+            }
+        }
+
+        console.warn('⚠️ No availability schedule found in Firestore, using fallback');
+        return false;
+    } catch (error) {
+        console.error('❌ Error loading availability from Firestore:', error);
+        console.warn('⚠️ Using fallback availability schedule');
+        return false;
+    }
+}
 
 function openIntakeModal() {
     const modal = document.getElementById('intake-modal');
@@ -195,7 +222,10 @@ function generateSlots(date) {
     if (!config) return;
 
     config.ranges.forEach(range => {
-        const [startHour, endHour] = range;
+        // Handle both old array format [[start, end]] and new object format {start, end}
+        const startHour = Array.isArray(range) ? range[0] : range.start;
+        const endHour = Array.isArray(range) ? range[1] : range.end;
+
         for (let h = startHour; h < endHour; h++) {
             // Create :00 and :30 slots
             [0, 30].forEach(minutes => {
@@ -539,7 +569,11 @@ window.closeBookingModal = closeBookingModal;
 window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load availability schedule from Firestore
+    await loadAvailabilityFromFirestore();
+
+    // Initialize UI
     document.getElementById('current-year').innerText = new Date().getFullYear();
     document.getElementById('other_means_checkbox')?.addEventListener('change', (e) => {
         document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);

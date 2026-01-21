@@ -37,30 +37,20 @@ service cloud.firestore {
     
     // Bookings collection rules
     match /bookings/{bookingId} {
-      // Allow anyone to read bookings (needed for availability checking)
-      // In production, consider rate limiting or requiring authentication
       allow read: if true;
       
-      // Allow creation only if:
-      // 1. Data structure is valid
-      // 2. Timestamp is reasonable (within 1 hour of current time)
       allow create: if isValidBookingData(request.resource.data)
                     && request.resource.data.bookedAt >= request.time - duration.value(5, 'm')
                     && request.resource.data.bookedAt < request.time + duration.value(1, 'h');
       
-      // Prevent updates and deletes from client-side
-      // Only server-side or Firebase Console can modify
       allow update: if false;
       allow delete: if false;
     }
     
-    // Config collection rules (for availability schedule)
+    // Config collection rules for availability schedule
     match /config/{configId} {
-      // Allow anyone to read config (needed for availability checking)
       allow read: if true;
       
-      // Allow writes to availability config
-      // In production, you may want to restrict this to authenticated admins only
       allow write: if configId == 'availability' 
                    && request.resource.data.keys().hasAll(['schedule', 'lastUpdated', 'version'])
                    && request.resource.data.schedule is map;
