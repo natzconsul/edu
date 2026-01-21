@@ -92,6 +92,12 @@ function openIntakeModal() {
     const modal = document.getElementById('intake-modal');
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+
+    // Focus first focusable element for accessibility
+    setTimeout(() => {
+        const firstInput = modal.querySelector('input, select, textarea, button');
+        if (firstInput) firstInput.focus();
+    }, 100);
 }
 
 function closeIntakeModal() {
@@ -101,9 +107,16 @@ function closeIntakeModal() {
 }
 
 async function openBookingModal() {
-    document.getElementById('booking-modal').classList.remove('hidden');
+    const modal = document.getElementById('booking-modal');
+    modal.classList.remove('hidden');
     await fetchBookings(currentMonth); // Fetch latest slots
     renderCalendar();
+
+    // Focus first focusable element for accessibility
+    setTimeout(() => {
+        const firstButton = modal.querySelector('button');
+        if (firstButton) firstButton.focus();
+    }, 100);
 }
 
 async function fetchBookings(date) {
@@ -579,4 +592,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
     });
     document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
+
+    // Keyboard navigation: ESC key closes modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            const bookingModal = document.getElementById('booking-modal');
+            const intakeModal = document.getElementById('intake-modal');
+
+            if (!bookingModal.classList.contains('hidden')) {
+                closeBookingModal();
+            } else if (!intakeModal.classList.contains('hidden')) {
+                closeIntakeModal();
+            }
+        }
+    });
 });

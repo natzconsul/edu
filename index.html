@@ -549,13 +549,14 @@
     </footer>
 
     <!-- BOOKING MODAL -->
-    <div id="booking-modal" class="fixed inset-0 z-[100] hidden">
+    <div id="booking-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true"
+        aria-labelledby="booking-modal-title">
         <div class="absolute inset-0 bg-brand-dark/90 backdrop-blur-md" onclick="closeBookingModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div
                 class="bg-brand-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-slate-700 shadow-2xl flex flex-col md:flex-row relative">
                 <!-- Close Button -->
-                <button onclick="closeBookingModal()"
+                <button onclick="closeBookingModal()" aria-label="Close booking modal"
                     class="absolute top-6 right-6 p-2 text-slate-400 hover:text-white z-10 bg-slate-800/50 rounded-full">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -566,7 +567,8 @@
                 <!-- Sidebar / Info -->
                 <div
                     class="w-full md:w-1/3 bg-slate-900/50 p-8 md:p-10 border-b md:border-b-0 md:border-r border-slate-700">
-                    <h3 class="text-2xl font-black text-brand-sky mb-2 uppercase tracking-tight">Book Consultation</h3>
+                    <h3 id="booking-modal-title"
+                        class="text-2xl font-black text-brand-sky mb-2 uppercase tracking-tight">Book Consultation</h3>
                     <p class="text-slate-400 text-sm mb-8">Select a time slot for your 30-minute strategy session.</p>
 
                     <div class="space-y-6 text-sm text-slate-300 font-medium">
@@ -604,11 +606,11 @@
                         <div class="flex justify-between items-center mb-6">
                             <h4 class="text-xl font-black text-white uppercase tracking-tight">Select Date & Time</h4>
                             <div class="space-x-2">
-                                <button onclick="changeMonth(-1)"
+                                <button onclick="changeMonth(-1)" aria-label="Previous month"
                                     class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&larr;</button>
                                 <span id="current-month-label"
                                     class="text-sm font-bold text-slate-200 uppercase tracking-wider"></span>
-                                <button onclick="changeMonth(1)"
+                                <button onclick="changeMonth(1)" aria-label="Next month"
                                     class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&rarr;</button>
                             </div>
                         </div>
@@ -637,7 +639,7 @@
                     <!-- Step 2: Details Form -->
                     <div id="booking-step-2" class="hidden animate-in fade-in slide-in-from-right-8">
                         <div class="flex items-center mb-8">
-                            <button onclick="backToCalendar()"
+                            <button onclick="backToCalendar()" aria-label="Back to calendar"
                                 class="mr-4 p-2 text-slate-400 hover:text-white font-bold text-sm bg-slate-800 rounded-lg">&larr;
                                 Back</button>
                             <h4 class="text-xl font-black text-white uppercase tracking-tight">Confirm Booking</h4>
@@ -655,31 +657,65 @@
 
                         <form id="booking-form" class="space-y-4 font-sans">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <input type="text" id="bk_name" required placeholder="Full Name"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                <input type="email" id="bk_email" required placeholder="Email Address"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                <div>
+                                    <label for="bk_name"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Full
+                                        Name *</label>
+                                    <input type="text" id="bk_name" name="bk_name" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label for="bk_email"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email
+                                        Address *</label>
+                                    <input type="email" id="bk_email" name="bk_email" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <input type="tel" id="bk_phone" required placeholder="Phone"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                <input type="text" id="bk_citizenship" required placeholder="Citizenship"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                <div>
+                                    <label for="bk_phone"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Phone
+                                        *</label>
+                                    <input type="tel" id="bk_phone" name="bk_phone" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label for="bk_citizenship"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Citizenship
+                                        *</label>
+                                    <input type="text" id="bk_citizenship" name="bk_citizenship" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                </div>
                             </div>
-                            <input type="text" id="bk_residence" required
-                                placeholder="Current Residence (City, Country)"
-                                class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                            <div>
+                                <label for="bk_residence"
+                                    class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Current
+                                    Residence *</label>
+                                <input type="text" id="bk_residence" name="bk_residence" required
+                                    placeholder="City, Country" class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                            </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <select id="bk_education_level" required
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
-                                    <option value="" disabled selected>Current Education Level</option>
-                                    <option value="High School">High School</option>
-                                    <option value="Undergraduate">Undergraduate</option>
-                                    <option value="Graduate">Graduate</option>
-                                </select>
-                                <input type="text" id="bk_desired" required placeholder="Desired Program/Goal"
-                                    class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                <div>
+                                    <label for="bk_education_level"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Education
+                                        Level *</label>
+                                    <select id="bk_education_level" name="bk_education_level" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                        <option value="" disabled selected>Select level</option>
+                                        <option value="High School">High School</option>
+                                        <option value="Undergraduate">Undergraduate</option>
+                                        <option value="Graduate">Graduate</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="bk_desired"
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Desired
+                                        Program/Goal *</label>
+                                    <input type="text" id="bk_desired" name="bk_desired" required
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm">
+                                </div>
                             </div>
 
                             <button type="submit"
@@ -696,14 +732,15 @@
     <script type="module" src="assets/js/app.js"></script>
 
     <!-- INTAKE MODAL -->
-    <div id="intake-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+    <div id="intake-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true"
+        aria-labelledby="intake-modal-title">
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeIntakeModal()"></div>
         <div class="relative z-10 w-full h-full overflow-y-auto">
             <div class="min-h-full flex items-center justify-center p-4">
                 <div
                     class="relative w-full max-w-3xl bg-brand-card border border-slate-700 rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
 
-                    <button onclick="closeIntakeModal()"
+                    <button onclick="closeIntakeModal()" aria-label="Close intake modal"
                         class="absolute top-8 right-8 z-50 p-3 bg-slate-800/50 rounded-full hover:bg-rose-500 hover:text-white transition-all group">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -714,7 +751,7 @@
 
                     <div
                         class="relative p-12 bg-gradient-to-b from-brand-sky/10 to-transparent text-center border-b border-slate-800">
-                        <h2
+                        <h2 id="intake-modal-title"
                             class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic font-sans mb-4">
                             Intake Portal</h2>
                         <p class="text-slate-400 text-lg">Detailed evaluation for your study journey.</p>
