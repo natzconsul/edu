@@ -387,7 +387,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
                 CONFIG.EMAILJS_PUBLIC_KEY
             );
 
-            showMessage('success', 'Booking confirmed! NATZ Consult will contact you soon.');
+            showMessage('success', 'Booking confirmed! NATZ Consulting will contact you soon.');
         } catch (emailError) {
             console.error('Email notification error:', emailError);
             // Still show success since booking was saved to Firestore
@@ -608,7 +608,7 @@ async function handleFormSubmit(event) {
             CONFIG.EMAILJS_PUBLIC_KEY
         );
 
-        showMessage('success', 'Application submitted! NATZ Consult will reach you soon.');
+        showMessage('success', 'Application submitted! NATZ Consulting will reach you soon.');
         document.getElementById('consult-form').reset();
     } catch (emailError) {
         console.error('Email error:', emailError);
