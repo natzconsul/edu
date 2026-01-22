@@ -46,7 +46,8 @@ body {
 /* Floating Icon Animation */
 .floating-icon {
     position: absolute;
-    animation: float 20s ease-in-out infinite;
+    animation: float 10s ease-in-out infinite;
+    /* 2x faster */
     opacity: 0.6;
 }
 

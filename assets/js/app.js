@@ -290,10 +290,10 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
     const name = sanitizeInput(document.getElementById('bk_name').value);
     const email = document.getElementById('bk_email').value.trim();
     const phone = document.getElementById('bk_phone').value.trim();
-    const citizenship = sanitizeInput(document.getElementById('bk_citizenship').value);
-    const residence = sanitizeInput(document.getElementById('bk_residence').value);
+    const citizenship = document.getElementById('bk_citizenship').value; // Dropdown value
+    const residence = document.getElementById('bk_residence').value; // Dropdown value
     const education = document.getElementById('bk_education_level').value;
-    const desired = sanitizeInput(document.getElementById('bk_desired').value);
+    const desired = document.getElementById('bk_desired').value; // Dropdown value
 
     // Client-side validation (matches Firestore security rules)
     if (!validateName(name)) {
@@ -312,7 +312,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
     }
 
     if (!citizenship || !residence || !education || !desired) {
-        showMessage('error', 'Please fill out all required fields');
+        showMessage('error', 'Please select all required fields');
         return;
     }
 
