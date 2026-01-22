@@ -18,7 +18,16 @@ const db = getFirestore(app);
 
 // Configuration
 const CONFIG = {
-    CONTACT_EMAIL: 'natzconsul21@gmail.com',
+    // Email recipients (both will receive notifications)
+    CONTACT_EMAILS: ['natzconsul@gmail.com', 'info@natzconsult.com'],
+
+    // EmailJS Configuration
+    EMAILJS_PUBLIC_KEY: 'b5nfTFmqBkaKNpwDv',
+    EMAILJS_SERVICE_ID: 'service_yx8uz9g',
+    EMAILJS_TEMPLATE_BOOKING: 'template_4ttjwc7',
+    EMAILJS_TEMPLATE_INTAKE: 'template_cmavibh',
+
+    // Validation
     MAX_NAME_LENGTH: 100,
     MIN_PHONE_LENGTH: 10,
     MAX_PHONE_LENGTH: 20
@@ -315,6 +324,24 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
         const slotDate = selectedSlot.dateObj || new Date(selectedSlot.label.split(' at ')[0]);
         const monthKey = `${slotDate.getFullYear()}-${slotDate.getMonth()}`;
 
+        // CRITICAL: Check if slot is still available (race condition prevention)
+        submitBtn.innerText = 'CHECKING AVAILABILITY...';
+        const slotQuery = query(
+            collection(db, "bookings"),
+            where("slotKey", "==", selectedSlot.key)
+        );
+        const existingBookings = await getDocs(slotQuery);
+
+        if (!existingBookings.empty) {
+            // Slot was just booked by another user
+            showMessage('error', 'This slot was just booked by another user. Please select a different time.');
+            bookedSlots.add(selectedSlot.key); // Update local cache
+            await fetchBookings(currentMonth); // Refresh all bookings
+            renderCalendar(); // Update UI
+            backToCalendar(); // Return to calendar view
+            return;
+        }
+
         const bookingData = {
             name: name,
             email: email,
@@ -330,29 +357,43 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
         };
 
         // 1. Save to Firestore to block the slot
+        submitBtn.innerText = 'SECURING SLOT...';
         await addDoc(collection(db, "bookings"), bookingData);
 
         // 2. Add to local set immediately for feedback
         bookedSlots.add(selectedSlot.key);
 
-        // 3. Prepare Mailto Link
-        const subject = encodeURIComponent(`Consultation Booking: ${selectedSlot.label}`);
-        const body = encodeURIComponent(
-            `BOOKING DETAILS\n\n` +
-            `Name: ${bookingData.name}\n` +
-            `Email: ${bookingData.email}\n` +
-            `Phone: ${bookingData.phone}\n` +
-            `Citizenship: ${bookingData.citizenship}\n` +
-            `Residence: ${bookingData.residence}\n` +
-            `Education Level: ${bookingData.education}\n` +
-            `Desired Program: ${bookingData.desired}\n\n` +
-            `Requested Slot: ${bookingData.slotLabel}\n` +
-            `(This slot has been reserved in the system database)`
-        );
+        // 3. Send email notification via EmailJS
+        submitBtn.innerText = 'SENDING CONFIRMATION...';
+        try {
+            await emailjs.send(
+                CONFIG.EMAILJS_SERVICE_ID,
+                CONFIG.EMAILJS_TEMPLATE_BOOKING,
+                {
+                    to_emails: CONFIG.CONTACT_EMAILS.join(', '),
+                    from_name: bookingData.name,
+                    from_email: bookingData.email,
+                    phone: bookingData.phone,
+                    citizenship: bookingData.citizenship,
+                    residence: bookingData.residence,
+                    education: bookingData.education,
+                    desired: bookingData.desired,
+                    slot: bookingData.slotLabel,
+                    booked_at: new Date().toLocaleString('en-US', {
+                        dateStyle: 'full',
+                        timeStyle: 'short'
+                    })
+                },
+                CONFIG.EMAILJS_PUBLIC_KEY
+            );
 
-        window.location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+            showMessage('success', 'Booking confirmed! NATZ Consult will contact you soon.');
+        } catch (emailError) {
+            console.error('Email notification error:', emailError);
+            // Still show success since booking was saved to Firestore
+            showMessage('warning', 'Booking saved! Email notification pending. We will contact you soon.');
+        }
 
-        showMessage('success', 'Slot Reserved! Please send the generated email to confirm.');
         closeBookingModal();
         // Refresh to ensure we have latest state
         await fetchBookings(currentMonth);
@@ -470,11 +511,14 @@ function switchTab(id) {
 function showMessage(type, content) {
     const box = document.getElementById('message-box');
     const messageContent = document.getElementById('message-content');
-    box.classList.remove('hidden', 'bg-brand-dark', 'border-brand-sky', 'text-brand-sky', 'border-rose-500', 'text-rose-500', 'translate-y-20');
+    box.classList.remove('hidden', 'bg-brand-dark', 'border-brand-sky', 'text-brand-sky', 'border-rose-500', 'text-rose-500', 'border-amber-500', 'text-amber-500', 'translate-y-20');
 
     if (type === 'success') {
         box.classList.add('bg-brand-dark', 'border-brand-sky', 'text-brand-sky');
         messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
+    } else if (type === 'warning') {
+        box.classList.add('bg-brand-dark', 'border-amber-500', 'text-amber-500');
+        messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
     } else {
         box.classList.add('bg-brand-dark', 'border-rose-500', 'text-rose-500');
         messageContent.innerHTML = `<svg class="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><span>${content}</span>`;
@@ -527,7 +571,7 @@ async function handleFormSubmit(event) {
     }
 
     submitBtn.disabled = true;
-    submitBtn.innerText = 'OPENING EMAIL CLIENT...';
+    submitBtn.innerText = 'SUBMITTING APPLICATION...';
 
     const formData = {
         name: name,
@@ -543,33 +587,36 @@ async function handleFormSubmit(event) {
         details: details
     };
 
-    const subject = encodeURIComponent(`Intake Submission: ${formData.name}`);
-    const body = encodeURIComponent(
-        `INTAKE PORTAL SUBMISSION\n\n` +
-        `1. PRIMARY PROFILE\n` +
-        `Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n` +
-        `Phone: ${formData.phone}\n` +
-        `Country: ${formData.country}\n` +
-        `Address: ${formData.address}\n\n` +
-        `2. ASPIRATIONS\n` +
-        `Program Level: ${formData.program}\n\n` +
-        `3. EMERGENCY CONTACT\n` +
-        `Name: ${formData.emergencyName}\n` +
-        `Phone: ${formData.emergencyPhone}\n\n` +
-        `4. DOCUMENTATION\n` +
-        `Documents Available: ${formData.docs}\n` +
-        `Drive Link: ${formData.link}\n` +
-        `Additional Details: ${formData.details}`
-    );
+    try {
+        await emailjs.send(
+            CONFIG.EMAILJS_SERVICE_ID,
+            CONFIG.EMAILJS_TEMPLATE_INTAKE,
+            {
+                to_emails: CONFIG.CONTACT_EMAILS.join(', '),
+                from_name: formData.name,
+                from_email: formData.email,
+                phone: formData.phone,
+                country: formData.country,
+                address: formData.address,
+                emergency_name: formData.emergencyName,
+                emergency_phone: formData.emergencyPhone,
+                program: formData.program,
+                docs: formData.docs,
+                link: formData.link,
+                details: formData.details
+            },
+            CONFIG.EMAILJS_PUBLIC_KEY
+        );
 
-    setTimeout(() => {
-        window.location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-        showMessage('success', 'Intake Form processed. Please send the drafted email.');
+        showMessage('success', 'Application submitted! NATZ Consult will reach you soon.');
         document.getElementById('consult-form').reset();
+    } catch (emailError) {
+        console.error('Email error:', emailError);
+        showMessage('error', 'Failed to submit application. Please try again.');
+    } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = originalText;
-    }, 800);
+    }
 }
 
 // Expose functions to global scope for inline HTML handlers
@@ -584,7 +631,12 @@ window.backToCalendar = backToCalendar;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Load availability schedule from Firestore
-    await loadAvailabilityFromFirestore();
+    const firestoreLoaded = await loadAvailabilityFromFirestore();
+
+    // Notify user if using fallback schedule
+    if (!firestoreLoaded) {
+        showMessage('warning', 'Using offline schedule. Availability may not be up-to-date. Please refresh if you encounter issues.');
+    }
 
     // Initialize UI
     document.getElementById('current-year').innerText = new Date().getFullYear();

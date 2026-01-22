@@ -1,9 +1,11 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Helper functions for validation
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
     function isValidEmail(email) {
       return email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
     }
@@ -14,59 +16,76 @@ service cloud.firestore {
     
     function isValidBookingData(data) {
       return data.keys().hasAll([
-        'name', 'email', 'phone', 'citizenship', 
-        'residence', 'education', 'desired', 
-        'slotKey', 'slotLabel', 'monthKey', 'bookedAt'
-      ]) 
-      && data.name is string && data.name.size() > 0 && data.name.size() <= 100
-      && data.email is string && isValidEmail(data.email)
-      && data.phone is string && isValidPhone(data.phone)
-      && data.citizenship is string && data.citizenship.size() > 0
-      && data.residence is string && data.residence.size() > 0
-      && data.education is string && data.education.size() > 0
-      && data.desired is string && data.desired.size() > 0
-      && data.slotKey is string && data.slotKey.size() > 0
-      && data.slotLabel is string && data.slotLabel.size() > 0
-      && data.monthKey is string && data.monthKey.matches('^[0-9]{4}-[0-9]{1,2}$')
-      && data.bookedAt is timestamp;
+        'name', 'email', 'phone', 'citizenship', 'residence', 
+        'education', 'desired', 'slotKey', 'slotLabel', 'monthKey', 'bookedAt'
+      ]) &&
+      // Name validation
+      data.name is string &&
+      data.name.size() > 0 &&
+      data.name.size() <= 100 &&
+      // Email validation
+      data.email is string &&
+      isValidEmail(data.email) &&
+      // Phone validation
+      data.phone is string &&
+      isValidPhone(data.phone) &&
+      // Other required fields
+      data.citizenship is string &&
+      data.citizenship.size() > 0 &&
+      data.residence is string &&
+      data.residence.size() > 0 &&
+      data.education is string &&
+      data.education.size() > 0 &&
+      data.desired is string &&
+      data.desired.size() > 0 &&
+      // Slot information
+      data.slotKey is string &&
+      data.slotKey.size() > 0 &&
+      data.slotLabel is string &&
+      data.slotLabel.size() > 0 &&
+      // Month key format validation (YYYY-M or YYYY-MM)
+      data.monthKey is string &&
+      data.monthKey.matches('^[0-9]{4}-[0-9]{1,2}$') &&
+      // Timestamp validation (prevent backdating/future dating)
+      data.bookedAt is timestamp &&
+      data.bookedAt >= request.time - duration.value(5, 'm') &&
+      data.bookedAt < request.time + duration.value(1, 'h');
     }
     
-    function isSlotNotBooked(slotKey) {
-      return !exists(/databases/$(database)/documents/bookings/$(slotKey));
-    }
+    // ============================================
+    // BOOKINGS COLLECTION
+    // ============================================
     
-    // Bookings collection rules
     match /bookings/{bookingId} {
-      // Allow anyone to read bookings (needed for availability checking)
-      // In production, consider rate limiting or requiring authentication
+      // Allow reading bookings for availability checking (race condition prevention)
+      // Note: Consider restricting this to only read slotKey field if privacy is a concern
       allow read: if true;
       
-      // Allow creation only if:
-      // 1. Data structure is valid
-      // 2. Timestamp is reasonable (within 1 hour of current time)
-      allow create: if isValidBookingData(request.resource.data)
-                    && request.resource.data.bookedAt >= request.time - duration.value(5, 'm')
-                    && request.resource.data.bookedAt < request.time + duration.value(1, 'h');
+      // Allow creating bookings with valid data
+      allow create: if isValidBookingData(request.resource.data);
       
-      // Prevent updates and deletes from client-side
-      // Only server-side or Firebase Console can modify
+      // Prevent updates and deletes (bookings are immutable)
       allow update: if false;
       allow delete: if false;
     }
     
-    // Config collection rules (for availability schedule)
+    // ============================================
+    // CONFIG COLLECTION (Availability Schedule)
+    // ============================================
+    
     match /config/{configId} {
-      // Allow anyone to read config (needed for availability checking)
+      // Allow public read access for availability schedule
       allow read: if true;
       
-      // Allow writes to availability config
-      // In production, you may want to restrict this to authenticated admins only
-      allow write: if configId == 'availability' 
-                   && request.resource.data.keys().hasAll(['schedule', 'lastUpdated', 'version'])
-                   && request.resource.data.schedule is map;
+      // SECURITY: Only allow writes from Firebase Console/Admin SDK
+      // Set to false to prevent client-side modifications
+      allow write: if false;
     }
     
-    // Deny access to all other collections by default
+    // ============================================
+    // DEFAULT DENY ALL
+    // ============================================
+    
     match /{document=**} {
       allow read, write: if false;
     }
