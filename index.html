@@ -68,7 +68,9 @@
                     class="px-6 py-2 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark transition-all">Contact</button>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400">
+
+            <button id="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open mobile menu"
+                class="md:hidden p-2 text-slate-400 hover:text-white transition-colors">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
                     </path>
@@ -76,6 +78,37 @@
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
+        <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-lg" onclick="closeMobileMenu()"></div>
+        <nav
+            class="absolute top-0 right-0 h-full w-64 bg-brand-card border-l border-slate-700 shadow-2xl transform translate-x-0 transition-transform duration-300">
+            <div class="flex flex-col h-full p-6">
+                <button onclick="closeMobileMenu()" aria-label="Close mobile menu"
+                    class="self-end p-2 text-slate-400 hover:text-white mb-8">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+
+
+                <div class="flex flex-col space-y-6 text-sm font-black tracking-[0.2em] font-sans">
+                    <a href="#" onclick="switchTab('home'); closeMobileMenu();"
+                        class="text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Home</a>
+                    <button onclick="switchTab('pathway'); closeMobileMenu();"
+                        class="text-left text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Study
+                        Pathway</button>
+                    <button onclick="switchTab('about'); closeMobileMenu();"
+                        class="text-left text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">About
+                        Us</button>
+                    <button onclick="switchTab('contact'); closeMobileMenu();"
+                        class="text-left px-6 py-3 mt-4 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark transition-all text-center">Contact</button>
+                </div>
+            </div>
+        </nav>
+    </div>
 
     <!-- Hero Section -->
     <header class="relative w-full min-h-[50vh] flex items-center justify-center px-6 py-12 overflow-hidden">
@@ -760,8 +793,32 @@
         </div>
     </div>
 
+
     <!-- EmailJS SDK for direct email notifications -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Mobile Menu Fallback - ensures menu works even if ES modules fail on file:// -->
+    <script>
+        // Define mobile menu functions globally as fallback
+        if (typeof window.openMobileMenu === 'undefined') {
+            window.openMobileMenu = function () {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) {
+                    menu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.closeMobileMenu = function () {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) {
+                    menu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            };
+        }
+    </script>
+
     <script type="module" src="assets/js/app.js"></script>
 
     <!-- INTAKE MODAL -->

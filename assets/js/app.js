@@ -531,6 +531,19 @@ function showMessage(type, content) {
     }, 6000);
 }
 
+// Mobile Menu Functions
+function openMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
 async function handleFormSubmit(event) {
     event.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
@@ -628,6 +641,8 @@ window.openBookingModal = openBookingModal;
 window.closeBookingModal = closeBookingModal;
 window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
+window.openMobileMenu = openMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Load availability schedule from Firestore
