@@ -89,3 +89,54 @@ a:focus-visible {
     outline-offset: 2px;
     box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
 }
+
+/* Hero Scrolling Background Animation */
+.hero-scroll-container {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    animation: scroll-left 40s linear infinite;
+}
+
+.hero-image {
+    width: 40vw;
+    /* Each image takes 40% of viewport width */
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-200vw);
+        /* Move by 5 images worth (5 * 40vw = 200vw) */
+    }
+}
+
+/* Pause animation on hover for better UX */
+.hero-scroll-container:hover {
+    animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-image {
+        width: 60vw;
+        /* Larger images on mobile */
+    }
+
+    @keyframes scroll-left {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-300vw);
+            /* Adjust for mobile (5 * 60vw = 300vw) */
+        }
+    }
+}

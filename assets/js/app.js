@@ -478,20 +478,54 @@ function switchTab(id) {
         const heroTagline = document.getElementById('hero-tagline');
         const heroButtons = document.querySelector('.hero-buttons');
         const heroSection = document.querySelector('header');
+        const scrollingBg = document.querySelector('.hero-scroll-container')?.parentElement;
+        const darkOverlay = heroSection?.querySelector('.bg-brand-dark\\/40');
+        const heroCard = heroSection?.querySelector('.relative.z-10');
+        const tabContent = document.getElementById('tab-content');
 
         // Hide buttons and reduce height on pathway and about pages
         if (id === 'pathway' || id === 'about') {
             if (heroButtons) heroButtons.classList.add('hidden');
             if (heroSection) {
-                heroSection.classList.remove('min-h-[50vh]');
-                heroSection.classList.add('min-h-[25vh]');
+                heroSection.classList.remove('min-h-[70vh]', 'min-h-[25vh]');
+                heroSection.classList.add('min-h-[15vh]');
+            }
+            // Hide scrolling background on non-home pages
+            if (scrollingBg) scrollingBg.classList.add('hidden');
+            if (darkOverlay) darkOverlay.classList.add('hidden');
+            // Make hero card less transparent on non-home pages
+            if (heroCard) {
+                heroCard.classList.remove('bg-brand-card/5', 'backdrop-blur-sm', 'border-white/5');
+                heroCard.classList.add('bg-brand-card/85', 'backdrop-blur-xl', 'border-slate-700/50');
+                // Reduce padding on hero card for tighter layout
+                heroCard.classList.remove('p-8', 'md:p-12');
+                heroCard.classList.add('p-4', 'md:p-6');
+            }
+            // Reduce spacing between hero and content by 90% on non-home pages
+            if (tabContent) {
+                tabContent.classList.add('-mt-40');
             }
         } else {
             // Show buttons and restore height on home page
             if (heroButtons) heroButtons.classList.remove('hidden');
             if (heroSection) {
-                heroSection.classList.remove('min-h-[25vh]');
-                heroSection.classList.add('min-h-[50vh]');
+                heroSection.classList.remove('min-h-[25vh]', 'min-h-[15vh]');
+                heroSection.classList.add('min-h-[70vh]');
+            }
+            // Show scrolling background on home page
+            if (scrollingBg) scrollingBg.classList.remove('hidden');
+            if (darkOverlay) darkOverlay.classList.remove('hidden');
+            // Make hero card more transparent on home page
+            if (heroCard) {
+                heroCard.classList.remove('bg-brand-card/85', 'backdrop-blur-xl', 'border-slate-700/50');
+                heroCard.classList.add('bg-brand-card/5', 'backdrop-blur-sm', 'border-white/5');
+                // Restore padding on hero card
+                heroCard.classList.remove('p-4', 'md:p-6');
+                heroCard.classList.add('p-8', 'md:p-12');
+            }
+            // Restore normal spacing on home page
+            if (tabContent) {
+                tabContent.classList.remove('-mt-40');
             }
         }
 
@@ -529,19 +563,6 @@ function showMessage(type, content) {
         box.classList.add('translate-y-20');
         setTimeout(() => box.classList.add('hidden'), 500);
     }, 6000);
-}
-
-// Mobile Menu Functions
-function openMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.add('hidden');
-    document.body.style.overflow = 'auto';
 }
 
 async function handleFormSubmit(event) {
@@ -641,8 +662,7 @@ window.openBookingModal = openBookingModal;
 window.closeBookingModal = closeBookingModal;
 window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
-window.openMobileMenu = openMobileMenu;
-window.closeMobileMenu = closeMobileMenu;
+// Note: openMobileMenu and closeMobileMenu are defined in inline script in index.html
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Load availability schedule from Firestore
@@ -659,6 +679,54 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
     });
     document.getElementById('consult-form').addEventListener('submit', handleFormSubmit);
+
+    // ===========================
+    // NAVIGATION EVENT LISTENERS (CSP Compliant)
+    // ===========================
+
+    // Logo click - navigate to home and scroll to top
+    const logoHome = document.getElementById('logo-home');
+    if (logoHome) {
+        logoHome.addEventListener('click', () => {
+            switchTab('home');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Navigation menu items
+    const navHome = document.getElementById('nav-home');
+    if (navHome) {
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchTab('home');
+        });
+    }
+
+    const navPathway = document.getElementById('nav-pathway');
+    if (navPathway) {
+        navPathway.addEventListener('click', () => switchTab('pathway'));
+    }
+
+    const navAbout = document.getElementById('nav-about');
+    if (navAbout) {
+        navAbout.addEventListener('click', () => switchTab('about'));
+    }
+
+    const navContact = document.getElementById('nav-contact');
+    if (navContact) {
+        navContact.addEventListener('click', () => switchTab('contact'));
+    }
+
+    // Modal trigger buttons
+    const intakeBtn = document.getElementById('intake-btn');
+    if (intakeBtn) {
+        intakeBtn.addEventListener('click', openIntakeModal);
+    }
+
+    const bookingBtn = document.getElementById('booking-btn');
+    if (bookingBtn) {
+        bookingBtn.addEventListener('click', openBookingModal);
+    }
 
     // Keyboard navigation: ESC key closes modals
     document.addEventListener('keydown', (e) => {
