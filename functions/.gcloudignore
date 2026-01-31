@@ -1,0 +1,3 @@
+# Ignore package-lock to let Firebase build with clean dependencies
+package-lock.json
+node_modules/

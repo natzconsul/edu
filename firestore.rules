@@ -17,8 +17,9 @@ service cloud.firestore {
     function isValidBookingData(data) {
       return data.keys().hasAll([
         'name', 'email', 'phone', 'citizenship', 'residence', 
-        'education', 'desired', 'slotKey', 'slotLabel', 'monthKey', 'bookedAt'
+        'education', 'desired', 'slotKey', 'slotLabel', 'monthKey'
       ]) &&
+
       // Name validation
       data.name is string &&
       data.name.size() > 0 &&
@@ -45,11 +46,7 @@ service cloud.firestore {
       data.slotLabel.size() > 0 &&
       // Month key format validation (YYYY-M or YYYY-MM)
       data.monthKey is string &&
-      data.monthKey.matches('^[0-9]{4}-[0-9]{1,2}$') &&
-      // Timestamp validation (prevent backdating/future dating)
-      data.bookedAt is timestamp &&
-      data.bookedAt >= request.time - duration.value(5, 'm') &&
-      data.bookedAt < request.time + duration.value(1, 'h');
+      data.monthKey.matches('^[0-9]{4}-[0-9]{1,2}$');
     }
     
     // ============================================

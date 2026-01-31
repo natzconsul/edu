@@ -30,7 +30,10 @@ const CONFIG = {
     // Validation
     MAX_NAME_LENGTH: 100,
     MIN_PHONE_LENGTH: 10,
-    MAX_PHONE_LENGTH: 20
+    MAX_PHONE_LENGTH: 20,
+
+    // Stripe Configuration
+    STRIPE_FUNCTION_URL: 'https://us-central1-natzconsult.cloudfunctions.net/createStripeCheckout'
 };
 
 // Validation Helper Functions
@@ -324,24 +327,6 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
         const slotDate = selectedSlot.dateObj || new Date(selectedSlot.label.split(' at ')[0]);
         const monthKey = `${slotDate.getFullYear()}-${slotDate.getMonth()}`;
 
-        // CRITICAL: Check if slot is still available (race condition prevention)
-        submitBtn.innerText = 'CHECKING AVAILABILITY...';
-        const slotQuery = query(
-            collection(db, "bookings"),
-            where("slotKey", "==", selectedSlot.key)
-        );
-        const existingBookings = await getDocs(slotQuery);
-
-        if (!existingBookings.empty) {
-            // Slot was just booked by another user
-            showMessage('error', 'This slot was just booked by another user. Please select a different time.');
-            bookedSlots.add(selectedSlot.key); // Update local cache
-            await fetchBookings(currentMonth); // Refresh all bookings
-            renderCalendar(); // Update UI
-            backToCalendar(); // Return to calendar view
-            return;
-        }
-
         const bookingData = {
             name: name,
             email: email,
@@ -352,52 +337,39 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
             desired: desired,
             slotKey: selectedSlot.key,
             slotLabel: selectedSlot.label,
-            monthKey: monthKey,
-            bookedAt: Timestamp.now()
+            monthKey: monthKey
         };
 
-        // 1. Save to Firestore to block the slot
-        submitBtn.innerText = 'SECURING SLOT...';
-        await addDoc(collection(db, "bookings"), bookingData);
 
-        // 2. Add to local set immediately for feedback
-        bookedSlots.add(selectedSlot.key);
+        // Initiate Stripe Checkout
+        submitBtn.innerText = 'REDIRECTING TO PAYMENT...';
 
-        // 3. Send email notification via EmailJS
-        submitBtn.innerText = 'SENDING CONFIRMATION...';
+
         try {
-            await emailjs.send(
-                CONFIG.EMAILJS_SERVICE_ID,
-                CONFIG.EMAILJS_TEMPLATE_BOOKING,
-                {
-                    to_emails: CONFIG.CONTACT_EMAILS.join(', '),
-                    from_name: bookingData.name,
-                    from_email: bookingData.email,
-                    phone: bookingData.phone,
-                    citizenship: bookingData.citizenship,
-                    residence: bookingData.residence,
-                    education: bookingData.education,
-                    desired: bookingData.desired,
-                    slot: bookingData.slotLabel,
-                    booked_at: new Date().toLocaleString('en-US', {
-                        dateStyle: 'full',
-                        timeStyle: 'short'
-                    })
+            const response = await fetch(CONFIG.STRIPE_FUNCTION_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                CONFIG.EMAILJS_PUBLIC_KEY
-            );
+                body: JSON.stringify({
+                    bookingData: bookingData
+                }),
+            });
 
-            showMessage('success', 'Booking confirmed! NATZ Consulting will contact you soon.');
-        } catch (emailError) {
-            console.error('Email notification error:', emailError);
-            // Still show success since booking was saved to Firestore
-            showMessage('warning', 'Booking saved! Email notification pending. We will contact you soon.');
+            if (!response.ok) {
+                throw new Error('Failed to create payment session');
+            }
+
+            const session = await response.json();
+
+            // Redirect to Stripe (booking created after successful payment)
+            window.location.href = session.url;
+
+        } catch (paymentError) {
+            console.error('Payment initialization failed:', paymentError);
+            showMessage('error', 'Unable to initialize payment. Please try again.');
+            submitBtn.innerText = 'PAYMENT ERROR';
         }
-
-        closeBookingModal();
-        // Refresh to ensure we have latest state
-        await fetchBookings(currentMonth);
-        renderCalendar();
 
     } catch (error) {
         console.error("Booking Error: ", error);
