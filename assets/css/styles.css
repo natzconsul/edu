@@ -109,8 +109,12 @@ a:focus-visible {
     display: flex;
     width: max-content;
     height: 100%;
-    /* animation: scroll-left 120s linear infinite; */
-    /* Animation disabled for performance and user preference */
+    animation: scroll-left 200s linear infinite;
+    animation-play-state: paused;
+}
+
+.hero-scroll-active {
+    animation-play-state: running;
 }
 
 .hero-image {

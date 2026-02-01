@@ -724,3 +724,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 });
+
+// Start animation only after everything (including images) is fully loaded
+window.addEventListener('load', () => {
+    // Small delay to ensure rendering is settled
+    setTimeout(() => {
+        const heroContainer = document.querySelector('.hero-scroll-container');
+        if (heroContainer) {
+            heroContainer.classList.add('hero-scroll-active');
+        }
+    }, 100);
+});
