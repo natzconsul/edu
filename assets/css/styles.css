@@ -109,7 +109,7 @@ a:focus-visible {
     display: flex;
     width: max-content;
     height: 100%;
-    animation: scroll-left 200s linear infinite;
+    animation: scroll-left 300s linear infinite;
     animation-play-state: paused;
 }
 
