@@ -646,7 +646,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         showMessage('warning', 'Using offline schedule. Availability may not be up-to-date. Please refresh if you encounter issues.');
     }
 
+
     // Initialize UI
+    // Ensure Home is the default active tab
+    switchTab('home');
     document.getElementById('current-year').innerText = new Date().getFullYear();
     document.getElementById('other_means_checkbox')?.addEventListener('change', (e) => {
         document.getElementById('other_means_details').classList.toggle('hidden', !e.target.checked);
