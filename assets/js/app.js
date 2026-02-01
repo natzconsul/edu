@@ -648,6 +648,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     // Initialize UI
+    // Ensure we start at the top of the page (fixes occasional load-at-bottom issue)
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     // Ensure Home is the default active tab
     switchTab('home');
     document.getElementById('current-year').innerText = new Date().getFullYear();
