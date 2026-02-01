@@ -43,15 +43,29 @@ body {
     border-radius: 4px;
 }
 
-/* Floating Icon Animation */
+/* Floating Icon Animation - DISABLED FOR PERFORMANCE */
 .floating-icon {
     position: absolute;
-    animation: float 10s ease-in-out infinite;
-    /* 2x faster */
+    /* animation: float 10s ease-in-out infinite; */
     opacity: 0.6;
+    will-change: transform;
+    /* GPU acceleration */
+    display: none;
+    /* Hidden for performance */
 }
 
-/* Floating animation for hero icons */
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+    .floating-icon {
+        /* animation-duration: 15s; */
+        /* Slower, less frequent updates */
+        opacity: 0.3;
+        /* Less prominent */
+        display: none;
+    }
+}
+
+/* Floating animation for hero icons - DISABLED */
 @keyframes float {
 
     0%,
@@ -90,12 +104,13 @@ a:focus-visible {
     box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
 }
 
-/* Hero Scrolling Background Animation */
+/* Hero Scrolling Background Animation - DISABLED */
 .hero-scroll-container {
     display: flex;
     width: max-content;
     height: 100%;
-    animation: scroll-left 40s linear infinite;
+    /* animation: scroll-left 120s linear infinite; */
+    /* Animation disabled for performance and user preference */
 }
 
 .hero-image {
@@ -139,4 +154,23 @@ a:focus-visible {
             /* Adjust for mobile (5 * 60vw = 300vw) */
         }
     }
+}
+
+/* Bright Cream Text Color System */
+/* Override all text colors with bright cream for excellent contrast */
+.text-slate-200,
+.text-slate-300,
+.text-white {
+    color: #FFFAF0 !important;
+    /* Floral White - very bright cream */
+}
+
+.text-slate-400 {
+    color: #FFEFD5 !important;
+    /* Papaya Whip - bright soft cream */
+}
+
+.text-slate-600 {
+    color: #FFE4B5 !important;
+    /* Moccasin - warm bright beige */
 }

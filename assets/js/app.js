@@ -636,6 +636,7 @@ window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
 // Note: openMobileMenu and closeMobileMenu are defined in inline script in index.html
 
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Load availability schedule from Firestore
     const firestoreLoaded = await loadAvailabilityFromFirestore();

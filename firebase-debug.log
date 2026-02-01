@@ -1,26 +1,14 @@
-[debug] [2026-01-21T19:29:17.759Z] ----------------------------------------------------------------------
-[debug] [2026-01-21T19:29:17.764Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore:rules
-[debug] [2026-01-21T19:29:17.765Z] CLI Version:   15.3.1
-[debug] [2026-01-21T19:29:17.765Z] Platform:      win32
-[debug] [2026-01-21T19:29:17.765Z] Node Version:  v24.12.0
-[debug] [2026-01-21T19:29:17.766Z] Time:          Wed Jan 21 2026 11:29:17 GMT-0800 (Pacific Standard Time)
-[debug] [2026-01-21T19:29:17.766Z] ----------------------------------------------------------------------
+[debug] [2026-01-31T22:51:12.007Z] ----------------------------------------------------------------------
+[debug] [2026-01-31T22:51:12.018Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-01-31T22:51:12.019Z] CLI Version:   15.3.1
+[debug] [2026-01-31T22:51:12.020Z] Platform:      win32
+[debug] [2026-01-31T22:51:12.020Z] Node Version:  v24.12.0
+[debug] [2026-01-31T22:51:12.020Z] Time:          Sat Jan 31 2026 14:51:12 GMT-0800 (Pacific Standard Time)
+[debug] [2026-01-31T22:51:12.020Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2026-01-21T19:29:17.769Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
-[debug] [2026-01-21T19:29:23.033Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-01-21T19:29:23.176Z] Error: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.
-    at GoogleAuth.getApplicationDefaultAsync (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\google-auth-library\build\src\auth\googleauth.js:287:15)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async GoogleAuth._GoogleAuth_determineClient (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\google-auth-library\build\src\auth\googleauth.js:834:32)
-    at async GoogleAuth.getClient (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\google-auth-library\build\src\auth\googleauth.js:698:20)
-    at async GoogleAuth.getAccessToken (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\google-auth-library\build\src\auth\googleauth.js:722:24)
-    at async autoAuth (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\requireAuth.js:28:19)
-    at async requireAuth (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\requireAuth.js:90:20)
-    at async requirePermissions (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\requirePermissions.js:17:5)
-    at async C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:261:17
 [error] 
-[error] Error: Failed to authenticate, have you run firebase login?
-[debug] [2026-01-21T19:29:23.439Z] Error: EBUSY: resource busy or locked, unlink 'C:\Users\user\.gemini\antigravity\scratch\edu\firebase-debug.log'
+[error] Error: Cannot understand what targets to deploy/serve. No targets in firebase.json match '--only hosting'. If you are using PowerShell make sure you place quotes around any comma-separated lists (ex: --only "functions,firestore").
+[debug] [2026-01-31T22:51:15.976Z] Error: EBUSY: resource busy or locked, unlink 'C:\Users\user\.gemini\antigravity\scratch\edu\firebase-debug.log'
     at Object.unlinkSync (node:fs:1942:11)
     at process.<anonymous> (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js:44:16)
     at process.emit (node:events:520:35)
