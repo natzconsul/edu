@@ -170,7 +170,7 @@ async function changeMonth(delta) {
     currentMonth.setMonth(currentMonth.getMonth() + delta);
     // Fetch bookings for the new month before rendering
     const grid = document.getElementById('calendar-grid');
-    grid.innerHTML = '<div class="col-span-7 py-8 text-center text-slate-500 animate-pulse">Loading availability...</div>';
+    grid.innerHTML = '<div class="col-span-7 py-8 text-center text-[#1E3A8A] animate-pulse">Loading availability...</div>';
     await fetchBookings(currentMonth);
     renderCalendar();
 }
@@ -204,10 +204,10 @@ function renderCalendar() {
         const cell = document.createElement('button');
         cell.textContent = day;
         cell.className = `p-3 rounded-lg text-sm font-bold transition-all relative ${isPast || !hasSlots
-            ? 'text-slate-600 cursor-not-allowed'
-            : 'text-white hover:bg-slate-700 hover:text-brand-sky'
+            ? 'text-[#0EA5E9]/40 cursor-not-allowed'
+            : 'text-[#1E3A8A] hover:bg-blue-50 hover:text-[#1E3A8A]'
             } ${selectedDate && date.getTime() === selectedDate.getTime()
-                ? 'bg-brand-sky text-brand-dark hover:bg-brand-sky hover:text-brand-dark shadow-lg shadow-brand-sky/20'
+                ? 'bg-[#1E3A8A] text-white hover:bg-[#1E3A8A] hover:text-white shadow-lg shadow-brand-sky/20'
                 : ''
             }`;
 
@@ -215,8 +215,9 @@ function renderCalendar() {
             cell.onclick = () => selectDate(date);
             // Indicator for availability
             const dot = document.createElement('div');
-            dot.className = 'absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-slate-600';
-            if (selectedDate && date.getTime() === selectedDate.getTime()) dot.classList.add('bg-brand-dark');
+            // Change dot color based on selection state
+            const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+            dot.className = `absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full ${isSelected ? 'bg-white' : 'bg-brand-sky'}`;
             cell.appendChild(dot);
         } else {
             cell.disabled = true;
@@ -232,6 +233,7 @@ function selectDate(date) {
 
     const label = document.getElementById('selected-date-label');
     label.textContent = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    label.className = "text-[#1E3A8A] ml-2";
 
     document.getElementById('time-slots-container').classList.remove('hidden');
     generateSlots(date);
@@ -264,7 +266,7 @@ function generateSlots(date) {
 
                 const btn = document.createElement('button');
                 btn.textContent = timeLabel;
-                btn.className = "py-3 px-4 rounded-xl border border-slate-700 hover:border-brand-sky text-slate-300 hover:text-brand-sky text-sm font-bold transition-all bg-slate-800/50 hover:bg-slate-800";
+                btn.className = "py-3 px-4 rounded-xl border border-blue-200 hover:border-[#1E3A8A] text-[#1E3A8A] hover:bg-blue-50 text-sm font-bold transition-all bg-white";
                 btn.onclick = () => {
                     selectedSlot = { key: slotKey, label: `${date.toLocaleDateString()} at ${timeLabel}`, dateObj: date };
                     document.getElementById('confirm-slot-label').textContent = selectedSlot.label;
@@ -448,56 +450,24 @@ function switchTab(id) {
     if (id !== 'contact') {
         const heroHeading = document.getElementById('hero-heading');
         const heroTagline = document.getElementById('hero-tagline');
-        const heroButtons = document.querySelector('.hero-buttons');
-        const heroSection = document.querySelector('header');
-        const scrollingBg = document.querySelector('.hero-scroll-container')?.parentElement;
-        const darkOverlay = heroSection?.querySelector('.bg-brand-dark\\/40');
-        const heroCard = heroSection?.querySelector('.relative.z-10');
+        const heroButtons = heroSection?.querySelectorAll('.hero-buttons');
+        const scrollingBg = heroSection?.querySelector('.scrolling-background');
+        const darkOverlay = heroSection?.querySelector('.absolute.inset-0.bg-brand-dark\\/40');
+        const heroCard = document.getElementById('hero-card');
         const tabContent = document.getElementById('tab-content');
 
-        // Hide buttons and reduce height on pathway and about pages
+        // Hide Entire Hero Header on non-home pages
         if (id === 'pathway' || id === 'about') {
-            if (heroButtons) heroButtons.classList.add('hidden');
-            if (heroSection) {
-                heroSection.classList.remove('min-h-[70vh]', 'min-h-[25vh]');
-                heroSection.classList.add('min-h-[15vh]');
-            }
-            // Hide scrolling background on non-home pages
-            if (scrollingBg) scrollingBg.classList.add('hidden');
-            if (darkOverlay) darkOverlay.classList.add('hidden');
-            // Make hero card less transparent on non-home pages
-            if (heroCard) {
-                heroCard.classList.remove('bg-brand-card/5', 'backdrop-blur-sm', 'border-white/5');
-                heroCard.classList.add('bg-brand-card/85', 'backdrop-blur-xl', 'border-slate-700/50');
-                // Reduce padding on hero card for tighter layout
-                heroCard.classList.remove('p-8', 'md:p-12');
-                heroCard.classList.add('p-4', 'md:p-6');
-            }
-            // Reduce spacing between hero and content by 90% on non-home pages
-            if (tabContent) {
-                tabContent.classList.add('-mt-40');
-            }
+            if (heroSection) heroSection.classList.add('hidden');
         } else {
-            // Show buttons and restore height on home page
-            if (heroButtons) heroButtons.classList.remove('hidden');
-            if (heroSection) {
-                heroSection.classList.remove('min-h-[25vh]', 'min-h-[15vh]');
-                heroSection.classList.add('min-h-[70vh]');
-            }
-            // Show scrolling background on home page
+            if (heroSection) heroSection.classList.remove('hidden');
+            // Ensure home page dynamic styles are correct
             if (scrollingBg) scrollingBg.classList.remove('hidden');
             if (darkOverlay) darkOverlay.classList.remove('hidden');
-            // Make hero card more transparent on home page
             if (heroCard) {
-                heroCard.classList.remove('bg-brand-card/85', 'backdrop-blur-xl', 'border-slate-700/50');
+                heroCard.classList.remove('bg-brand-card/55', 'backdrop-blur-xl', 'border-slate-700/50');
                 heroCard.classList.add('bg-brand-card/5', 'backdrop-blur-sm', 'border-white/5');
-                // Restore padding on hero card
-                heroCard.classList.remove('p-4', 'md:p-6');
-                heroCard.classList.add('p-8', 'md:p-12');
-            }
-            // Restore normal spacing on home page
-            if (tabContent) {
-                tabContent.classList.remove('-mt-40');
+                heroCard.classList.add('p-10', 'md:p-14');
             }
         }
 
@@ -505,11 +475,11 @@ function switchTab(id) {
             heroHeading.textContent = 'Your Journey to Academic Success';
             heroTagline.textContent = 'A clear, guided path from application to arrival.';
         } else if (id === 'about') {
-            heroHeading.textContent = 'Empowering Global Educational Opportunity and Excellence';
-            heroTagline.textContent = 'Strategic consultancy for international students';
+            heroHeading.textContent = 'Empowering Education Accessibility';
+            heroTagline.textContent = 'Through support for international students';
         } else {
-            heroHeading.textContent = 'Empowering Global Educational Opportunity and Excellence';
-            heroTagline.textContent = 'Strategic consultancy for international students';
+            heroHeading.textContent = 'Empowering Education Accessibility';
+            heroTagline.textContent = 'Through support for international students';
         }
     }
 }
@@ -734,4 +704,83 @@ window.addEventListener('load', () => {
             heroContainer.classList.add('hero-scroll-active');
         }
     }, 100);
+
+    // Initialize background icons
+    setTimeout(initBackgroundAnimation, 1000);
 });
+
+/**
+ * Initialize 42 animated icons moving in a converging wave pattern
+ */
+function initBackgroundAnimation() {
+    const container = document.getElementById('animated-background-container');
+    if (!container) return;
+
+    const ICON_COUNT = 400; // Increased to 400
+    // 7 Educational Icons
+    const ICONS = [
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>', // Book
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" /></svg>', // Cap
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" /></svg>', // Globe
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M6 22h12a2 2 0 0 0 .5-3.99A2 2 0 0 0 18 18h-1V4a2 2 0 0 0-3.99-.25A2 2 0 0 0 13 4v1h-2V4a2 2 0 0 0-3.99-.25A2 2 0 0 0 7 4v14H6a2 2 0 0 0 .5 3.99A2 2 0 0 0 6 22z" /></svg>', // Microscope
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M20.2 17.6l-2.05-5.22c.67-1.12 1.34-2.23 2.05-3.34 1.3 2.03-2.98 5.66 0 8.56zM8.45 13.91l-1.63 2.5a8.96 8.96 0 0 1-1.95-6.85c.67.65 1.35 1.3 2.02 1.96.52.8 1.04 1.59 1.56 2.39zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /><circle cx="12" cy="12" r="3" /></svg>', // Atom
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>', // Pencil
+        '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M14 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-2 0V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h-8z"/></svg>' // Scroll
+    ];
+    // Complementary Colors
+    const COLORS = [
+        'text-sky-400', 'text-indigo-400', 'text-emerald-400',
+        'text-rose-400', 'text-amber-400', 'text-purple-400', 'text-cyan-400'
+    ];
+
+    const particles = [];
+    const baseY = 35; // Moved up to center better with larger spread
+    let time = 0;
+
+    for (let i = 0; i < ICON_COUNT; i++) {
+        const div = document.createElement('div');
+        // w-0.5 h-0.5 is half of w-1 h-1
+        div.className = `absolute will-change-transform opacity-70 ${COLORS[i % COLORS.length]} w-0.5 h-0.5`;
+        div.innerHTML = ICONS[i % ICONS.length];
+
+        container.appendChild(div);
+
+        particles.push({
+            element: div,
+            x: Math.random() * 120 - 10,
+            seed: Math.random() * 1000,
+            speed: (0.01 + Math.random() * 0.02),
+            yOffset: (Math.random() - 0.5) * 60, // Increased spread to 60 (1.5x)
+            phase: Math.random() * Math.PI * 2,
+            freq: 0.01 + Math.random() * 0.02
+        });
+    }
+
+    function animate() {
+        time += 0.005;
+        particles.forEach(p => {
+            // Update X
+            p.x += p.speed;
+            if (p.x > 110) p.x = -10;
+
+            // Convergence Logic
+            const distFromCenter = Math.abs(p.x - 50) / 50;
+            const spreadFactor = Math.max(0.1, Math.pow(distFromCenter, 1.2));
+
+            // 2D Noise-like wave motion (Sum of sines for organic feel)
+            const noise = (
+                Math.sin(p.x * p.freq + time + p.phase) * 6 +
+                Math.sin(p.x * 0.05 + time * 0.5 + p.seed) * 4
+            );
+
+            // Final Y
+            const y = baseY + noise + (p.yOffset * spreadFactor);
+
+            p.element.style.transform = `translate3d(${p.x}vw, ${y}vh, 0)`;
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}

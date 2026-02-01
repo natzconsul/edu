@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NATZ Consulting</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
         tailwind.config = {
@@ -144,106 +144,50 @@
         </div>
 
         <!-- Dark overlay for better text readability -->
-        <div class="absolute inset-0 bg-brand-dark/70 z-[1]"></div>
+        <div class="absolute inset-0 bg-brand-dark/40 z-[1]"></div>
 
-        <!-- Opaque Hero Card -->
-        <div class="relative z-10 max-w-4xl w-full border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl text-center space-y-6 transform translate-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000"
-            style="background-color: rgba(255, 255, 240, 0.90);">
+        <div class="relative flex flex-col items-center w-full max-w-[800px] mx-auto space-y-12">
+            <!-- Hero Card -->
+            <div id="hero-card"
+                class="relative z-10 w-full border border-white/10 rounded-[3rem] p-10 md:p-14 shadow-2xl text-center space-y-5 transform animate-in fade-in slide-in-from-bottom-10 duration-1000"
+                style="background-color: rgba(255, 255, 240, 0.60);">
+                <h1 id="hero-heading"
+                    class="text-3xl md:text-5xl tracking-tighter italic font-sans mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#1E3A8A] via-[#0EA5E9] to-[#1E3A8A] drop-shadow-sm">
+                    Empowering Education Accessibility</h1>
+                <p id="hero-tagline"
+                    class="text-sm text-[#1E3A8A] mb-4 font-normal tracking-[0.2em] font-sans max-w-2xl mx-auto">
+                    Through support for international students</p>
+            </div>
 
-            <h1 id="hero-heading"
-                class="text-2xl md:text-4xl lg:text-5xl font-black leading-[1.15] tracking-tighter max-w-4xl mx-auto drop-shadow-lg"
-                style="color: #1E3A8A;">
-                Empowering Global Educational
-            </h1>
-
-            <p id="hero-tagline"
-                class="text-[13px] font-bold tracking-[0.3em] font-sans max-w-3xl mx-auto leading-relaxed drop-shadow-md"
-                style="color: #0EA5E9;">
-                Through support for international students
-            </p>
-
-            <div class="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-6 pt-4 text-sans">
-                <button id="intake-btn"
-                    class="w-full sm:w-auto px-12 py-5 bg-brand-sky border-2 border-[#1E3A8A] font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-brand-sky/40 uppercase tracking-widest text-base font-sans text-center"
-                    style="color: #1E3A8A;">
-                    Start Intake Process
-                </button>
+            <!-- Buttons Side-by-Side Below Card -->
+            <div
+                class="hero-buttons relative z-20 flex flex-row flex-wrap gap-8 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <button id="booking-btn"
-                    class="w-full sm:w-auto px-12 py-5 border-2 border-[#1E3A8A] font-black rounded-2xl hover:bg-brand-sky hover:border-brand-sky hover:scale-105 transition-all uppercase tracking-widest text-base font-sans flex items-center justify-center text-center backdrop-blur-sm"
-                    style="color: #1E3A8A;">
-                    Book A Consultation
+                    class="group relative px-12 py-6 bg-brand-sky text-[#1E3A8A] font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_rgba(14,165,233,0.5)] hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl">
+                    <div
+                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                    <span class="relative">Book Consultation</span>
+                </button>
+                <button id="intake-btn"
+                    class="group relative px-12 py-6 bg-brand-sky text-[#1E3A8A] font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_rgba(14,165,233,0.5)] hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl">
+                    <div
+                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                    <span class="relative">Start Intake Process</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Animated Background Icons - Optimized to 8 icons for performance -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-[5]" style="top: 30vh;">
-        <!-- Top Left - Book Icon -->
-        <div class="floating-icon" style="left: 10%; top: 8%; animation-delay: 0s; animation-duration: 10s;">
-            <svg class="w-8 h-8 text-brand-sky/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-        </div>
-        <!-- Top Center - Graduation Cap -->
-        <div class="floating-icon" style="left: 45%; top: 12%; animation-delay: 1.5s; animation-duration: 12s;">
-            <svg class="w-10 h-10 text-purple-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-            </svg>
-        </div>
-        <!-- Top Right - Globe -->
-        <div class="floating-icon" style="left: 80%; top: 6%; animation-delay: 2.5s; animation-duration: 11s;">
-            <svg class="w-8 h-8 text-blue-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-            </svg>
-        </div>
-
-        <!-- Middle Left - Certificate -->
-        <div class="floating-icon" style="left: 15%; top: 40%; animation-delay: 1s; animation-duration: 10.5s;">
-            <svg class="w-9 h-9 text-orange-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M4 6h16v12H4zm16-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3z" />
-            </svg>
-        </div>
-        <!-- Middle Right - Pencil -->
-        <div class="floating-icon" style="left: 85%; top: 45%; animation-delay: 3s; animation-duration: 9.5s;">
-            <svg class="w-6 h-6 text-yellow-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-            </svg>
-        </div>
-
-        <!-- Bottom Left - Book -->
-        <div class="floating-icon" style="left: 20%; top: 75%; animation-delay: 2s; animation-duration: 11.5s;">
-            <svg class="w-7 h-7 text-green-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
-            </svg>
-        </div>
-        <!-- Bottom Center - Globe -->
-        <div class="floating-icon" style="left: 50%; top: 78%; animation-delay: 1.5s; animation-duration: 12s;">
-            <svg class="w-8 h-8 text-emerald-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-            </svg>
-        </div>
-        <!-- Bottom Right - Graduation Cap -->
-        <div class="floating-icon" style="left: 75%; top: 80%; animation-delay: 2.5s; animation-duration: 10s;">
-            <svg class="w-9 h-9 text-cyan-400/20" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-            </svg>
-        </div>
-    </div>
+    <!-- Dynamic Animated Background Container -->
+    <div id="animated-background-container" class="fixed inset-0 pointer-events-none z-[2] overflow-hidden"></div>
 
 
 
 
 
-    <main class="max-w-7xl mx-auto px-6 py-2 space-y-32">
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-2 space-y-32">
         <div id="message-box"
             class="hidden fixed bottom-8 right-8 p-6 rounded-2xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2"
             role="alert">
@@ -256,7 +200,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Academic Search Card -->
                     <div
-                        class="bg-brand-card/85 backdrop-blur-xl border border-slate-700/50 rounded-[2rem] p-8 md:p-10 shadow-2xl hover:border-brand-sky/30 transition-all group">
+                        class="bg-brand-card/55 backdrop-blur-xl border border-slate-700/50 rounded-[2rem] p-8 md:p-10 shadow-2xl hover:border-brand-sky/30 transition-all group">
                         <div
                             class="flex items-center justify-center w-16 h-16 bg-brand-sky/10 rounded-2xl mb-6 group-hover:bg-brand-sky/20 transition-all">
                             <svg class="w-8 h-8 text-brand-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -399,9 +343,9 @@
             </div>
 
             <!-- ABOUT US TAB -->
-            <div id="content-about" class="hidden space-y-24 -mt-12 md:-mt-24 relative z-20">
+            <div id="content-about" class="hidden space-y-24 relative z-20">
                 <div
-                    class="bg-brand-card/85 backdrop-blur-xl border border-slate-700/50 rounded-[3rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-center">
+                    class="max-w-[1260px] mx-auto bg-brand-card/55 backdrop-blur-xl border border-slate-700/50 rounded-[3rem] p-10 md:p-14 shadow-2xl relative overflow-hidden text-center">
                     <div
                         class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-sky/20 via-brand-sky to-brand-sky/20">
                     </div>
@@ -507,9 +451,9 @@
             </div>
 
             <!-- STUDY PATHWAY TAB -->
-            <div id="content-pathway" class="hidden animate-in fade-in duration-700 -mt-20 md:-mt-40 relative z-20">
+            <div id="content-pathway" class="hidden animate-in fade-in duration-700 relative z-20">
                 <div
-                    class="bg-brand-card/90 backdrop-blur-md p-6 md:p-10 rounded-[4rem] border border-slate-800 shadow-2xl text-center space-y-16">
+                    class="max-w-[1260px] mx-auto bg-brand-card/60 backdrop-blur-md p-10 md:p-14 rounded-[3rem] border border-slate-800 shadow-2xl text-center space-y-16">
 
                     <!-- Infographic Section -->
                     <div>
@@ -815,7 +759,7 @@
                 class="bg-brand-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-slate-700 shadow-2xl flex flex-col md:flex-row relative">
                 <!-- Close Button -->
                 <button onclick="closeBookingModal()" aria-label="Close booking modal"
-                    class="absolute top-6 right-6 p-2 text-slate-400 hover:text-white z-10 bg-slate-800/50 rounded-full">
+                    class="absolute top-6 right-6 p-2 text-[#1E3A8A] hover:bg-red-50 hover:text-rose-500 z-10 bg-blue-50 rounded-full transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
@@ -824,12 +768,10 @@
 
                 <!-- Sidebar / Info -->
                 <div
-                    class="w-full md:w-1/3 bg-slate-900/50 p-8 md:p-10 border-b md:border-b-0 md:border-r border-slate-700">
-                    <h3 id="booking-modal-title"
-                        class="text-2xl font-black text-brand-sky mb-2 uppercase tracking-tight">Book Consultation</h3>
-                    <p class="text-slate-400 text-sm mb-8">Select a time slot for your 30-minute strategy session.</p>
+                    class="w-full md:w-1/3 bg-white/50 p-8 md:p-10 border-b md:border-b-0 md:border-r border-slate-200">
+                    <p class="text-[#1E3A8A] text-sm mb-8">Select a time slot for your 30-minute strategy session.</p>
 
-                    <div class="space-y-6 text-sm text-slate-300 font-medium">
+                    <div class="space-y-6 text-sm text-[#1E3A8A] font-medium">
                         <div class="flex items-start">
                             <div class="w-8 flex-shrink-0 text-brand-sky">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -858,23 +800,24 @@
                 </div>
 
                 <!-- Calendar & Form Area -->
-                <div class="w-full md:w-2/3 p-8 md:p-10 bg-brand-card">
+                <div class="w-full md:w-2/3 p-8 md:p-10" style="background-color: #FFFAF0;">
                     <!-- Step 1: Calendar -->
-                    <div id="booking-step-1">
+                    <div id="booking-step-1" class="pb-12">
                         <div class="flex justify-between items-center mb-6">
-                            <h4 class="text-xl font-black text-white uppercase tracking-tight">Select Date & Time</h4>
-                            <div class="space-x-2">
+                            <h4 class="text-xl font-black text-[#1E3A8A] uppercase tracking-tight">Select Date & Time
+                            </h4>
+                            <div class="space-x-2 flex items-center mr-10">
                                 <button onclick="changeMonth(-1)" aria-label="Previous month"
-                                    class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&larr;</button>
+                                    class="p-2 hover:bg-blue-50 rounded-lg text-[#0EA5E9] hover:text-[#1E3A8A] text-3xl font-black">&larr;</button>
                                 <span id="current-month-label"
-                                    class="text-sm font-bold text-slate-200 uppercase tracking-wider"></span>
+                                    class="text-sm font-bold text-[#1E3A8A] uppercase tracking-wider"></span>
                                 <button onclick="changeMonth(1)" aria-label="Next month"
-                                    class="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">&rarr;</button>
+                                    class="p-2 hover:bg-blue-50 rounded-lg text-[#0EA5E9] hover:text-[#1E3A8A] text-3xl font-black">&rarr;</button>
                             </div>
                         </div>
 
                         <div
-                            class="grid grid-cols-7 gap-1 mb-2 text-center text-xs font-black text-slate-500 uppercase tracking-widest">
+                            class="grid grid-cols-7 gap-1 mb-2 text-center text-xs font-black text-[#1E3A8A] uppercase tracking-widest">
                             <div>Su</div>
                             <div>Mo</div>
                             <div>Tu</div>
@@ -887,7 +830,7 @@
 
                         <div id="time-slots-container" class="hidden animate-in fade-in slide-in-from-top-4">
                             <h5
-                                class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-t border-slate-800 pt-6">
+                                class="text-sm font-bold text-[#1E3A8A] uppercase tracking-wider mb-4 border-t border-slate-800 pt-6">
                                 Available Slots <span id="selected-date-label" class="text-brand-sky ml-2"></span>
                             </h5>
                             <div id="slots-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
@@ -895,12 +838,12 @@
                     </div>
 
                     <!-- Step 2: Details Form -->
-                    <div id="booking-step-2" class="hidden animate-in fade-in slide-in-from-right-8">
+                    <div id="booking-step-2" class="hidden pb-16 animate-in fade-in slide-in-from-right-8">
                         <div class="flex items-center mb-8">
                             <button onclick="backToCalendar()" aria-label="Back to calendar"
-                                class="mr-4 p-2 text-slate-400 hover:text-white font-bold text-sm bg-slate-800 rounded-lg">&larr;
+                                class="mr-4 p-2 text-[#0EA5E9] hover:text-[#1E3A8A] font-bold text-sm bg-blue-50 rounded-lg">&larr;
                                 Back</button>
-                            <h4 class="text-xl font-black text-white uppercase tracking-tight">Confirm Booking</h4>
+                            <h4 class="text-xl font-black text-[#1E3A8A] uppercase tracking-tight">Confirm Booking</h4>
                         </div>
 
                         <div
@@ -909,7 +852,7 @@
                                 <span
                                     class="block text-brand-sky font-bold uppercase tracking-wider text-xs mb-1">Chosen
                                     Slot</span>
-                                <span id="confirm-slot-label" class="text-white font-bold text-lg"></span>
+                                <span id="confirm-slot-label" class="text-[#1E3A8A] font-bold text-lg"></span>
                             </div>
                         </div>
 
@@ -917,14 +860,14 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="bk_name"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Full
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Full
                                         Name *</label>
                                     <input type="text" id="bk_name" name="bk_name" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm">
                                 </div>
                                 <div>
                                     <label for="bk_email"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Email
                                         Address *</label>
                                     <input type="email" id="bk_email" name="bk_email" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm">
@@ -933,14 +876,14 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="bk_phone"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Phone
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Phone
                                         *</label>
                                     <input type="tel" id="bk_phone" name="bk_phone" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm">
                                 </div>
                                 <div>
                                     <label for="bk_citizenship"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Citizenship
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Citizenship
                                         *</label>
                                     <select id="bk_citizenship" name="bk_citizenship" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm appearance-none cursor-pointer">
@@ -959,7 +902,7 @@
                             </div>
                             <div>
                                 <label for="bk_residence"
-                                    class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Country
+                                    class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Country
                                     of
                                     Residence *</label>
                                 <select id="bk_residence" name="bk_residence" required
@@ -980,7 +923,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label for="bk_education_level"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Education
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Education
                                         Level *</label>
                                     <select id="bk_education_level" name="bk_education_level" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm">
@@ -992,7 +935,7 @@
                                 </div>
                                 <div>
                                     <label for="bk_desired"
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Academic
+                                        class="block text-xs font-bold text-[#1E3A8A] uppercase tracking-wider mb-2">Academic
                                         Aspiration *</label>
                                     <select id="bk_desired" name="bk_desired" required
                                         class="form-input w-full px-4 py-3 rounded-xl text-sm appearance-none cursor-pointer">
@@ -1123,7 +1066,7 @@
         });
     </script>
 
-    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/app.js?v=4"></script>
 
     <!-- INTAKE MODAL -->
     <div id="intake-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true"
@@ -1131,24 +1074,20 @@
         <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" onclick="closeIntakeModal()"></div>
         <div class="relative z-10 w-full h-full overflow-y-auto">
             <div class="min-h-full flex items-center justify-center p-4">
-                <div
-                    class="relative w-full max-w-3xl bg-brand-card border border-slate-700 rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+                <div class="relative w-full max-w-3xl border border-slate-200 rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300"
+                    style="background-color: #FFFAF0;">
 
                     <button onclick="closeIntakeModal()" aria-label="Close intake modal"
-                        class="absolute top-8 right-8 z-50 p-3 bg-slate-800/50 rounded-full hover:bg-rose-500 hover:text-white transition-all group">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="absolute top-8 right-8 z-50 p-3 bg-blue-50 rounded-full hover:bg-red-50 hover:text-rose-500 text-[#1E3A8A] transition-all group">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12">
-                            </path>
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
 
                     <div
-                        class="relative p-12 bg-gradient-to-b from-brand-sky/10 to-transparent text-center border-b border-slate-800">
-                        <h2 id="intake-modal-title"
-                            class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic font-sans mb-4">
-                            Intake Portal</h2>
-                        <p class="text-slate-400 text-lg">Detailed evaluation for your study journey.</p>
+                        class="relative p-12 bg-gradient-to-b from-brand-sky/10 to-transparent text-center border-b border-slate-200">
+                        <p class="text-[#1E3A8A] text-lg">Detailed evaluation for your study journey.</p>
                     </div>
 
                     <div class="p-8 md:p-12 max-h-[70vh] overflow-y-auto custom-scrollbar">
@@ -1156,39 +1095,39 @@
                             <!-- Section 01: Profile -->
                             <div class="space-y-8">
                                 <h4
-                                    class="text-white font-black uppercase tracking-[0.2em] text-sm border-b border-slate-700 pb-4 font-sans">
+                                    class="text-[#1E3A8A] font-black uppercase tracking-[0.2em] text-sm border-b border-slate-200 pb-4 font-sans">
                                     01. Primary Profile</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Full
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Full
                                             Name *</label>
                                         <input type="text" id="client_name" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark"
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500"
                                             placeholder="John Doe">
                                     </div>
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Email
                                             Address *</label>
                                         <input type="email" id="client_email" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark"
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500"
                                             placeholder="contact@email.com">
                                     </div>
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Phone
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Phone
                                             Number *</label>
                                         <input type="tel" id="phone" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark"
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500"
                                             placeholder="+234 ...">
                                     </div>
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Country
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Country
                                             of Residence *</label>
                                         <select id="country" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base appearance-none cursor-pointer bg-brand-dark">
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base appearance-none cursor-pointer">
                                             <option value="" disabled selected>Select Country</option>
                                             <option value="Nigeria">Nigeria</option>
                                             <option value="Ghana">Ghana</option>
@@ -1204,10 +1143,10 @@
                                 </div>
                                 <div class="space-y-2">
                                     <label
-                                        class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Residential
+                                        class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Residential
                                         Address *</label>
                                     <input type="text" id="address" required
-                                        class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark"
+                                        class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500"
                                         placeholder="Full Address">
                                 </div>
                             </div>
@@ -1215,27 +1154,27 @@
                             <!-- Section 02: Aspirations -->
                             <div class="space-y-8">
                                 <h4
-                                    class="text-white font-black uppercase tracking-[0.2em] text-sm border-b border-slate-700 pb-4 font-sans">
+                                    class="text-[#1E3A8A] font-black uppercase tracking-[0.2em] text-sm border-b border-slate-200 pb-4 font-sans">
                                     02. Academic Aspirations</h4>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[#1E3A8A]">
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="radio" name="program" value="Undergraduate" required
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span
                                             class="ml-4 font-bold uppercase tracking-widest text-xs">Undergraduate</span>
                                     </label>
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="radio" name="program" value="Postgraduate"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span
                                             class="ml-4 font-bold uppercase tracking-widest text-xs">Postgraduate</span>
                                     </label>
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="radio" name="program" value="Other"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span class="ml-4 font-bold uppercase tracking-widest text-xs">Other</span>
                                     </label>
                                 </div>
@@ -1244,22 +1183,22 @@
                             <!-- Section 03: Emergency -->
                             <div class="space-y-8">
                                 <h4
-                                    class="text-white font-black uppercase tracking-[0.2em] text-sm border-b border-slate-700 pb-4 font-sans">
+                                    class="text-[#1E3A8A] font-black uppercase tracking-[0.2em] text-sm border-b border-slate-200 pb-4 font-sans">
                                     03. Emergency Contact</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Contact
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Contact
                                             Name *</label>
                                         <input type="text" id="emergency_name" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark">
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500">
                                     </div>
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Contact
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Contact
                                             Phone *</label>
                                         <input type="tel" id="emergency_phone" required
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark">
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500">
                                     </div>
                                 </div>
                             </div>
@@ -1267,33 +1206,33 @@
                             <!-- Section 04: Documentation -->
                             <div class="space-y-8">
                                 <h4
-                                    class="text-white font-black uppercase tracking-[0.2em] text-sm border-b border-slate-700 pb-4 font-sans">
+                                    class="text-[#1E3A8A] font-black uppercase tracking-[0.2em] text-sm border-b border-slate-200 pb-4 font-sans">
                                     04. Documentation</h4>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#1E3A8A]">
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="Birth Certificate"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span class="ml-4 font-bold uppercase tracking-widest text-xs">Birth
                                             Certificate</span>
                                     </label>
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="WAEC/NECO"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span class="ml-4 font-bold uppercase tracking-widest text-xs">WAEC/NECO</span>
                                     </label>
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="English Test"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span class="ml-4 font-bold uppercase tracking-widest text-xs">English
                                             Test</span>
                                     </label>
                                     <label
-                                        class="flex items-center p-4 rounded-2xl border border-slate-800 hover:bg-slate-800 cursor-pointer transition-all">
+                                        class="flex items-center p-4 rounded-2xl border border-slate-300 hover:bg-white cursor-pointer transition-all">
                                         <input type="checkbox" name="doc_list" value="Certifications"
-                                            class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                            class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                         <span
                                             class="ml-4 font-bold uppercase tracking-widest text-xs">Certifications</span>
                                     </label>
@@ -1302,22 +1241,22 @@
                                 <div class="space-y-4 pt-4">
                                     <div class="space-y-2">
                                         <label
-                                            class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Document
+                                            class="text-[11px] font-bold text-[#1E3A8A] uppercase tracking-widest ml-1">Document
                                             Link (G-Drive)</label>
                                         <input type="url" id="document_link"
-                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-700 bg-brand-dark"
+                                            class="form-input w-full px-6 py-4 rounded-2xl text-base placeholder-slate-500"
                                             placeholder="https://...">
                                     </div>
-                                    <div class="bg-brand-dark p-6 rounded-2xl border border-slate-800 space-y-4">
+                                    <div class="bg-white/50 p-6 rounded-2xl border border-slate-300 space-y-4">
                                         <label class="flex items-center cursor-pointer group">
                                             <input type="checkbox" id="other_means_checkbox"
-                                                class="w-5 h-5 rounded-md border-slate-700 text-brand-sky bg-brand-dark focus:ring-0">
+                                                class="w-5 h-5 rounded-md border-slate-400 text-brand-sky focus:ring-0">
                                             <span
-                                                class="ml-4 text-xs font-bold text-slate-400 group-hover:text-white uppercase tracking-widest">Provide
+                                                class="ml-4 text-xs font-bold text-[#1E3A8A] group-hover:text-brand-sky uppercase tracking-widest">Provide
                                                 via other means</span>
                                         </label>
                                         <textarea id="other_means_details" rows="3"
-                                            class="form-input w-full px-6 py-4 rounded-xl text-sm hidden placeholder-slate-700 bg-slate-900/50"
+                                            class="form-input w-full px-6 py-4 rounded-xl text-sm hidden placeholder-slate-500 bg-white"
                                             placeholder="Explain..."></textarea>
                                     </div>
                                 </div>
@@ -1325,11 +1264,11 @@
 
                             <div class="flex flex-col sm:flex-row items-center gap-6 pt-8">
                                 <button type="button" onclick="closeIntakeModal()"
-                                    class="w-full sm:w-1/3 py-5 bg-slate-800 text-slate-300 font-bold rounded-2xl hover:bg-slate-700 hover:text-white transition-all uppercase tracking-[0.2em] text-sm font-sans order-2 sm:order-1">
+                                    class="w-full sm:w-1/3 py-5 bg-blue-50 text-[#1E3A8A] font-bold rounded-2xl hover:bg-blue-100 hover:text-[#1E3A8A] transition-all uppercase tracking-[0.2em] text-sm font-sans order-2 sm:order-1">
                                     Cancel
                                 </button>
                                 <button type="submit" id="submit-btn"
-                                    class="w-full sm:w-2/3 py-5 bg-brand-sky text-brand-dark font-black rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-brand-sky/20 uppercase tracking-[0.25em] text-sm font-sans order-1 sm:order-2">
+                                    class="w-full sm:w-2/3 py-5 bg-brand-sky text-[#1E3A8A] font-black rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-brand-sky/20 uppercase tracking-[0.25em] text-sm font-sans order-1 sm:order-2">
                                     Submit Intake
                                 </button>
                             </div>
