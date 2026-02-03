@@ -164,7 +164,7 @@ exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
             await db.collection('bookings').add(bookingData);
             console.log(`✅ Booking created for ${bookingData.name} - Slot: ${bookingData.slotLabel}`);
 
-            // Send confirmation email to admin
+            // Send confirmation email to ADMIN
             try {
                 await emailjs.send(
                     process.env.EMAILJS_SERVICE_ID,
@@ -192,7 +192,38 @@ exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
                 );
                 console.log(`📧 Confirmation email sent to admin`);
             } catch (emailError) {
-                console.error(`⚠️ Failed to send confirmation email:`, emailError);
+                console.error(`⚠️ Failed to send admin confirmation email:`, emailError);
+            }
+
+            // Send confirmation email to USER (Receipt)
+            try {
+                await emailjs.send(
+                    process.env.EMAILJS_SERVICE_ID,
+                    process.env.EMAILJS_TEMPLATE_BOOKING,
+                    {
+                        to_emails: bookingData.email, // Send to the user
+                        from_name: 'NATZ Consult',
+                        from_email: 'info@natzconsult.com',
+                        phone: bookingData.phone,
+                        citizenship: bookingData.citizenship,
+                        residence: bookingData.residence,
+                        education: bookingData.education,
+                        desired: bookingData.desired,
+                        slot: bookingData.slotLabel,
+                        booked_at: new Date().toLocaleString('en-US', {
+                            dateStyle: 'full',
+                            timeStyle: 'short'
+                        }),
+                        status: 'PAYMENT RECEIVED - $50.00' // Receipt status
+                    },
+                    {
+                        publicKey: process.env.EMAILJS_PUBLIC_KEY,
+                        privateKey: process.env.EMAILJS_PRIVATE_KEY
+                    }
+                );
+                console.log(`📧 Receipt email sent to user: ${bookingData.email}`);
+            } catch (emailError) {
+                console.error(`⚠️ Failed to send user receipt email:`, emailError);
             }
 
         } catch (error) {

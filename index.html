@@ -113,73 +113,6 @@
     </div>
 
 
-    <!-- Hero Section with Animated Scrolling Background -->
-    <header class="relative w-full min-h-[70vh] flex items-center justify-center px-6 py-12 overflow-hidden">
-        <!-- Scrolling Background Images -->
-        <div class="absolute inset-0 z-0">
-            <div class="hero-scroll-container">
-                <!-- First set of images -->
-                <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
-                    class="hero-image" loading="eager" decoding="async">
-                <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
-                    class="hero-image" loading="eager" decoding="async">
-                <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
-                    class="hero-image" loading="lazy" decoding="async">
-                <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio" class="hero-image"
-                    loading="lazy" decoding="async">
-                <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab" class="hero-image"
-                    loading="lazy" decoding="async">
-                <!-- Duplicate set for seamless loop -->
-                <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
-                    class="hero-image" loading="lazy" decoding="async">
-                <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
-                    class="hero-image" loading="lazy" decoding="async">
-                <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
-                    class="hero-image" loading="lazy" decoding="async">
-                <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio" class="hero-image"
-                    loading="lazy" decoding="async">
-                <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab" class="hero-image"
-                    loading="lazy" decoding="async">
-            </div>
-        </div>
-
-        <!-- Dark overlay for better text readability -->
-        <div class="absolute inset-0 bg-brand-dark/40 z-[1]"></div>
-
-        <div class="relative flex flex-col items-center w-full max-w-[800px] mx-auto space-y-12">
-            <!-- Hero Card -->
-            <div id="hero-card"
-                class="relative z-10 w-full border border-white/10 rounded-[3rem] p-10 md:p-14 shadow-2xl text-center space-y-5 transform animate-in fade-in slide-in-from-bottom-10 duration-1000"
-                style="background-color: rgba(255, 255, 240, 0.60);">
-                <h1 id="hero-heading"
-                    class="text-3xl md:text-5xl tracking-tighter italic font-sans mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#1E3A8A] via-[#0EA5E9] to-[#1E3A8A] drop-shadow-sm">
-                    Empowering Education Accessibility</h1>
-                <p id="hero-tagline"
-                    class="text-sm text-[#1E3A8A] mb-4 font-normal tracking-[0.2em] font-sans max-w-2xl mx-auto">
-                    Through support for international students</p>
-            </div>
-
-            <!-- Buttons Side-by-Side Below Card -->
-            <div
-                class="hero-buttons relative z-20 flex flex-row flex-wrap gap-8 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                <button id="booking-btn"
-                    class="group relative px-12 py-6 bg-brand-sky text-[#1E3A8A] font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_rgba(14,165,233,0.5)] hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl">
-                    <div
-                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    </div>
-                    <span class="relative">Book Consultation</span>
-                </button>
-                <button id="intake-btn"
-                    class="group relative px-12 py-6 bg-brand-sky text-[#1E3A8A] font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_rgba(14,165,233,0.5)] hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl">
-                    <div
-                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    </div>
-                    <span class="relative">Start Intake Process</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
     <!-- Dynamic Animated Background Container -->
     <div id="animated-background-container" class="fixed inset-0 pointer-events-none z-[2] overflow-hidden"></div>
 
@@ -187,7 +120,7 @@
 
 
 
-    <main class="relative z-10 max-w-7xl mx-auto px-6 py-2 space-y-32">
+    <main class="relative max-w-7xl mx-auto px-6 pb-2">
         <div id="message-box"
             class="hidden fixed bottom-8 right-8 p-6 rounded-2xl shadow-2xl z-[100] transition-all transform translate-y-20 border-2"
             role="alert">
@@ -197,6 +130,82 @@
         <div id="tab-content">
             <!-- HOME TAB -->
             <div id="content-home" class="space-y-24">
+                <!-- Hero Section with Animated Scrolling Background -->
+                <header
+                    class="relative left-[calc(-50vw+50%)] w-screen min-h-[600px] flex justify-center py-16 overflow-hidden">
+                    <!-- Scrolling Background Images -->
+                    <div class="absolute inset-0 z-0">
+                        <div class="hero-scroll-container">
+                            <!-- First set of images -->
+                            <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
+                                class="hero-image" loading="eager" decoding="async">
+                            <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
+                                class="hero-image" loading="eager" decoding="async">
+                            <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <!-- Duplicate set for seamless loop -->
+                            <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio"
+                                class="hero-image" loading="lazy" decoding="async">
+                            <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab"
+                                class="hero-image" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+
+                    <!-- Dark overlay for better text readability -->
+                    <div class="absolute inset-0 bg-brand-dark/40 z-[1]"></div>
+
+                    <div class="relative z-10 flex flex-col items-center w-full max-w-[800px] mx-auto space-y-16 mt-10">
+                        <!-- Hero Card (Text Only) -->
+                        <div id="hero-card"
+                            class="relative w-full border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl text-center space-y-8 transform animate-in fade-in slide-in-from-bottom-10 duration-1000"
+                            style="background-color: rgba(255, 255, 240, 0.60);">
+                            <h1 id="hero-heading"
+                                class="text-3xl md:text-5xl tracking-tighter italic font-sans mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#1E3A8A] via-[#0EA5E9] to-[#1E3A8A] drop-shadow-sm">
+                                Empowering Education Accessibility</h1>
+                            <p id="hero-tagline"
+                                class="text-sm text-[#1E3A8A] mb-8 font-normal tracking-[0.2em] font-sans max-w-2xl mx-auto">
+                                Through support for international students</p>
+
+                            <!-- Three Highlight Pillars -->
+                            <div
+                                class="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-slate-600 uppercase mb-4">
+                                <span
+                                    class="bg-brand-sky/10 text-[#1E3A8A] px-4 py-2 rounded-full border border-brand-sky/20">Canadian
+                                    High School Pathways</span>
+                                <span
+                                    class="bg-brand-sky/10 text-[#1E3A8A] px-4 py-2 rounded-full border border-brand-sky/20">University
+                                    Search & Assessment</span>
+                                <span
+                                    class="bg-brand-sky/10 text-[#1E3A8A] px-4 py-2 rounded-full border border-brand-sky/20">Relocation
+                                    Strategy & Insight</span>
+                            </div>
+                        </div>
+
+                        <!-- Buttons Side-by-Side Below Card -->
+                        <div
+                            class="hero-buttons relative z-20 flex flex-row flex-wrap gap-8 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                            <button id="booking-btn"
+                                class="group relative px-12 py-6 bg-brand-sky text-brand-dark font-black rounded-full overflow-hidden transition-all hover:brightness-110 hover:scale-105 active:scale-95 shadow-lg hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl shadow-brand-sky/20">
+                                <span class="relative">Book Consultation</span>
+                            </button>
+                            <button id="intake-btn"
+                                class="group relative px-12 py-6 bg-brand-sky text-brand-dark font-black rounded-full overflow-hidden transition-all hover:brightness-110 hover:scale-105 active:scale-95 shadow-lg hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl shadow-brand-sky/20">
+                                <span class="relative">Start Intake Process</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Academic Search Card -->
                     <div
@@ -211,9 +220,11 @@
                         <h3 class="text-2xl font-black text-white tracking-tight mb-4 font-sans">
                             Academic Search
                         </h3>
-                        <p class="text-slate-400 leading-relaxed font-medium">
-                            Official identification of verified university programs worldwide.
-                        </p>
+                        <ul
+                            class="text-slate-400 leading-relaxed font-medium space-y-3 list-disc list-inside marker:text-brand-sky">
+                            <li>Official identification of verified university programs worldwide.</li>
+                            <li>Canadian International High School pathays to world-class institutions.</li>
+                        </ul>
                     </div>
 
                     <!-- Global Education Strategy Card -->
@@ -229,9 +240,12 @@
                         <h3 class="text-2xl font-black text-white tracking-tight mb-4 font-sans">
                             Global Education Strategy
                         </h3>
-                        <p class="text-slate-400 leading-relaxed font-medium">
-                            Direction to resources and authorized representation for global study visas.
-                        </p>
+                        <ul
+                            class="text-slate-400 leading-relaxed font-medium space-y-3 list-disc list-inside marker:text-brand-sky">
+                            <li>Direction to resources and authorized representation for global study visas.</li>
+                            <li>Institution and University Search.</li>
+                            <li>Credential Assessment and guidance.</li>
+                        </ul>
                     </div>
 
                     <!-- Settlement Card -->
@@ -247,9 +261,12 @@
                         <h3 class="text-2xl font-black text-white tracking-tight mb-4 font-sans">
                             Settlement
                         </h3>
-                        <p class="text-slate-400 leading-relaxed font-medium">
-                            Relocation strategy to ensure a stable start in your host country.
-                        </p>
+                        <ul
+                            class="text-slate-400 leading-relaxed font-medium space-y-3 list-disc list-inside marker:text-brand-sky">
+                            <li>Relocation strategy to ensure a stable start in your host country.</li>
+                            <li>First-hand information about the environment.</li>
+                            <li>Appropriateness assessment for candidates.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -343,7 +360,7 @@
             </div>
 
             <!-- ABOUT US TAB -->
-            <div id="content-about" class="hidden space-y-24 relative z-20">
+            <div id="content-about" class="hidden space-y-24 relative z-20 page-top-spacing">
                 <div
                     class="max-w-[1260px] mx-auto bg-brand-card/55 backdrop-blur-xl border border-slate-700/50 rounded-[3rem] p-10 md:p-14 shadow-2xl relative overflow-hidden text-center">
                     <div
@@ -451,14 +468,12 @@
             </div>
 
             <!-- STUDY PATHWAY TAB -->
-            <div id="content-pathway" class="hidden animate-in fade-in duration-700 relative z-20">
+            <div id="content-pathway" class="hidden animate-in fade-in duration-700 relative z-20 page-top-spacing">
                 <div
                     class="max-w-[1260px] mx-auto bg-brand-card/60 backdrop-blur-md p-10 md:p-14 rounded-[3rem] border border-slate-800 shadow-2xl text-center space-y-16">
 
                     <!-- Infographic Section -->
                     <div>
-                        <h2 class="text-xl font-black text-white mb-6 tracking-widest border-b border-slate-700 pb-4">
-                            Study Pathway</h2>
                         <div class="relative max-w-5xl mx-auto py-12 px-4">
                             <!-- Central Hub (Mobile: Top, Desktop: Center) -->
                             <div
@@ -692,7 +707,8 @@
     </main>
 
     <!-- FOOTER / CONTACT -->
-    <footer id="contact" class="hidden relative pt-32 pb-16 border-t border-slate-800 font-sans bg-brand-dark/95">
+    <footer id="contact"
+        class="hidden relative page-top-spacing pb-16 border-t border-slate-800 font-sans bg-brand-dark/95">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
 
@@ -1063,7 +1079,26 @@
                     }
                 }
             });
+
+            // Check for Payment Success URL Param
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment_success') === 'true') {
+                const successModal = document.getElementById('payment-success-modal');
+                if (successModal) {
+                    successModal.classList.remove('hidden');
+                    // Clean URL without refresh
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
         });
+
+        function closePaymentModal() {
+            const modal = document.getElementById('payment-success-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+        window.closePaymentModal = closePaymentModal;
     </script>
 
     <script type="module" src="assets/js/app.js?v=4"></script>

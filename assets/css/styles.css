@@ -7,6 +7,12 @@ body {
     font-size: 1rem;
 }
 
+/* Custom utility for consistent page top spacing - change this value to adjust all pages */
+.page-top-spacing {
+    padding-top: 1rem;
+    /* 16px = pt-4 */
+}
+
 .tab-active {
     border-bottom: 3px solid #0EA5E9;
     color: #0EA5E9;
