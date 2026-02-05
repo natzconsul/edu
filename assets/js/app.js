@@ -21,19 +21,15 @@ const CONFIG = {
     // Email recipients (both will receive notifications)
     CONTACT_EMAILS: ['natzconsul@gmail.com', 'info@natzconsult.com'],
 
-    // EmailJS Configuration
-    EMAILJS_PUBLIC_KEY: 'b5nfTFmqBkaKNpwDv',
-    EMAILJS_SERVICE_ID: 'service_yx8uz9g',
-    EMAILJS_TEMPLATE_BOOKING: 'template_4ttjwc7',
-    EMAILJS_TEMPLATE_INTAKE: 'template_cmavibh',
-
-    // Validation
+    // Validation Constants
     MAX_NAME_LENGTH: 100,
     MIN_PHONE_LENGTH: 10,
     MAX_PHONE_LENGTH: 20,
 
-    // Stripe Configuration
-    STRIPE_FUNCTION_URL: 'https://us-central1-natzconsult.cloudfunctions.net/createStripeCheckout'
+    // Cloud Function URL (via Firebase Hosting rewrites for production, direct for local)
+    STRIPE_FUNCTION_URL: window.location.hostname === 'localhost'
+        ? 'https://us-central1-natzconsult.cloudfunctions.net/createStripeCheckout'
+        : '/api/createStripeCheckout'
 };
 
 // Validation Helper Functions
@@ -354,7 +350,8 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    bookingData: bookingData
+                    type: 'booking',
+                    data: bookingData
                 }),
             });
 
@@ -370,7 +367,8 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
         } catch (paymentError) {
             console.error('Payment initialization failed:', paymentError);
             showMessage('error', 'Unable to initialize payment. Please try again.');
-            submitBtn.innerText = 'PAYMENT ERROR';
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
         }
 
     } catch (error) {
@@ -384,7 +382,6 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
         } else {
             showMessage('error', 'Could not reserve slot. Please try again.');
         }
-    } finally {
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
     }
@@ -396,7 +393,8 @@ function switchTab(id) {
     const contentMap = {
         'home': 'content-home',
         'about': 'content-about',
-        'pathway': 'content-pathway'
+        'pathway': 'content-pathway',
+        'tech': 'content-tech'
     };
 
     const targetContent = contentMap[id] || 'content-about';
@@ -434,54 +432,32 @@ function switchTab(id) {
     }
 
     // 2. Update Nav Highlights
-    // We check all possible nav IDs
-    const navIds = ['nav-home', 'nav-about', 'nav-pathway', 'nav-contact'];
+    const navIds = ['nav-home', 'nav-about', 'nav-pathway', 'nav-tech', 'nav-contact'];
     navIds.forEach(navId => {
         const el = document.getElementById(navId);
         if (el) {
-            // A nav item is active if its ID matches 'nav-' + the clicked id
             el.classList.toggle('tab-active', navId === 'nav-' + id);
-
-            // Special handling for the initial load or edge cases could go here
         }
     });
 
-    // Update Hero dynamically (only if not contact)
-    if (id !== 'contact') {
-        const heroHeading = document.getElementById('hero-heading');
-        const heroTagline = document.getElementById('hero-tagline');
-        const heroButtons = heroSection?.querySelectorAll('.hero-buttons');
-        const scrollingBg = heroSection?.querySelector('.scrolling-background');
-        const darkOverlay = heroSection?.querySelector('.absolute.inset-0.bg-brand-dark\\/40');
-        const heroCard = document.getElementById('hero-card');
-        const tabContent = document.getElementById('tab-content');
+    // 3. Update Hero dynamically
+    const heroHeading = document.getElementById('hero-heading');
+    const heroTagline = document.getElementById('hero-tagline');
+    const badgeIconText = document.getElementById('badge-icon-text');
+    const badgeLabel = document.getElementById('badge-label');
+    const intakeBtn = document.getElementById('intake-btn');
 
-        // Hide Entire Hero Header on non-home pages
-        if (id === 'pathway' || id === 'about') {
-            if (heroSection) heroSection.classList.add('hidden');
-        } else {
-            if (heroSection) heroSection.classList.remove('hidden');
-            // Ensure home page dynamic styles are correct
-            if (scrollingBg) scrollingBg.classList.remove('hidden');
-            if (darkOverlay) darkOverlay.classList.remove('hidden');
-            if (heroCard) {
-                heroCard.classList.remove('bg-brand-card/55', 'backdrop-blur-xl', 'border-slate-700/50');
-                heroCard.classList.add('bg-brand-card/5', 'backdrop-blur-sm', 'border-white/5');
-                heroCard.classList.add('p-10', 'md:p-14');
-            }
-        }
-
-        if (id === 'pathway') {
-            heroHeading.textContent = 'Your Journey to Academic Success';
-            heroTagline.textContent = 'A clear, guided path from application to arrival.';
-        } else if (id === 'about') {
-            heroHeading.textContent = 'Empowering Education Accessibility';
-            heroTagline.textContent = 'Through support for international students';
-        } else {
-            heroHeading.textContent = 'Empowering Education Accessibility';
-            heroTagline.textContent = 'Through support for international students';
-        }
+    if (id === 'tech') {
+        if (badgeIconText) badgeIconText.textContent = 'ISTQB';
+        if (badgeLabel) badgeLabel.textContent = 'Certified QA';
+        if (intakeBtn) intakeBtn.classList.add('hidden');
+    } else {
+        if (badgeIconText) badgeIconText.textContent = 'ICEF';
+        if (badgeLabel) badgeLabel.textContent = 'Certified Agent';
+        if (intakeBtn) intakeBtn.classList.remove('hidden');
     }
+
+    // No need to manage hero visibility - it's now part of home page content
 }
 
 function showMessage(type, content) {
@@ -564,32 +540,27 @@ async function handleFormSubmit(event) {
     };
 
     try {
-        await emailjs.send(
-            CONFIG.EMAILJS_SERVICE_ID,
-            CONFIG.EMAILJS_TEMPLATE_INTAKE,
-            {
-                to_emails: CONFIG.CONTACT_EMAILS.join(', '),
-                from_name: formData.name,
-                from_email: formData.email,
-                phone: formData.phone,
-                country: formData.country,
-                address: formData.address,
-                emergency_name: formData.emergencyName,
-                emergency_phone: formData.emergencyPhone,
-                program: formData.program,
-                docs: formData.docs,
-                link: formData.link,
-                details: formData.details
+        const response = await fetch(CONFIG.STRIPE_FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            CONFIG.EMAILJS_PUBLIC_KEY
-        );
+            body: JSON.stringify({
+                type: 'intake',
+                data: formData
+            }),
+        });
 
-        showMessage('success', 'Application submitted! NATZ Consulting will reach you soon.');
-        document.getElementById('consult-form').reset();
-    } catch (emailError) {
-        console.error('Email error:', emailError);
-        showMessage('error', 'Failed to submit application. Please try again.');
-    } finally {
+        if (!response.ok) {
+            throw new Error('Failed to create payment session');
+        }
+
+        const session = await response.json();
+        window.location.href = session.url;
+
+    } catch (error) {
+        console.error('Submission error:', error);
+        showMessage('error', 'Failed to initialize payment. Please try again.');
         submitBtn.disabled = false;
         submitBtn.innerText = originalText;
     }
@@ -657,6 +628,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const navPathway = document.getElementById('nav-pathway');
     if (navPathway) {
         navPathway.addEventListener('click', () => switchTab('pathway'));
+    }
+
+    const navTech = document.getElementById('nav-tech');
+    if (navTech) {
+        navTech.addEventListener('click', () => switchTab('tech'));
     }
 
     const navAbout = document.getElementById('nav-about');
@@ -739,8 +715,8 @@ function initBackgroundAnimation() {
 
     for (let i = 0; i < ICON_COUNT; i++) {
         const div = document.createElement('div');
-        // w-0.5 h-0.5 is half of w-1 h-1
-        div.className = `absolute will-change-transform opacity-70 ${COLORS[i % COLORS.length]} w-0.5 h-0.5`;
+        // Increased from w-0.5 h-0.5 (2px) to 3px for 50% increase
+        div.className = `absolute will-change-transform opacity-70 ${COLORS[i % COLORS.length]} w-[3px] h-[3px]`;
         div.innerHTML = ICONS[i % ICONS.length];
 
         container.appendChild(div);

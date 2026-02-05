@@ -3,7 +3,37 @@
         "rules": "firestore.rules",
         "indexes": "firestore.indexes.json"
     },
-    "functions": {
-        "source": "functions"
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                "package-lock.json",
+                ".gcloudignore",
+                ".git",
+                "firebase-debug.log"
+            ],
+            "runtime": "nodejs20"
+        }
+    ],
+    "hosting": {
+        "public": ".",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**",
+            "functions/**"
+        ],
+        "rewrites": [
+            {
+                "source": "/api/createStripeCheckout",
+                "function": "createStripeCheckout"
+            },
+            {
+                "source": "/api/submitIntake",
+                "function": "submitIntake"
+            }
+        ]
     }
 }
