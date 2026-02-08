@@ -182,12 +182,14 @@ a:focus-visible {
 
 .hero-scroll-active {
     animation-play-state: running;
+    will-change: transform;
+    /* GPU acceleration */
 }
 
 .hero-image {
     width: 40vw;
-    /* Each image takes 40% of viewport width */
-    height: 100%;
+    height: 300px;
+    /* Fixed height for consistency */
     object-fit: cover;
     flex-shrink: 0;
 }

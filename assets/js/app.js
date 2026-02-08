@@ -589,6 +589,7 @@ async function handleAISubmit(event) {
 
     // Add User Message
     addMessageToUI('user', question);
+    saveChatHistory('user', question);
     input.value = '';
 
     // Add Loading State
@@ -610,9 +611,11 @@ async function handleAISubmit(event) {
         const data = await response.json();
         const loadingMsg = document.getElementById(loadingId);
         if (loadingMsg) {
-            loadingMsg.innerHTML = data.answer.replace(/\n/g, '<br>');
+            const answer = data.answer;
+            loadingMsg.innerHTML = answer.replace(/\n/g, '<br>');
             loadingMsg.classList.remove('animate-pulse');
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            saveChatHistory('bot', answer);
         }
 
     } catch (error) {
@@ -666,6 +669,9 @@ window.handleAISubmit = handleAISubmit;
 document.addEventListener('DOMContentLoaded', async () => {
     // Load availability schedule from Firestore
     const firestoreLoaded = await loadAvailabilityFromFirestore();
+
+    // Load AI Chat History
+    loadChatHistory();
 
     // Notify user if using fallback schedule
     if (!firestoreLoaded) {
@@ -790,7 +796,7 @@ function initBackgroundAnimation() {
     const container = document.getElementById('animated-background-container');
     if (!container) return;
 
-    const ICON_COUNT = 400; // Increased to 400
+    const ICON_COUNT = 150; // Optimized: Reduced from 400 for 60fps performance
     // 7 Educational Icons
     const ICONS = [
         '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>', // Book
@@ -808,13 +814,12 @@ function initBackgroundAnimation() {
     ];
 
     const particles = [];
-    const baseY = 35; // Moved up to center better with larger spread
+    const baseY = 35;
     let time = 0;
 
     for (let i = 0; i < ICON_COUNT; i++) {
         const div = document.createElement('div');
-        // Increased from w-0.5 h-0.5 (2px) to 3px for 50% increase
-        div.className = `absolute will-change-transform opacity-70 ${COLORS[i % COLORS.length]} w-[3px] h-[3px]`;
+        div.className = `absolute will-change-transform opacity-70 ${COLORS[i % COLORS.length]} w-1 h-1 md:w-1.5 md:h-1.5`;
         div.innerHTML = ICONS[i % ICONS.length];
 
         container.appendChild(div);
@@ -824,7 +829,7 @@ function initBackgroundAnimation() {
             x: Math.random() * 120 - 10,
             seed: Math.random() * 1000,
             speed: (0.01 + Math.random() * 0.02),
-            yOffset: (Math.random() - 0.5) * 60, // Increased spread to 60 (1.5x)
+            yOffset: (Math.random() - 0.5) * 60,
             phase: Math.random() * Math.PI * 2,
             freq: 0.01 + Math.random() * 0.02
         });
@@ -832,29 +837,40 @@ function initBackgroundAnimation() {
 
     function animate() {
         time += 0.005;
-        particles.forEach(p => {
-            // Update X
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+
             p.x += p.speed;
             if (p.x > 110) p.x = -10;
 
-            // Convergence Logic
             const distFromCenter = Math.abs(p.x - 50) / 50;
-            const spreadFactor = Math.max(0.1, Math.pow(distFromCenter, 1.2));
+            const spreadFactor = distFromCenter * distFromCenter; // Faster math than pow
 
-            // 2D Noise-like wave motion (Sum of sines for organic feel)
             const noise = (
                 Math.sin(p.x * p.freq + time + p.phase) * 6 +
                 Math.sin(p.x * 0.05 + time * 0.5 + p.seed) * 4
             );
 
-            // Final Y
             const y = baseY + noise + (p.yOffset * spreadFactor);
-
             p.element.style.transform = `translate3d(${p.x}vw, ${y}vh, 0)`;
-        });
-
+        }
         requestAnimationFrame(animate);
     }
-
     animate();
+}
+
+/**
+ * Persist AI Chat in LocalStorage
+ */
+function saveChatHistory(role, text) {
+    const history = JSON.parse(localStorage.getItem('natz_chat_history') || '[]');
+    history.push({ role, text, timestamp: Date.now() });
+    localStorage.setItem('natz_chat_history', JSON.stringify(history.slice(-50))); // Keep last 50
+}
+
+function loadChatHistory() {
+    const history = JSON.parse(localStorage.getItem('natz_chat_history') || '[]');
+    history.forEach(msg => {
+        addMessageToUI(msg.role === 'user' ? 'user' : 'bot', msg.text);
+    });
 }

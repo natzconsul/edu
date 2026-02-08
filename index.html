@@ -4,7 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NATZ Consulting</title>
+    <title>NATZ Consulting | Bridging Your Canadian Education Journey</title>
+    <meta name="description"
+        content="Certified ICEF Agent providing expert guidance for your Canadian study pathway. We specialize in admissions, visa support, and student success.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://natzconsult.com/">
+    <meta property="og:title" content="NATZ Consulting | Canadian Study Pathway">
+    <meta property="og:description"
+        content="Expert Canadian education consultancy. Start your journey with our AI-powered assistant and certified agents.">
+    <meta property="og:image" content="https://natzconsult.com/assets/images/background.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="NATZ Consulting | Canadian Study Pathway">
+    <meta property="twitter:description"
+        content="Expert Canadian education consultancy. Start your journey with our AI-powered assistant.">
+    <meta property="twitter:image" content="https://natzconsult.com/assets/images/background.webp">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -29,6 +47,13 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/payment-handler.js"></script>
     <link rel="preload" as="image" href="assets/images/background.webp">
+    <style>
+        .fixed-bg {
+            background-image: url('assets/images/background.webp');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body class="bg-brand-dark min-h-screen selection:bg-brand-sky/30 font-serif"
@@ -37,9 +62,7 @@
 
 
     <!-- Fixed Global Background -->
-    <div class="fixed inset-0 z-0 pointer-events-none">
-        <img src="assets/images/background.webp" alt="Global Consultancy Background"
-            class="w-full h-full object-cover opacity-100">
+    <div class="fixed inset-0 z-0 pointer-events-none fixed-bg">
         <div class="absolute inset-0 bg-brand-dark/50 mix-blend-multiply"></div>
     </div>
 
@@ -152,26 +175,26 @@
                         <div class="hero-scroll-container">
                             <!-- First set of images -->
                             <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
-                                class="hero-image" loading="eager" decoding="async">
+                                class="hero-image" width="400" height="300" loading="eager" decoding="sync">
                             <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
-                                class="hero-image" loading="eager" decoding="async">
+                                class="hero-image" width="400" height="300" loading="eager" decoding="sync">
                             <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <!-- Duplicate set for seamless loop -->
                             <img src="assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                             <img src="assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab"
-                                class="hero-image" loading="lazy" decoding="async">
+                                class="hero-image" width="400" height="300" loading="lazy" decoding="async">
                         </div>
                     </div>
 
@@ -1273,7 +1296,7 @@
         window.closePaymentModal = closePaymentModal;
     </script>
 
-    <script type="module" src="assets/js/app.js?v=4"></script>
+    <script type="module" src="assets/js/app.js?v=5"></script>
 
     <!-- INTAKE MODAL -->
     <div id="intake-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true"
