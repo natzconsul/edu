@@ -31,6 +31,14 @@
                 "function": "createStripeCheckout"
             },
             {
+                "source": "/api/natzAiAssistant",
+                "function": "natzAiAssistant"
+            },
+            {
+                "source": "/api/stripeWebhook",
+                "function": "stripeWebhook"
+            },
+            {
                 "source": "/api/submitIntake",
                 "function": "submitIntake"
             }

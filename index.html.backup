@@ -49,35 +49,28 @@
             <div class="flex items-center space-x-4 group cursor-pointer" id="logo-home">
                 <div
                     class="w-12 h-12 bg-brand-sky rounded-xl flex items-center justify-center shadow-lg shadow-brand-sky/30 transform group-hover:rotate-6 transition-transform">
-                    <svg class="w-11 h-11 text-brand-dark" viewBox="0 0 100 100" fill="currentColor">
-                        <path
-                            d="M15 40 Q 20 25 35 30 Q 45 20 60 35 Q 75 25 85 45 Q 90 60 70 75 Q 60 85 40 70 Q 20 80 10 60 Z"
-                            opacity="0.15" />
-                        <path d="M5 60 H 95 V 65 H 5 Z" />
-                        <rect x="25" y="35" width="4" height="30" />
-                        <rect x="71" y="35" width="4" height="30" />
-                        <path d="M25 35 Q 48 55 71 35" fill="none" stroke="currentColor" stroke-width="2" />
-                        <path d="M5 50 Q 15 45 25 35" fill="none" stroke="currentColor" stroke-width="2" />
-                        <path d="M71 35 Q 85 45 95 50" fill="none" stroke="currentColor" stroke-width="1.5" />
-                        <path d="M40 38 V 72 M40 38 L 60 72 M 60 38 V 72" fill="none" stroke="currentColor"
-                            stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <svg class="w-7 h-7 text-brand-dark" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-2xl font-black tracking-tighter text-slate-200 leading-none font-sans">NATZ
-                        Consult</span>
+                        Consulting</span>
                     <span class="text-[11px] font-bold text-slate-400 tracking-[0.3em] mt-1 font-sans">Bridging
-                        accessibility gap..</span>
+                        accessibility gap...</span>
                 </div>
             </div>
 
-            <div class="hidden md:flex items-center space-x-12 text-sm font-black tracking-[0.2em] font-sans uppercase">
+            <div class="hidden md:flex items-center space-x-12 text-sm font-black tracking-[0.2em] font-sans">
                 <a href="#" id="nav-home" class="tab-active text-brand-sky hover:text-white transition-colors">Home</a>
-                <button id="nav-pathway" class="py-2 hover:text-brand-sky transition-all">Canadian Study
+                <button id="nav-pathway" class="py-2 hover:text-brand-sky hover:scale-105 transition-all">Study
                     Pathway</button>
-                <button id="nav-about" class="py-2 hover:text-white transition-all">About Us</button>
+                <button id="nav-tech" class="py-2 hover:text-brand-sky hover:scale-105 transition-all">Tech
+                    Solutions</button>
+                <button id="nav-about" class="py-2 hover:text-white hover:scale-105 transition-all">About
+                    Us</button>
                 <button id="nav-contact"
-                    class="px-6 py-2 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark transition-all">Contact</button>
+                    class="px-6 py-2 border-2 border-brand-sky/30 rounded-lg hover:bg-brand-sky hover:text-brand-dark hover:scale-105 transition-all">Contact</button>
             </div>
 
 
@@ -110,8 +103,7 @@
                     <a href="#" data-tab="home"
                         class="mobile-nav-link text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Home</a>
                     <button data-tab="pathway"
-                        class="mobile-nav-link text-left text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Canadian
-                        Study
+                        class="mobile-nav-link text-left text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Study
                         Pathway</button>
                     <button data-tab="tech"
                         class="mobile-nav-link text-left text-slate-200 hover:text-brand-sky transition-colors py-3 border-b border-slate-800">Tech
@@ -178,11 +170,10 @@
                     <!-- Dark overlay for better text readability -->
                     <div class="absolute inset-0 bg-brand-dark/40 z-[1]"></div>
 
-                    <div class="relative z-10 flex flex-col items-center w-full max-w-4xl mx-auto px-4">
-
-                        <!-- V4 Hero Glass Card -->
+                    <div class="relative z-10 flex flex-col items-center w-full max-w-[800px] mx-auto space-y-8">
+                        <!-- Hero Card (Text Only) -->
                         <div id="hero-card"
-                            class="relative w-full border border-white/10 rounded-[2.5rem] p-4 md:p-8 shadow-2xl text-center space-y-4 transform animate-in fade-in slide-in-from-bottom-10 duration-1000 mt-4"
+                            class="relative w-full border border-white/10 rounded-[2.5rem] p-4 md:p-8 shadow-2xl text-center space-y-4 transform animate-in fade-in slide-in-from-bottom-10 duration-1000 mt-[30px]"
                             style="background-color: rgba(255, 255, 240, 0.60);">
 
                             <!-- Dynamic Badge Section -->
@@ -202,50 +193,64 @@
                                 </div>
                             </div>
 
-                            <div class="max-w-3xl mx-auto w-full mb-4">
-                                <div class="flex flex-col items-center text-center space-y-6">
-                                    <!-- Tagline -->
-                                    <div class="pt-4">
-                                        <p
-                                            class="text-3xl md:text-4xl font-black text-[#1E3A8A] leading-tight font-sans tracking-tight">
-                                            Your Future. Our Expertise.
-                                        </p>
-                                        <p
-                                            class="text-xl text-brand-sky font-black mt-2 font-sans uppercase tracking-[0.2em]">
-                                            Strategic Education Consulting
-                                        </p>
+                            <div class="max-w-3xl mx-auto w-full mb-8">
+                                <div
+                                    class="text-[12.5px] font-bold tracking-[0.25em] text-[#1E3A8A] opacity-80 mb-4 text-left">
+                                    We support applications into
+                                </div>
+                                <div id="hero-heading" class="space-y-4 mb-8">
+                                    <!-- Row 1: 3 items -->
+                                    <div class="flex flex-wrap justify-center gap-x-12">
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Canadian K12</div>
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Secondary schools</div>
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Certificates</div>
                                     </div>
+                                    <!-- Row 2: 4 items -->
+                                    <div class="flex flex-wrap justify-center gap-x-12">
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Diplomas</div>
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Bachelors</div>
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; Master's</div>
+                                        <div
+                                            class="text-2xl md:text-3xl font-bold tracking-tight text-[#1E3A8A] font-sans">
+                                            &bull; PhDs</div>
+                                    </div>
+                                </div>
 
-                                    <!-- Bullet Points -->
-                                    <div
-                                        class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#1E3A8A] text-left max-w-2xl mx-auto pt-4 font-bold font-sans">
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
-                                            <span>Top University Admissions</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
-                                            <span>Personalized Application Strategy</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
-                                            <span>Career Pathway Planning</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
-                                            <span>Guide to Scholarship Support </span>
-                                        </div>
-                                    </div>
+                                <!-- Three Highlight Pillars (Right Aligned) -->
+                                <div
+                                    class="text-[12.5px] font-bold tracking-[0.25em] text-[#1E3A8A] opacity-80 text-right">
+                                    with institution search, credentials assessment & relocation strategy
                                 </div>
                             </div>
 
+                            <p id="hero-tagline" class="hidden"></p>
 
+                            <!-- Buttons Side-by-Side Below Card -->
+                            <div
+                                class="hero-buttons relative z-20 flex flex-row flex-wrap gap-8 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-1000 mt-[30px]">
+                                <button id="booking-btn"
+                                    class="group relative px-12 py-6 bg-brand-sky text-brand-dark font-black rounded-full overflow-hidden transition-all hover:brightness-110 hover:scale-105 active:scale-95 shadow-lg hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl shadow-brand-sky/20">
+                                    <span class="relative">Book Consultation</span>
+                                </button>
+                                <button id="intake-btn"
+                                    class="group relative px-12 py-6 bg-brand-sky text-brand-dark font-black rounded-full overflow-hidden transition-all hover:brightness-110 hover:scale-105 active:scale-95 shadow-lg hover:shadow-[0_0_60px_-15px_rgba(14,165,233,0.7)] tracking-[0.3em] text-xl shadow-brand-sky/20">
+                                    <span class="relative">Start Intake Process</span>
+                                </button>
+                            </div>
                         </div>
-
-
-                    </div>
                 </header>
-
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Academic Search Card -->
@@ -327,8 +332,8 @@
                             <div class="space-y-6 text-slate-300 font-medium leading-relaxed">
                                 <p>
                                     NATZ Consulting is a premier educational consultancy dedicated to empowering
-                                    international students achieve their academic goals in Canada. Since 2017, we have
-                                    provided strategic guidance and cross-border
+                                    international students, particularly from West Africa, to achieve their academic
+                                    goals in Canada. Since 2017, we have provided strategic guidance and cross-border
                                     expertise to navigate the complex landscape of international education. Our mission
                                     is to bridge the gap between aspirations and excellence by offering tailored
                                     solutions for university admissions, relocation strategies, and professional
@@ -422,7 +427,7 @@
 
                     <p
                         class="text-base md:text-lg text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed mb-16 italic">
-                        Our vision is to provide unparalleled strategic guidance to International students, ensuring a
+                        Our vision is to provide unparalleled strategic guidance to West African students, ensuring a
                         seamless transition into the Canadian educational landscape through certified expertise.
                     </p>
 
@@ -457,7 +462,8 @@
                             <h4 class="text-base font-black text-white tracking-wider mb-4 font-sans">System
                                 Expertise</h4>
                             <p class="text-slate-400 font-medium leading-relaxed">
-                                Profound understanding of both International and Canadian academic requirements.
+                                Profound understanding of both West African (WAEC/NECO) and Canadian academic
+                                requirements.
                             </p>
                         </div>
                     </div>
@@ -522,30 +528,6 @@
                     <h2 class="text-xl font-black text-white mb-6 tracking-widest border-b border-slate-700 pb-4">
                         Navigating Your Educational Success</h2>
 
-                    <!-- Featured Video Card -->
-                    <div
-                        class="max-w-4xl mx-auto rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-900/40 backdrop-blur-md group hover:border-brand-sky/30 transition-all duration-500">
-                        <div class="aspect-video relative">
-                            <iframe class="absolute inset-0 w-full h-full"
-                                src="https://www.youtube.com/embed/sFAaNniPLKs" title="Why study in Canada?"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
-                        </div>
-                        <div class="p-8 bg-brand-card/50 border-t border-white/5 text-left">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="text-xl font-black text-brand-sky uppercase tracking-widest">Why study in
-                                    Canada?</h3>
-                                <span
-                                    class="px-3 py-1 bg-brand-sky/10 text-brand-sky text-[10px] font-bold rounded-full border border-brand-sky/20">FEATURED
-                                </span>
-                            </div>
-                            <p class="text-slate-400 text-sm font-medium leading-relaxed">Explore the benefits of
-                                pursuing your education in one of the world's most welcoming and prestigious academic
-                                destinations. Learn about the post-study work opportunities and quality of life.</p>
-                        </div>
-                    </div>
-
                     <!-- Infographic Section -->
                     <div>
                         <div class="relative max-w-5xl mx-auto py-12 px-4">
@@ -562,9 +544,8 @@
                                             d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z">
                                         </path>
                                     </svg>
-                                    <h3 class="text-xl font-black text-white tracking-widest leading-none">CANADIAN</h3>
-                                    <h3 class="text-xl font-black text-brand-sky tracking-widest leading-none">STUDY
-                                        PATHWAY
+                                    <h3 class="text-xl font-black text-white tracking-widest leading-none">STUDY</h3>
+                                    <h3 class="text-xl font-black text-brand-sky tracking-widest leading-none">PATHWAY
                                     </h3>
                                 </div>
                             </div>
@@ -1485,125 +1466,6 @@
             </div>
         </div>
     </div>
-
-    <!-- LEFT SIDE: Support Floating Group -->
-    <div class="fixed bottom-8 left-8 z-[60] flex flex-col gap-4">
-        <!-- WhatsApp Button -->
-        <a href="https://wa.me/18254381453?text=Hello!%20I'm%20interested%20in%20a%20consultation%20with%20NATZ%20Consulting."
-            target="_blank" rel="noopener noreferrer"
-            class="flex items-center gap-3 px-6 py-4 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-black shadow-[0_10px_40px_rgba(16,185,129,0.4)] hover:scale-110 active:scale-95 transition-all group animate-in slide-in-from-bottom-10 duration-1000"
-            aria-label="Chat with us on WhatsApp">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            </svg>
-            <span class="tracking-widest uppercase text-xs">WhatsApp Chat</span>
-        </a>
-
-        <!-- AI Assistant Toggle -->
-        <button onclick="toggleAIChat()"
-            class="flex items-center gap-3 px-6 py-4 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black shadow-[0_10px_40px_rgba(124,58,237,0.4)] hover:scale-110 active:scale-95 transition-all group animate-in slide-in-from-bottom-10 duration-1000 delay-100"
-            aria-label="Ask AI Assistant">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                </path>
-            </svg>
-            <span class="tracking-widest uppercase text-xs">Ask AI Assistant</span>
-        </button>
-    </div>
-
-    <!-- AI CHAT WINDOW -->
-    <div id="ai-chat-window"
-        class="fixed bottom-28 left-8 w-full max-w-sm md:max-w-md bg-brand-dark/95 backdrop-blur-xl border border-slate-700/50 rounded-[2.5rem] shadow-2xl z-[70] hidden flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
-        <!-- Header -->
-        <div
-            class="p-6 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 border-b border-slate-700/50 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div
-                    class="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-600/30">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-white font-black text-sm uppercase tracking-widest leading-none">AI Assistant</h3>
-                    <span
-                        class="text-[10px] text-purple-400 font-bold uppercase tracking-[0.2em] mt-1 block">Online</span>
-                </div>
-            </div>
-            <button onclick="toggleAIChat()" class="p-2 text-slate-400 hover:text-white transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- Chat Area -->
-        <div id="ai-chat-messages"
-            class="flex-1 p-6 space-y-4 overflow-y-auto max-h-[400px] min-h-[300px] custom-scrollbar">
-            <!-- Bot Welcome message -->
-            <div class="flex gap-3">
-                <div
-                    class="w-8 h-8 rounded-lg bg-purple-600/20 flex items-center justify-center shrink-0 border border-purple-500/20">
-                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <div
-                    class="bg-slate-800/50 p-4 rounded-2xl rounded-tl-none border border-slate-700/50 text-sm text-slate-200 leading-relaxed">
-                    Hello! I'm your NATZ Consulting AI Assistant. How can I help you with your study journey today?
-                </div>
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="p-6 border-t border-slate-700/50 bg-slate-900/50">
-            <form id="ai-chat-form" class="flex gap-3" onsubmit="handleAISubmit(event)">
-                <input type="text" id="ai-chat-input"
-                    class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Type your question...">
-                <button type="submit"
-                    class="bg-purple-600 text-white p-3 rounded-xl hover:bg-purple-500 transition-colors shadow-lg shadow-purple-600/20">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- RIGHT SIDE: Stacked Vertical Buttons (Hidden on Mobile) -->
-    <div class="side-buttons fixed right-0 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3">
-        <button id="side-booking-btn"
-            class="group relative bg-gradient-to-b from-brand-sky to-cyan-600 text-white font-bold py-12 px-6 rounded-l-2xl shadow-lg shadow-brand-sky/30 hover:shadow-brand-sky/50 transition-all hover:pr-8"
-            aria-label="Schedule a consultation for $100">
-            <span class="side-btn flex items-center gap-2 text-base tracking-wide">
-                <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                    </path>
-                </svg>
-                Schedule Consultation $100
-            </span>
-        </button>
-
-        <button id="side-intake-btn"
-            class="group relative bg-slate-800/80 border border-brand-sky/40 text-brand-sky font-bold py-12 px-6 rounded-l-2xl hover:bg-slate-700/80 hover:border-brand-sky/70 transition-all hover:pr-8 backdrop-blur-sm"
-            aria-label="Start your application intake">
-            <span class="side-btn flex items-center gap-2 text-base tracking-wide">
-                <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Apply Now - Intake
-            </span>
-        </button>
-    </div>
-
-
 </body>
 
 </html>

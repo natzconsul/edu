@@ -7,6 +7,57 @@ body {
     font-size: 1rem;
 }
 
+/* V4 Hero Glass Card Styles */
+.glass-card {
+    background: linear-gradient(135deg, rgba(13, 31, 53, 0.85) 0%, rgba(10, 22, 40, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    box-shadow: 0 0 60px rgba(14, 165, 233, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glow-line {
+    background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.6), transparent);
+    height: 1px;
+}
+
+.side-btn {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.primary-cta {
+    background: linear-gradient(135deg, #0EA5E9 0%, #0284c7 100%);
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4), 0 0 40px rgba(14, 165, 233, 0.2);
+    transition: all 0.3s ease;
+}
+
+.primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(14, 165, 233, 0.5), 0 0 60px rgba(14, 165, 233, 0.3);
+}
+
+.chat-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.chat-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(14, 165, 233, 0.5);
+}
+
+@media (max-width: 768px) {
+    .side-buttons {
+        display: none !important;
+    }
+
+    .mobile-ctas {
+        display: flex !important;
+    }
+}
+
 /* Custom utility for consistent page top spacing - change this value to adjust all pages */
 .page-top-spacing {
     padding-top: 1rem;

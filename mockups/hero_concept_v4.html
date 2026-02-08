@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NATZ Consulting - Hero Mockup V4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-sky': '#0EA5E9',
+                        'brand-dark': '#0a1628',
+                        'brand-card': '#0d1f35',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a1628;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(13, 31, 53, 0.85) 0%, rgba(10, 22, 40, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 0 0 60px rgba(14, 165, 233, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .glow-line {
+            background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.6), transparent);
+            height: 1px;
+        }
+
+        .side-btn {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+
+        .chat-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+
+        .primary-cta {
+            background: linear-gradient(135deg, #0EA5E9 0%, #0284c7 100%);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4), 0 0 40px rgba(14, 165, 233, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .primary-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(14, 165, 233, 0.5), 0 0 60px rgba(14, 165, 233, 0.3);
+        }
+
+        .hamburger-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .side-buttons {
+                display: none !important;
+            }
+
+            .mobile-ctas {
+                display: flex !important;
+            }
+        }
+
+        /* Hero Scrolling Background Animation */
+        .hero-scroll-container {
+            display: flex;
+            width: max-content;
+            height: 100%;
+            animation: scroll-left 120s linear infinite;
+        }
+
+        .hero-image {
+            width: 40vw;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-200vw);
+            }
+        }
+
+        .hero-scroll-container:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white overflow-x-hidden">
+
+    <!-- SCROLLING BACKGROUND IMAGES -->
+    <div class="fixed inset-0 z-0 overflow-hidden">
+        <div class="hero-scroll-container">
+            <!-- First set of images -->
+            <img src="../assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
+                class="hero-image">
+            <img src="../assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
+                class="hero-image">
+            <img src="../assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
+                class="hero-image">
+            <img src="../assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio" class="hero-image">
+            <img src="../assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab" class="hero-image">
+            <!-- Duplicate set for seamless loop -->
+            <img src="../assets/images/hero/geography_students_1769575797124.webp" alt="Geography Students"
+                class="hero-image">
+            <img src="../assets/images/hero/science_professionals_1769575809751.webp" alt="Science Lab"
+                class="hero-image">
+            <img src="../assets/images/hero/business_professionals_1769575843013.webp" alt="Business Team"
+                class="hero-image">
+            <img src="../assets/images/hero/arts_students_1769575856678.webp" alt="Art Studio" class="hero-image">
+            <img src="../assets/images/hero/technology_students_1769575872388.webp" alt="Tech Lab" class="hero-image">
+        </div>
+    </div>
+
+    <!-- Dark overlay for text readability -->
+    <div class="fixed inset-0 bg-brand-dark/60 z-[1]"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-50 px-8 py-4 bg-brand-dark/50 backdrop-blur-sm border-b border-slate-800/50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 border-2 border-brand-sky rounded flex items-center justify-center">
+                    <span class="text-brand-sky font-black text-lg">N</span>
+                </div>
+            </div>
+
+            <!-- Nav Links -->
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-300">
+                <a href="#" class="hover:text-brand-sky transition-colors">Services</a>
+                <a href="#" class="hover:text-brand-sky transition-colors">About Us</a>
+                <a href="#" class="hover:text-brand-sky transition-colors">Universities</a>
+                <a href="#" class="hover:text-brand-sky transition-colors">Resources</a>
+            </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <button class="hamburger-menu md:hidden w-8 h-8 flex-col items-center justify-center gap-1.5"
+                aria-label="Open navigation menu">
+                <span class="w-5 h-0.5 bg-slate-300"></span>
+                <span class="w-5 h-0.5 bg-slate-300"></span>
+                <span class="w-5 h-0.5 bg-slate-300"></span>
+            </button>
+
+            <!-- User Icon -->
+            <div class="w-8 h-8 rounded-full border border-slate-600 flex items-center justify-center" role="button"
+                aria-label="User account">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Hero Section -->
+    <div class="relative z-10 min-h-[calc(100vh-80px)] flex items-center px-8 pb-24">
+
+        <!-- Main Content Container -->
+        <div class="relative z-10 max-w-4xl mx-auto w-full">
+
+            <!-- Hero Card (Transparent Banner with Text) -->
+            <div class="glass-card rounded-3xl p-10 md:p-12 relative overflow-hidden">
+
+                <!-- Decorative corner glow -->
+                <div class="absolute -top-20 -right-20 w-40 h-40 bg-brand-sky/20 rounded-full blur-3xl"></div>
+
+                <div class="flex flex-col items-center text-center space-y-6">
+
+                    <!-- Logo + Brand -->
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-16 h-16 border-2 border-brand-sky rounded-xl flex items-center justify-center bg-brand-sky/10">
+                            <span class="text-brand-sky font-black text-3xl">N</span>
+                        </div>
+                        <div class="text-left">
+                            <h1 class="text-5xl md:text-6xl font-black tracking-tight">
+                                <span class="text-white">NATZ</span>
+                            </h1>
+                            <p class="text-brand-sky text-xl font-semibold -mt-1">Consulting</p>
+                        </div>
+                    </div>
+
+                    <!-- Tagline -->
+                    <div class="pt-4">
+                        <p class="text-2xl md:text-3xl font-bold text-white leading-tight">
+                            Your Future. Our Expertise.
+                        </p>
+                        <p class="text-xl text-brand-sky font-semibold mt-1">
+                            Elite Education Consulting.
+                        </p>
+                    </div>
+
+                    <!-- Bullet Points -->
+                    <ul class="space-y-3 text-slate-200 text-base md:text-lg pt-4 text-left max-w-md">
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
+                            Top University Admissions Guidance
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
+                            Personalized Application Strategy
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
+                            Career Pathway Planning
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-brand-sky rounded-full flex-shrink-0"></span>
+                            Global Scholarship Support
+                        </li>
+                    </ul>
+
+                    <!-- Primary CTA Button -->
+                    <div class="pt-6">
+                        <button class="primary-cta px-10 py-4 rounded-full text-white font-bold text-lg tracking-wide">
+                            Start Your Journey
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bottom glow line -->
+                <div class="glow-line absolute bottom-0 left-10 right-10"></div>
+            </div>
+
+            <!-- Bottom Chat Buttons -->
+            <div class="flex justify-center gap-4 mt-8">
+                <button class="chat-btn flex items-center gap-3 px-6 py-3 rounded-full transition-all hover:scale-105">
+                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                    </svg>
+                    <span class="text-white font-medium text-sm">Free Chat</span>
+                </button>
+
+                <button class="chat-btn flex items-center gap-3 px-6 py-3 rounded-full transition-all hover:scale-105">
+                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    <span class="text-white font-medium text-sm">Ask AI Assistant</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: Stacked Vertical Buttons (Hidden on Mobile) -->
+        <div class="side-buttons fixed right-0 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3">
+
+            <!-- Schedule Consultation Button -->
+            <button
+                class="group relative bg-gradient-to-b from-brand-sky to-cyan-600 text-white font-bold py-8 px-4 rounded-l-2xl shadow-lg shadow-brand-sky/30 hover:shadow-brand-sky/50 transition-all hover:pr-6"
+                aria-label="Schedule a consultation for $100">
+                <span class="side-btn flex items-center gap-2 text-sm tracking-wide">
+                    <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    Schedule Consultation $100
+                </span>
+            </button>
+
+            <!-- Apply Now / Intake Button -->
+            <button
+                class="group relative bg-slate-800/80 border border-brand-sky/40 text-brand-sky font-bold py-8 px-4 rounded-l-2xl hover:bg-slate-700/80 hover:border-brand-sky/70 transition-all hover:pr-6 backdrop-blur-sm"
+                aria-label="Start your application intake">
+                <span class="side-btn flex items-center gap-2 text-sm tracking-wide">
+                    <svg class="w-4 h-4 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    Apply Now - Intake
+                </span>
+            </button>
+        </div>
+
+        <!-- Mobile CTAs (Shown only on mobile) -->
+        <div
+            class="mobile-ctas hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-brand-dark/90 backdrop-blur-sm border-t border-slate-700/50 gap-3 md:hidden">
+            <button
+                class="flex-1 bg-gradient-to-r from-brand-sky to-cyan-600 text-white font-bold py-3 px-4 rounded-xl text-sm"
+                aria-label="Schedule a consultation">
+                Schedule - $100
+            </button>
+            <button
+                class="flex-1 bg-slate-800 border border-brand-sky/40 text-brand-sky font-bold py-3 px-4 rounded-xl text-sm"
+                aria-label="Start application intake">
+                Apply Now
+            </button>
+        </div>
+
+        <!-- Decorative flowing line -->
+        <svg class="absolute bottom-16 left-0 right-0 w-full h-24 pointer-events-none opacity-40 z-20"
+            preserveAspectRatio="none">
+            <path d="M0,50 Q200,20 400,50 T800,50 T1200,50 T1600,50" fill="none" stroke="url(#lineGradient)"
+                stroke-width="1" />
+            <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="transparent" />
+                    <stop offset="30%" stop-color="#0EA5E9" />
+                    <stop offset="70%" stop-color="#0EA5E9" />
+                    <stop offset="100%" stop-color="transparent" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+</body>
+
+</html>

@@ -26,10 +26,13 @@ const CONFIG = {
     MIN_PHONE_LENGTH: 10,
     MAX_PHONE_LENGTH: 20,
 
-    // Cloud Function URL (via Firebase Hosting rewrites for production, direct for local)
-    STRIPE_FUNCTION_URL: window.location.hostname === 'localhost'
+    // Cloud Function URLs
+    STRIPE_FUNCTION_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'https://us-central1-natzconsult.cloudfunctions.net/createStripeCheckout'
-        : '/api/createStripeCheckout'
+        : '/api/createStripeCheckout',
+    AI_FUNCTION_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'https://us-central1-natzconsult.cloudfunctions.net/natzAiAssistant'
+        : '/api/natzAiAssistant'
 };
 
 // Validation Helper Functions
@@ -566,6 +569,86 @@ async function handleFormSubmit(event) {
     }
 }
 
+// AI Assistant UI Logic
+function toggleAIChat() {
+    const chatWindow = document.getElementById('ai-chat-window');
+    chatWindow.classList.toggle('hidden');
+    if (!chatWindow.classList.contains('hidden')) {
+        const input = document.getElementById('ai-chat-input');
+        if (input) input.focus();
+    }
+}
+
+async function handleAISubmit(event) {
+    event.preventDefault();
+    const input = document.getElementById('ai-chat-input');
+    const messagesContainer = document.getElementById('ai-chat-messages');
+    const question = input.value.trim();
+
+    if (!question) return;
+
+    // Add User Message
+    addMessageToUI('user', question);
+    input.value = '';
+
+    // Add Loading State
+    const loadingId = addMessageToUI('bot', 'AI is thinking...', true);
+
+    try {
+        const response = await fetch(CONFIG.AI_FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question: question }),
+        });
+
+        if (!response.ok) {
+            throw new Error('AI Service unavailable');
+        }
+
+        const data = await response.json();
+        const loadingMsg = document.getElementById(loadingId);
+        if (loadingMsg) {
+            loadingMsg.innerHTML = data.answer.replace(/\n/g, '<br>');
+            loadingMsg.classList.remove('animate-pulse');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+    } catch (error) {
+        console.error("AI Assistant Error:", error);
+        const loadingMsg = document.getElementById(loadingId);
+        if (loadingMsg) {
+            loadingMsg.innerHTML = "I'm having a little trouble connecting to my brain. Please try again or reach out to our team via WhatsApp for immediate help!";
+            loadingMsg.classList.remove('animate-pulse');
+        }
+    }
+}
+
+function addMessageToUI(sender, text, isLoading = false) {
+    const container = document.getElementById('ai-chat-messages');
+    const id = 'msg-' + Date.now();
+    const isBot = sender === 'bot';
+
+    const msgHtml = `
+        <div class="flex gap-3 ${isBot ? '' : 'flex-row-reverse animate-in slide-in-from-right-5'}">
+            <div class="w-8 h-8 rounded-lg ${isBot ? 'bg-purple-600/20 border-purple-500/20' : 'bg-brand-sky border-brand-sky'} flex items-center justify-center shrink-0 border">
+                ${isBot
+            ? '<svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>'
+            : '<svg class="w-4 h-4 text-brand-dark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>'
+        }
+            </div>
+            <div id="${id}" class="${isBot ? 'bg-slate-800/50 border-slate-700/50' : 'bg-purple-600 text-white border-purple-500'} p-4 rounded-2xl ${isBot ? 'rounded-tl-none' : 'rounded-tr-none'} border text-sm leading-relaxed max-w-[80%] ${isLoading ? 'animate-pulse' : ''}">
+                ${text}
+            </div>
+        </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', msgHtml);
+    container.scrollTop = container.scrollHeight;
+    return id;
+}
+
 // Expose functions to global scope for inline HTML handlers
 // This MUST happen before DOMContentLoaded to ensure onclick handlers work
 window.switchTab = switchTab;
@@ -575,6 +658,8 @@ window.openBookingModal = openBookingModal;
 window.closeBookingModal = closeBookingModal;
 window.changeMonth = changeMonth;
 window.backToCalendar = backToCalendar;
+window.toggleAIChat = toggleAIChat;
+window.handleAISubmit = handleAISubmit;
 // Note: openMobileMenu and closeMobileMenu are defined in inline script in index.html
 
 
@@ -655,6 +740,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (bookingBtn) {
         bookingBtn.addEventListener('click', openBookingModal);
     }
+
+    // Side and Mobile Buttons
+    const sideBookingBtn = document.getElementById('side-booking-btn');
+    if (sideBookingBtn) sideBookingBtn.addEventListener('click', openBookingModal);
+
+    const sideIntakeBtn = document.getElementById('side-intake-btn');
+    if (sideIntakeBtn) sideIntakeBtn.addEventListener('click', openIntakeModal);
+
+    const mobileBookingBtn = document.getElementById('mobile-booking-btn');
+    if (mobileBookingBtn) mobileBookingBtn.addEventListener('click', openBookingModal);
+
+    const mobileIntakeBtn = document.getElementById('mobile-intake-btn');
+    if (mobileIntakeBtn) mobileIntakeBtn.addEventListener('click', openIntakeModal);
 
     // Keyboard navigation: ESC key closes modals
     document.addEventListener('keydown', (e) => {
